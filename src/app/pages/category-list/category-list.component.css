@@ -1,0 +1,39 @@
+.cards-container{
+    display: flex; 
+    flex-direction: row ;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 30px; 
+    margin: 10px;
+    /* width: 100%;
+    height: 100%; */
+}
+
+/* app-category-card{
+    /* width: 25%; */
+    /* cursor: pointer;
+    float: left;
+    margin: 10px; */
+/* .buttons-container{
+    display: flex !important;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+} */
+
+.addBtn{
+    float: left;
+}
+.searchDiv{
+    float: right;
+}
+.parent{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 30px; 
+    margin: 10px;
+    /* width: 100%;
+    height: 100%; */
+}
