@@ -16,6 +16,19 @@ import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard
 import { TraineeDashboardComponent } from './pages/trainee-dashboard/trainee-dashboard.component';
 import { UserListComponent } from './pages/user-list/user-list.component';
 import { EditCategoryMadalComponent } from './components/edit-category-madal/edit-category-madal.component';
+import { DialogConfirmComponent } from './components/dialog-confirm/dialog-confirm.component';
+import { TrainerListComponent } from './pages/trainer-list/trainer-list.component';
+import { NewTrainerComponent } from './components/trainer/new-trainer/new-trainer.component';
+import { ViewTrainerComponent } from './components/trainer/view-trainer/view-trainer.component';
+import { EditTrainerComponent } from './components/trainer/edit-trainer/edit-trainer.component';
+import { TraineeListComponent } from './pages/trainee-list/trainee-list.component';
+import { NewTraineeComponent } from './components/trainee/new-trainee/new-trainee.component';
+import { EditTraineeComponent } from './components/trainee/edit-trainee/edit-trainee.component';
+import { ViewTraineeComponent } from './components/trainee/view-trainee/view-trainee.component';
+import { CoursesListComponent } from './pages/courses-list/courses-list.component';
+import { CourseCardComponent } from './components/course/course-card/course-card.component';
+import { EditCourseComponent } from './components/course/edit-course/edit-course.component';
+import { AddCourseComponent } from './components/course/add-course/add-course.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +41,19 @@ import { EditCategoryMadalComponent } from './components/edit-category-madal/edi
     TraineeDashboardComponent,
     UserListComponent,
     EditCategoryMadalComponent,
+    DialogConfirmComponent,
+    TrainerListComponent,
+    NewTrainerComponent,
+    ViewTrainerComponent,
+    EditTrainerComponent,
+    TraineeListComponent,
+    NewTraineeComponent,
+    EditTraineeComponent,
+    ViewTraineeComponent,
+    CoursesListComponent,
+    CourseCardComponent,
+    EditCourseComponent,
+    AddCourseComponent,
   ],
   imports: [
     BrowserModule,

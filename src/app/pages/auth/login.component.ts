@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { SignInRequest } from 'src/app/interfaces/sign-in-request';
- import { SignUpRequest } from 'src/app/interfaces/sign-up-request';
+import { SignUpRequest } from 'src/app/interfaces/sign-up-request';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,7 @@ export class LoginComponent {
   newEmail: string = ''
 
 
-  constructor(private authService: AuthService, private router:Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   async onSignIn() {
 
@@ -27,22 +27,26 @@ export class LoginComponent {
       email: this.email,
       password: this.password
     };
-  console.log(signInRequest);
+    console.log(signInRequest);
     this.authService.signIn(signInRequest).subscribe(
-      data => { 
+      data => {
         console.log(data);
         localStorage.setItem('token', JSON.stringify(data));
         this.authService.loadProfile(data);
-        //console.log(this.authService.loadProfile(data));
+        console.log(this.authService.loadProfile(data));
         console.log(this.authService.roles);
-        if (this.authService.roles == 'ADMIN') {
+        if (this.authService.roles.includes('ADMIN')) {
+          console.log('Admin');
           this.router.navigateByUrl('/admin');
-  
-      }else if(this.authService.roles == 'USER'){
-        this.router.navigateByUrl('/user');
-      }else{
-        this.router.navigateByUrl('');
-      }}
+
+        } else if (this.authService.roles.includes('TRAINER')) {
+          this.router.navigateByUrl('/trainer');
+        } else if (this.authService.roles == 'USER') {
+          this.router.navigateByUrl('/user');
+        }else {
+          this.router.navigateByUrl('');
+        }
+      }
     );
   }
   onSignUp() {
@@ -54,7 +58,7 @@ export class LoginComponent {
     };
     console.log(signUpRequest);
     this.authService.signUp(signUpRequest).subscribe(
-      data => { 
+      data => {
         console.log(data);
         // this.onSignIn();
         //this.router.navigateByUrl('');
@@ -62,9 +66,9 @@ export class LoginComponent {
           email: this.newEmail,
           password: this.newPassword
         };
-      console.log(signInRequest);
+        console.log(signInRequest);
         this.authService.signIn(signInRequest).subscribe(
-          data => { 
+          data => {
             console.log(data);
             this.authService.loadProfile(data);
             this.router.navigateByUrl('');
@@ -73,8 +77,8 @@ export class LoginComponent {
       }
     );
   }
- 
-  
+
+
 
 }
 

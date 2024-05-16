@@ -4,7 +4,7 @@
     </button>
     <span>School Management</span>
     <span class="example-spacer"></span>
-    <button routerLink="" mat-button color="accent">Admin</button>
+    <span >{{userData.roles+' '+userData.name }}</span>
     <!-- <button [matMenuTriggerFor]="lvl1master" mat-button>Admin</button> -->
     <!-- <mat-menu #lvl1master="matMenu">
         <button [matMenuTriggerFor]="company" mat-menu-item>Company</button>
@@ -32,7 +32,7 @@
         <button mat-menu-item>Size</button>
     </mat-menu>
 
-        <span>{{userData.sub}}</span>
+        <!-- <span>{{userData.sub}}</span> -->
    
     
     <button mat-button color="accent" (click)="logout()"> LogOut</button>
@@ -51,15 +51,18 @@
             <button routerLink="card" mat-button><mat-icon>dashboard</mat-icon> Dashboard</button>
         </mat-list-item>
         <mat-list-item>
-            <button routerLink="" mat-button><mat-icon>person_pin</mat-icon> Trainees</button>
+            <button routerLink="trainees" mat-button><mat-icon>person_pin</mat-icon> Trainees</button>
         </mat-list-item>
         <mat-list-item>
-            <button routerLink="slider" mat-button><mat-icon>assignment_ind</mat-icon> Trainers</button>
+            <button routerLink="trainers" mat-button><mat-icon>assignment_ind</mat-icon> Trainers</button>
         </mat-list-item>
         <mat-list-item>
             <button routerLink="category" mat-button><mat-icon>table</mat-icon> Categories</button>
         </mat-list-item>
         <mat-list-item>
+            <button routerLink="courses" mat-button><mat-icon>table</mat-icon> Courses</button>
+        </mat-list-item>
+        <!-- <mat-list-item>
             <button mat-button><mat-icon>settings</mat-icon> Settings</button>
         </mat-list-item>
         <mat-list-item>
@@ -67,7 +70,7 @@
         </mat-list-item>
         <mat-list-item>
             <button mat-button><mat-icon>analytics</mat-icon> analytics</button>
-        </mat-list-item>
+        </mat-list-item> -->
     </mat-nav-list>
     </mat-drawer>
     <mat-drawer-content>

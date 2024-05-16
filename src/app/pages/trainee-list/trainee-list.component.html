@@ -1,0 +1,84 @@
+<div class="parent">
+    <div class="button-containee " #buttonContainee>
+        <button class="addBtn" mat-raised-button color="primary" (click)="openAddModal()">Add New Trainee -></button>
+        <div class="searchDiv">
+            <form [formGroup]="searchForm" class="searchForm" (submit)="submitForm()">
+                <mat-form-field appearance="outline" class="searchInput">
+                    <mat-label>Search Trainee </mat-label>
+                    <input matInput formControlName="title" />
+                    <button mat-button matSuffix color="primary">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </mat-form-field>
+            </form>
+        </div>
+    </div>
+    <div class="cards-container">
+        <div class="mat-elevation-z8">
+            <mat-card>
+                <h3>Trainees List</h3>
+                <!-- <input class="filter" type="text" [(ngModel)] = "term" (keyup)="filter(term)"> -->
+            </mat-card>
+            <table mat-table [dataSource]="dataSource" matSort>
+                <ng-containee matColumnDef="  ">
+
+                    <th mat-header-cell *matHeaderCellDef></th>
+
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button class="view-button" (click)="openViewDialog(element)">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+
+                    </td>
+                </ng-containee>
+                <ng-containee matColumnDef="   ">
+
+                    <th mat-header-cell *matHeaderCellDef></th>
+
+                    <td mat-cell *matCellDef="let element">
+                            <img [alt]="element.firstName"
+                                [src]="getImageUrl(element.profilePicture)"
+                                width="50" class="vertical-align-middle"
+                                style="border-radius: 50%;" />
+
+                    </td>
+                </ng-containee>
+                <ng-containee matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Trainee </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        {{element.firstName+' '+element.lastName}} 
+                        <!-- <img [alt]="element.firstName"
+                                [src]="getImageUrl(element.profilePicture)"
+                                width="50" class="vertical-align-middle"
+                                style="border-radius: 50%;" /> -->
+                    </td>
+                    
+                </ng-containee>
+                <ng-containee matColumnDef="E-mail">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                </ng-containee>
+                <!-- <ng-containee matColumnDef="Classe">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Classe </th>
+                <td mat-cell *matCellDef="let element"> {{element.group.name}} </td>
+              </ng-containee> -->
+                <ng-containee matColumnDef=" ">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button class="edit-button" (click)="openEditDialog(element)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button class="delete-button" *ngIf="element"
+                            (click)="deleteTrainee(element.id)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-containee>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons aria-label="Select page of periodic elements">
+            </mat-paginator>
+        </div>
+    </div>
+</div>

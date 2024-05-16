@@ -6,6 +6,9 @@ import { MenubarComponent } from './pages/menubar/menubar.component';
 import { AuthenticationGuard } from './guards/authentication.guard';
 import { AdminDashboardComponent } from './pages/admin-dashboard/admin-dashboard.component';
 import { TraineeDashboardComponent } from './pages/trainee-dashboard/trainee-dashboard.component';
+import { TrainerListComponent } from './pages/trainer-list/trainer-list.component';
+import { TraineeListComponent } from './pages/trainee-list/trainee-list.component';
+import { CoursesListComponent } from './pages/courses-list/courses-list.component';
 // import { SignUpComponent } from './pages/auth/sign-up/sign-up.component';
 
 const routes: Routes = [
@@ -17,7 +20,19 @@ const routes: Routes = [
    data:{role:'ADMIN'},
    children: [  
       { path: 'category', component: CategoryListComponent },
-      
+      { path: 'trainers', component: TrainerListComponent },
+      {path: 'trainees', component: TraineeListComponent},
+      {path: 'courses', component: CoursesListComponent}
+    ]
+  },
+  {path: 'trainer',
+   component: AdminDashboardComponent,
+   canActivate:[AuthenticationGuard],
+   data:{role:'TRAINER'},
+   children: [  
+      { path: 'category', component: CategoryListComponent },
+      { path: 'trainers', component: TrainerListComponent },
+      {path: 'trainees', component: TraineeListComponent}
     ]
   },
   {path: 'user', component: TraineeDashboardComponent,canActivate:[AuthenticationGuard],data:{role:'USER'}},

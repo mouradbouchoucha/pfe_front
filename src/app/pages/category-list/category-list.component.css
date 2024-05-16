@@ -5,27 +5,24 @@
     justify-content: space-around;
     gap: 30px; 
     margin: 10px;
-    /* width: 100%;
-    height: 100%; */
+   
 }
 
-/* app-category-card{
-    /* width: 25%; */
-    /* cursor: pointer;
-    float: left;
-    margin: 10px; */
-/* .buttons-container{
-    display: flex !important;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-} */
+
 
 .addBtn{
     float: left;
 }
-.searchDiv{
+.searchForm{
     float: right;
+    height: 50px;
+}
+.searchInput{
+    width: 200px;
+    height: 50px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
 }
 .parent{
     display: flex;
@@ -36,4 +33,5 @@
     margin: 10px;
     /* width: 100%;
     height: 100%; */
+    overflow: hidden;
 }

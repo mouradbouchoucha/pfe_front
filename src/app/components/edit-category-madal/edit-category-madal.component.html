@@ -16,7 +16,7 @@
         </div>
         <mat-form-field appearance="outline" class="form-field">
             <mat-label>Name</mat-label>
-            <input matInput type="text" [formControl]="nameControl" name="name" placeholder="Name">
+            <input matInput type="text" [formControl]="nameControl" [(ngModel)]="category.name" name="name" placeholder="Name">
             <mat-error *ngIf="nameControl.invalid && nameControl.touched">
                 Name is required
             </mat-error>
@@ -24,16 +24,17 @@
 
         <mat-form-field appearance="outline" class="form-field">
             <mat-label>Description</mat-label>
-            <input matInput [formControl]="descriptionControl" name="description" type="text" placeholder="Description">
+            <input matInput [formControl]="descriptionControl" name="description" [(ngModel)]="category.description" type="text" placeholder="Description">
             <mat-error *ngIf="descriptionControl.invalid && descriptionControl.touched">
                 Description is required
             </mat-error>
         </mat-form-field>
 
         <div class="btnContainer">
+            
+            <button mat-raised-button color="warn" type="button" (click)="onNoClick()">Cancel</button>
             <button mat-raised-button color="primary" type="submit" (click)="updateCategory()"
                 [disabled]="nameControl.invalid || descriptionControl.invalid">Update</button>
-            <button mat-raised-button color="warn" type="button" (click)="onNoClick()">Cancel</button>
         </div>
     </form>
 </div>

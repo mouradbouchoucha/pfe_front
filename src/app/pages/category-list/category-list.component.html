@@ -1,17 +1,14 @@
-<!-- <div *ngFor="let category of categories">
-    <img [src]="getImageUrl(category.categoryPicture)" alt="{{ category.name }}">
-    <p>{{ category.description }}</p>
-</div> -->
+
 <div class="parent">
     <div class="button-container " #buttonContainer>
         <button class="addBtn" mat-raised-button color="primary" (click)="openModal()">Add New Category -></button>
         <div class="searchDiv">
             <form [formGroup]="searchForm" class="searchForm" (submit)="submitForm()">
-                <mat-form-field appearance="outline" class="searchInput">
+                <mat-form-field appearance="outline" class="searchInput" color="primary">
                     <mat-label>Search Category </mat-label>
                     <input matInput formControlName="title"/>
                     <button mat-button matSuffix color="primary" >
-                        <mat-icon>search</mat-icon>
+                        <mat-icon color="white">search</mat-icon>
                     </button>
                 </mat-form-field>
             </form>

@@ -1,0 +1,59 @@
+<div class="container">
+    <form [formGroup]="form" enctype="multipart/form-data">
+      <div class="file-upload-container">
+        <div class="image-preview">
+          <div class="circle-image">
+            <img [src]="getImageUrl(traineeData.element.profilePicture)" alt="Selected Image" class="preview-image">
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-field">
+        <label>First Name</label>
+        <div>
+          <p>{{ traineeData.element.firstName }}</p>
+        </div>
+      </div>
+  
+      <div class="form-field">
+        <label>Last Name</label>
+        <div>
+          <p>{{ traineeData.element.lastName }}</p>
+        </div>
+      </div>
+  
+      <div class="form-field">
+        <label>Email</label>
+        <div>
+          <p>{{ traineeData.element.email }}</p>
+        </div>
+      </div>
+  
+      <div class="form-field">
+        <label>Phone Number</label>
+        <div>
+          <p>{{ traineeData.element.phoneNumber }}</p>
+        </div>
+      </div>
+  
+      <div class="form-field">
+        <label>Address</label>
+        <div>
+          <p>{{ traineeData.element.address }}</p>
+        </div>
+      </div>
+  
+      <div class="form-field">
+        <label>City</label>
+        <div>
+          <p>{{ traineeData.element.city }}</p>
+        </div>
+      </div>
+  
+      <div class="btnContainee">
+        <button mat-raised-button color="primary" type="button" (click)="onNoClick()">Ok</button>
+      </div>
+  
+    </form>
+  </div>
+  

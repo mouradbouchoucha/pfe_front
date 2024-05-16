@@ -5,6 +5,8 @@ import { Category } from 'src/app/interfaces/category';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { EditCategoryMadalComponent } from '../edit-category-madal/edit-category-madal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DialogServiceService } from 'src/app/services/dialog/dialog-service.service';
+import { ConfirmDialogData } from 'src/app/interfaces/confirm-dialog-data';
 
 @Component({
   selector: 'app-category-card',
@@ -21,31 +23,37 @@ constructor(
   private domSanitizer :DomSanitizer,
   private categoryService:CategoryService,
   public dialog:MatDialog,
-  private snackBar:MatSnackBar
+  private snackBar:MatSnackBar,
+  private dialogService:DialogServiceService
 ){}
 getImageUrl(imageData: string) {
   return this.domSanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64,${imageData}`);
 }
 deleteCategory(id: number): void {
-  const snackBarRef = this.snackBar.open('Are you sure you want to delete this category?', 'Yes', {
-    duration: 5000, // Duration to display the snackbar
-    panelClass: ['middle-snackbar'] 
+  const confirmationDialog = this.dialogService.confirmDialog({
+    title: 'Delete Category',
+    message: 'Are you sure you want to delete this category?',
+    confirmText: 'Yes',
+    cancelText: 'No',
   });
 
-  snackBarRef.onAction().subscribe(() => {
-    // User clicked on 'Yes', delete the category
-    this.categoryService.deleteCategory(id)
-      .subscribe(() => {
-        // Filter out the deleted category from the list
-        this.snackBar.open('Category deleted successfully', 'Close', {
-          duration: 3000,
+  confirmationDialog.subscribe(confirmed => {
+    if (confirmed) {
+      this.categoryService.deleteCategory(id)
+        .subscribe(() => {
+          // Filter out the deleted category from the list
+          this.snackBar.open('Category deleted successfully', 'Close', {
+            duration: 3000,
+          });
+          this.categoryDeleted.emit();
+        }, error => {
+          console.error('Error deleting category:', error);
+          // Handle error
         });
-      }, error => {
-        console.error('Error deleting category:', error);
-        // Handle error
-      });
+    }
   });
 }
+
 openEditModal(category:Category):void{
   this.showModal=true;
   const dialogRef = this.dialog.open(EditCategoryMadalComponent,{
@@ -55,6 +63,5 @@ openEditModal(category:Category):void{
     this.categoryUpdated.emit();
   }
   )
-//console.log(category);
 }
 }

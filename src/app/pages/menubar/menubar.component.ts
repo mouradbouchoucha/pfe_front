@@ -10,8 +10,8 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class MenubarComponent {
    token = localStorage.getItem('token');
    user:any = JSON.parse(localStorage.getItem('token')!);
-   userData = jwtDecode(this.user['accessToken']);
-  constructor(private authService : AuthService){}
+   userData:any = jwtDecode(this.user['accessToken']);
+  constructor(private authService : AuthService){console.log(this.userData);}
   logout():void{
     this.authService.logout();
     this.authService.isAuthenticated = false;

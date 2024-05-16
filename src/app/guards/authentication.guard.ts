@@ -16,7 +16,7 @@ export class AuthenticationGuard {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       const requiredRole = route.data['role'];
-      //console.log(requiredRole); // Assuming a 'role' property on the route definition
+      console.log(requiredRole); // Assuming a 'role' property on the route definition
       const userRoles = this.authService.roles;
       console.log(userRoles); // Access user roles from your AuthService
       return userRoles && userRoles.includes(requiredRole);

@@ -1,0 +1,108 @@
+/* .cards-container{
+    display: flex; 
+    flex-direction: row ;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 30px; 
+    margin: 10px;
+   
+} */
+
+
+
+.addBtn{
+    float: left;
+}
+.searchDiv{
+    float: right;
+}
+.parent{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 30px; 
+    margin: 10px;
+    /* width: 100%;
+    height: 100%; */
+    /* overflow: scroll !important; */
+}
+
+.content-wrapper {
+    display: block; /* Ensure block-level display */
+    padding: 10px;
+    width: 140%;
+    /* margin: 5px; */
+    overflow: hidden;
+}
+table{
+    /* width:80% !important; */
+    width:  inherit !important;
+    overflow: hidden;
+}
+
+.edit-button {
+  width: 40px;
+  color: white;
+  background-color: #3f51b5; 
+  padding: 4px 6px;
+  border-radius: 50px 10px 50px 10px;
+  margin: 0 2px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  line-height: 1.42857143;
+  border: 1px solid transparent;
+  outline: 0;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.15);
+  
+
+}
+.delete-button {
+  width: 40px;
+  color: white;
+  background-color: #a92f10; 
+  padding: 4px 6px;
+  border-radius: 10px 50px 10px 50px;
+  margin: 0 2px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  line-height: 1.42857143;
+  border: 1px solid transparent;
+  outline: 0;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.12), 0 1px 1px rgba(0, 0, 0, 0.15);
+  
+
+}
+
+.mat-mdc-card{
+  background-color: #109ca9;
+  display: flex;
+  flex-direction: row;
+  vertical-align: middle;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.filter{
+  width: 300px;
+  border-radius: 5px;
+  border: none;
+  margin: 5px;
+}
+.filter:focus {
+  outline: none; /* Remove default focus outline */
+  border-color: transparent; /* Set border color to transparent when focused */
+}
+
