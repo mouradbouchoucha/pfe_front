@@ -1,7 +1,7 @@
 
 <div class="parent">
     <div class="button-container " #buttonContainer>
-        <button class="addBtn" mat-raised-button color="primary" (click)="openModal()">Add New Category -></button>
+        <button class="addBtn" mat-raised-button color="primary" (click)="openModal()">Add New Category<mat-icon>backup</mat-icon></button>
         <div class="searchDiv">
             <form [formGroup]="searchForm" class="searchForm" (submit)="submitForm()">
                 <mat-form-field appearance="outline" class="searchInput" color="primary">

@@ -57,7 +57,13 @@
   }
   
   .controls {
+    display: flex;
+    gap: 10px;
     margin-top: 20px;
+    /* align-items: center; */
+    justify-content: center;
+
+    height: 40px;
   }
   
   .button-link {
@@ -72,4 +78,10 @@
   .button-link:hover {
     background-color: #0056b3;
   }
+
+  .likeBtn{
+    /* margin: 10px; */
+    border:none !important;
+  }
+  
   

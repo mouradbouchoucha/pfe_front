@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class CoursesListComponent implements OnInit {
   searchForm!: FormGroup;
+  like!: boolean;
 constructor(
   private fb: FormBuilder,
 ){
@@ -21,4 +22,7 @@ ngOnInit(): void {
 }
 openModal() {}
 submitForm() {}
+likeToggle() {
+  this.like = !this.like;
+}
 }
