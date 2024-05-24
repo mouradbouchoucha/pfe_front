@@ -1,87 +1,117 @@
 .section {
-    padding: 5px;
-  }
-  .action-section{
-    /* background-color: #083b72; */
-    border-radius: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    /* align-items: center; */
-    padding: 10px;
-    vertical-align: middle;
-  }
-  .card-list {
-    list-style: none;
-    padding: 0;
-    display: flex; 
-    flex-direction: row ;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 30px; 
-    margin: 10px;
-  }
-  
-  .card {
-    background-color: #f0f0f0;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 400px;
-    height: 500px;
-  }
-  
-  .visual img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-  
-  .content {
-    padding: 20px;
-  }
-  
-  .category {
-    font-size: 14px;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .title {
-    margin: 10px 0;
-    font-size: 20px;
-  }
-  
-  .desc {
-    color: #777;
-  }
-  
-  .controls {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-    /* align-items: center; */
-    justify-content: center;
+  padding: 5px;
+}
 
-    height: 40px;
-  }
-  
-  .button-link {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .button-link:hover {
-    background-color: #0056b3;
-  }
+.action-section {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 10px;
+  align-items: center;
+  margin-bottom: 20px; /* Add some spacing below the action section */
+}
 
-  .likeBtn{
-    /* margin: 10px; */
-    border:none !important;
+.card-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin: 10px;
+  justify-content: center;
+}
+
+.card-list li {
+  display: flex;
+  justify-content: center;
+  width: calc(33.333% - 20px); /* 3 cards per row, accounting for the gap */
+  box-sizing: border-box;
+}
+
+.card {
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  flex: 1; /* Allow the card to grow and shrink */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.visual img {
+  width: 60%;
+  border-radius: 5px;
+  /* height: auto;
+  display: block; */
+}
+
+.content {
+  padding: 20px;
+  flex: 1; /* Allow the content to grow and fill the remaining space */
+}
+
+.category {
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+}
+
+.title {
+  margin: 10px 0;
+  font-size: 20px;
+}
+
+.desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3; /* Number of lines to display */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #777;
+  font-size: 14px; /* Adjust font size if needed */
+  line-height: 1.5; /* Adjust line height for better readability */
+  max-height: calc(1.5em * 3); /* This calculation ensures the max height based on the number of lines and line height */
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: center;
+  height: 40px;
+}
+
+.button-link {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.button-link:hover {
+  background-color: #0056b3;
+}
+
+.likeBtn {
+  border: none !important;
+}
+.delete {
+  border: none;
+}
+/* Media query for responsiveness */
+@media (max-width: 1024px) {
+  .card-list li {
+      width: calc(50% - 20px); /* 2 cards per row for medium screens */
   }
-  
-  
+}
+
+@media (max-width: 768px) {
+  .card-list li {
+      width: calc(100% - 20px); /* 1 card per row for small screens */
+  }
+}

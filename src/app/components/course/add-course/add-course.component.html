@@ -1,1 +1,57 @@
-<p>add-course works!</p>
+<div class="container">
+    <h2>New Course</h2>
+    <form [formGroup]="form" (ngSubmit)="addCourse()" enctype="multipart/form-data">
+      <div class="file-upload-container">
+        <label class="file-upload-label" for="fileInput">
+          <span>Select a File</span>
+          <input type="file" id="fileInput" placeholder="Select" (change)="onFileSelected($event)">
+          <mat-icon>attach_file</mat-icon>
+        </label>
+        <div class="image-preview" *ngIf="imagePreview">
+          <div class="circle-image">
+            <img [src]="imagePreview" alt="Selected Image" class="preview-image">
+          </div>
+        </div>
+      </div>
+  
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Name</mat-label>
+        <input matInput type="text" formControlName="name" placeholder="Name">
+        <mat-error *ngIf="form.get('name')?.invalid && form.get('name')?.touched">Name is required</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="categoryId">
+          <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('categoryId')?.invalid && form.get('categoryId')?.touched">Category is required</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Duration</mat-label>
+        <input matInput type="number" formControlName="duration" placeholder="Duration">
+        <mat-error *ngIf="form.get('duration')?.invalid && form.get('duration')?.touched">Duration is required</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Start Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="startDateTime" placeholder="Choose a date">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="form.get('startDateTime')?.invalid && form.get('startDateTime')?.touched">Start date is required</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" placeholder="Description"></textarea>
+        <mat-error *ngIf="form.get('description')?.invalid && form.get('description')?.touched">Description is required</mat-error>
+      </mat-form-field>
+  
+      <div class="btnContainer">
+        <button mat-raised-button color="warn" type="button" (click)="onNoClick()">Cancel</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Add Course</button>
+      </div>
+    </form>
+  </div>
+  

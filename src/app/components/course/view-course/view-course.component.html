@@ -1,0 +1,92 @@
+<div class="container rounded bg-white mt-5 mb-5 shadow">
+    <div class="row">
+      <div class="col-md-3 border-right">
+        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+          <img class="rounded-circle mt-5" width="150px" [src]="getImageUrl(course.image)">
+          <span class="font-weight-bold mt-2">{{course.name}}</span>
+          <!-- <span class="text-black-50">edogaru@mail.com.my</span> -->
+        </div>
+      </div>
+      <div class="col-md-5 border-right">
+        <div class="p-3 py-5">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="text-right">Course Details</h4>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-6">
+              <label class="labels"> Course Name</label>
+              <input type="text" class="form-control" [(ngModel)]="course.name" placeholder="First name" value="">
+            </div>
+            <!-- <div class="col-md-6">
+              <label class="labels">Surname</label>
+              <input type="text" class="form-control" value="" placeholder="Surname">
+            </div> -->
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-12">
+              <label class="labels">Course Duration </label>
+              <input type="text" class="form-control" [(ngModel)]="course.duration"  value="">
+            </div>
+            <div class="col-md-12">
+              <label class="labels">Starting Date</label>
+              <input type="text" class="form-control" readonly [value]="[course.startDateTime | date:'yyyy-MM-dd']"  >
+            </div>
+            <div class="col-md-12">
+              <label class="labels">Address Line 2</label>
+              <input type="text" class="form-control" placeholder="Enter address line 2" value="">
+            </div>
+            <div class="col-md-12">
+              <label class="labels">Postcode</label>
+              <input type="text" class="form-control" placeholder="Enter postcode" value="">
+            </div>
+            <div class="col-md-12">
+              <label class="labels">State</label>
+              <input type="text" class="form-control" placeholder="Enter state" value="">
+            </div>
+            <div class="col-md-12">
+              <label class="labels">Area</label>
+              <input type="text" class="form-control" placeholder="Enter area" value="">
+            </div>
+            <div class="col-md-12">
+              <label class="labels">Email ID</label>
+              <input type="text" class="form-control" placeholder="Enter email ID" value="">
+            </div>
+            <div class="col-md-12">
+              <label class="labels">Education</label>
+              <input type="text" class="form-control" placeholder="Education" value="">
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-6">
+              <label class="labels">Country</label>
+              <input type="text" class="form-control" placeholder="Country" value="">
+            </div>
+            <div class="col-md-6">
+              <label class="labels">State/Region</label>
+              <input type="text" class="form-control" placeholder="State/Region" value="">
+            </div>
+          </div>
+          <div class="mt-5 text-center">
+            <button class="btn btn-primary profile-button" type="button">Save Profile</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="p-3 py-5">
+          <div class="d-flex justify-content-between align-items-center experience mb-4">
+            <span class="h5">Edit Experience</span>
+            <span class="border px-3 py-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label class="labels">Experience in Designing</label>
+            <input type="text" class="form-control" placeholder="Experience" value="">
+          </div>
+          <div class="col-md-12">
+            <label class="labels">Additional Details</label>
+            <input type="text" class="form-control" placeholder="Additional details" value="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

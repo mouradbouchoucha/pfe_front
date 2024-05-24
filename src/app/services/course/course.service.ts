@@ -6,7 +6,7 @@ import { Observable, catchError, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class CourseService {
-private baseUrl = 'http://localhost:8080/courses'
+private baseUrl = 'http://localhost:8080/api/courses'
   constructor(
     private http: HttpClient
   ) { }
@@ -19,7 +19,7 @@ private baseUrl = 'http://localhost:8080/courses'
     return this.http.get<any[]>(`${this.baseUrl}/search/${name}`);
   }
   getCourseById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/${id}`);
+    return this.http.get<any>(`${this.baseUrl}/course/${id}`);
   }
 
   createCourse(imageFile: File,
@@ -27,14 +27,16 @@ private baseUrl = 'http://localhost:8080/courses'
                   description: string,
                   duration:number,
                   startDateTime:Date,
+                  categoryId: number
                   ): Observable<any> {
     const formData = new FormData();
     
-    formData.append('profilePictureFile', imageFile);
+    formData.append('imageFile', imageFile);
     formData.append('name', name);
     formData.append('description', description);
     formData.append('duration', duration.toString());
     formData.append('startDateTime', startDateTime.toISOString());
+    formData.append('category_id', categoryId.toString());
     return this.http.post<any>(`${this.baseUrl}/create`, formData)
       
   }
@@ -68,6 +70,6 @@ private baseUrl = 'http://localhost:8080/courses'
   
 
   deleteCourse(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 }

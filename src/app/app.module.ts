@@ -26,9 +26,9 @@ import { NewTraineeComponent } from './components/trainee/new-trainee/new-traine
 import { EditTraineeComponent } from './components/trainee/edit-trainee/edit-trainee.component';
 import { ViewTraineeComponent } from './components/trainee/view-trainee/view-trainee.component';
 import { CoursesListComponent } from './pages/courses-list/courses-list.component';
-import { CourseCardComponent } from './components/course/course-card/course-card.component';
 import { EditCourseComponent } from './components/course/edit-course/edit-course.component';
 import { AddCourseComponent } from './components/course/add-course/add-course.component';
+import { ViewCourseComponent } from './components/course/view-course/view-course.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,9 +51,9 @@ import { AddCourseComponent } from './components/course/add-course/add-course.co
     EditTraineeComponent,
     ViewTraineeComponent,
     CoursesListComponent,
-    CourseCardComponent,
     EditCourseComponent,
     AddCourseComponent,
+    ViewCourseComponent,
   ],
   imports: [
     BrowserModule,

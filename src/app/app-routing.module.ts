@@ -9,6 +9,7 @@ import { TraineeDashboardComponent } from './pages/trainee-dashboard/trainee-das
 import { TrainerListComponent } from './pages/trainer-list/trainer-list.component';
 import { TraineeListComponent } from './pages/trainee-list/trainee-list.component';
 import { CoursesListComponent } from './pages/courses-list/courses-list.component';
+import { ViewCourseComponent } from './components/course/view-course/view-course.component';
 // import { SignUpComponent } from './pages/auth/sign-up/sign-up.component';
 
 const routes: Routes = [
@@ -22,7 +23,8 @@ const routes: Routes = [
       { path: 'category', component: CategoryListComponent },
       { path: 'trainers', component: TrainerListComponent },
       {path: 'trainees', component: TraineeListComponent},
-      {path: 'courses', component: CoursesListComponent}
+      {path: 'courses', component: CoursesListComponent},
+      {path: 'courses/details/:id',component: ViewCourseComponent}
     ]
   },
   {path: 'trainer',
