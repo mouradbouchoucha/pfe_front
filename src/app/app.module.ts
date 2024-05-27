@@ -29,6 +29,9 @@ import { CoursesListComponent } from './pages/courses-list/courses-list.componen
 import { EditCourseComponent } from './components/course/edit-course/edit-course.component';
 import { AddCourseComponent } from './components/course/add-course/add-course.component';
 import { ViewCourseComponent } from './components/course/view-course/view-course.component';
+import { SubjectListComponent } from './pages/subject-list/subject-list.component';
+import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +57,8 @@ import { ViewCourseComponent } from './components/course/view-course/view-course
     EditCourseComponent,
     AddCourseComponent,
     ViewCourseComponent,
+    SubjectListComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

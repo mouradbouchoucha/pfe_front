@@ -10,6 +10,7 @@ import { TrainerListComponent } from './pages/trainer-list/trainer-list.componen
 import { TraineeListComponent } from './pages/trainee-list/trainee-list.component';
 import { CoursesListComponent } from './pages/courses-list/courses-list.component';
 import { ViewCourseComponent } from './components/course/view-course/view-course.component';
+import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
 // import { SignUpComponent } from './pages/auth/sign-up/sign-up.component';
 
 const routes: Routes = [
@@ -33,12 +34,17 @@ const routes: Routes = [
    data:{role:'TRAINER'},
    children: [  
       { path: 'category', component: CategoryListComponent },
-      { path: 'trainers', component: TrainerListComponent },
       {path: 'trainees', component: TraineeListComponent}
     ]
   },
-  {path: 'user', component: TraineeDashboardComponent,canActivate:[AuthenticationGuard],data:{role:'USER'}},
-  // {path: 'category', component: CategoryListComponent,canActivate:[AuthenticationGuard]}
+  {path: 'user',
+   component: TraineeDashboardComponent,
+   canActivate:[AuthenticationGuard],
+   data:{role:'USER'},
+  children: [ 
+    {path:'profile',component: UserProfileComponent}
+  ]},
+  
   
 ];
 
