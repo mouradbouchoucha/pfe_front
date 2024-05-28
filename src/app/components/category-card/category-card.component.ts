@@ -27,7 +27,12 @@ constructor(
   private dialogService:DialogServiceService
 ){}
 getImageUrl(imageData: string) {
-  return this.domSanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64,${imageData}`);
+  if (imageData) {
+    return this.domSanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64,${imageData}`);
+  } else {
+    // Replace 'default-image.png' with the actual path to your default image in the assets folder
+    return 'assets/DefaultImage.png';
+  }
 }
 deleteCategory(id: number): void {
   const confirmationDialog = this.dialogService.confirmDialog({

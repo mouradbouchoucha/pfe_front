@@ -45,8 +45,14 @@ loadCourses(){
     );
 }
 getImageUrl(imageData: string) {
-  return this.domSanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64,${imageData}`);
+  if (imageData) {
+    return this.domSanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64,${imageData}`);
+  } else {
+    // Replace 'default-image.png' with the actual path to your default image in the assets folder
+    return 'assets/DefaultImage.png';
+  }
 }
+
 openModal() {
   const dialogRef = this.dialog.open(AddCourseComponent);
   dialogRef.afterClosed().subscribe(result => {

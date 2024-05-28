@@ -17,7 +17,7 @@
       <li *ngFor="let course of courses">
           <div class="card">
               <div class="visual">
-                  <img class="card-image" [src]="getImageUrl(course.image)" alt="Course Image"/>
+                  <img class="card-image" [src]="getImageUrl(course.image) || '/src/assets/DefaultImage.png'" alt="Course Image"/>
               </div>
               <div class="content">
                   <div class="meta">

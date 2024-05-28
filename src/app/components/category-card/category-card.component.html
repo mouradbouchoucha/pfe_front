@@ -5,7 +5,7 @@
         <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
     </mat-card-header>
     <!-- <img mat-card-image [src]="getImageUrl(category.categoryPicture)" alt="{{ category.name }}"> -->
-    <img mat-card-image [src]="getImageUrl(category.image)" alt="{{ category.name }}">
+    <img mat-card-image [src]="getImageUrl(category.image) || './src/assets/DefaultImage.png' " alt="{{ category.name }}">
     <mat-card-content>
         <p>
             {{category.description}}
