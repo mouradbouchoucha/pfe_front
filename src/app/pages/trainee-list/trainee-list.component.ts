@@ -59,7 +59,12 @@ export class TraineeListComponent {
     )
   }
   getImageUrl(imageData: string) {
-    return this.domSanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64,${imageData}`);
+    if (imageData) {
+      return this.domSanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64,${imageData}`);
+    } else {
+      // Replace 'default-image.png' with the actual path to your default image in the assets folder
+      return 'assets/haracter default avatar.png';
+    }
   }
   openAddModal(): void {
     this.showModal = true;
