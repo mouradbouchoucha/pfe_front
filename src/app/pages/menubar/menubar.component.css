@@ -2,3 +2,8 @@
     flex: 1 1 auto;
   }
 
+  mat-drawer-container{
+    width: 100%;
+    height: 100%;
+  }
+

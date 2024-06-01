@@ -33,6 +33,15 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Profession</mat-label>
+        <mat-select formControlName="profession" placeholder="Select Profession">
+          <mat-option *ngFor="let profession of professions" [value]="profession">{{ profession }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('profession')?.invalid && form.get('profession')?.touched">Profession is required</mat-error>
+      </mat-form-field>
+      
+
+      <mat-form-field appearance="outline" class="form-field">
         <mat-label>Phone Number</mat-label>
         <input matInput type="text" formControlName="phoneNumber" placeholder="Phone Number">
         <mat-error *ngIf="form.get('phoneNumber')?.invalid && form.get('phoneNumber')?.touched">Phone Number is required</mat-error>

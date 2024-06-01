@@ -25,6 +25,7 @@ export class TraineeService {
                   firstName: string,
                   lastName: string,
                   email:string,
+                  profession:string,
                   phoneNumber:string,
                   address:string,
                   city:string,
@@ -35,6 +36,7 @@ export class TraineeService {
     formData.append('firstName', firstName);
     formData.append('lastName', lastName);
     formData.append('email', email);
+    formData.append('profession', profession);
     formData.append('phoneNumber', phoneNumber);
     formData.append('address', address);
     formData.append('city', city);
@@ -46,6 +48,7 @@ export class TraineeService {
                   firstName: string,      
                   lastName: string,
                   email: string,
+                  profession:string,
                   phoneNumber:string,
                   address:string,
                   city:string
@@ -55,7 +58,8 @@ export class TraineeService {
     
     formData.append('firstName',firstName);
     formData.append('lastName', lastName);
-    formData.append('email',email)
+    formData.append('email',email);
+    formData.append('profession',profession);
     formData.append('phoneNumber', phoneNumber);
     formData.append('address', address);
     formData.append('city', city);

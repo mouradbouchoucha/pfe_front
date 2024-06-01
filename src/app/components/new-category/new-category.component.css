@@ -44,13 +44,14 @@ span{
 mat-form-field{
     margin-top: 20px;
 }
-.file-upload-container input[type="file"] {
-    display: none !important;
-}
+
 button{
     align-self: center;
     margin-top: 16px;
 
+}
+.file-upload-container input[type="file"] {
+    display: none !important;
 }
 .image-preview{
     display: flex;

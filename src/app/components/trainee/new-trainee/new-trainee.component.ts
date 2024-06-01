@@ -14,6 +14,7 @@ export class NewTraineeComponent implements OnInit {
   form!: FormGroup;
   selectedFile!: File | null;
   imagePreview!: string | ArrayBuffer | null;
+  professions: string[] = ['Student','Engineer', 'Teacher', 'Developer']; 
 
 
   constructor(
@@ -70,12 +71,13 @@ export class NewTraineeComponent implements OnInit {
           const firstName = this.form.get('firstName')?.value;
           const lastName = this.form.get('lastName')?.value;
           const email = this.form.get('email')?.value;
+          const profession = this.form.get('profession')?.value;
           const phoneNumber = this.form.get('phoneNumber')?.value;
           const address = this.form.get('address')?.value;
           const city = this.form.get('city')?.value;
           console.log(this.form);
           console.log(this.selectedFile);
-          this.traineeService.createTrainee(this.selectedFile, firstName, lastName, email, phoneNumber, address, city).subscribe(
+          this.traineeService.createTrainee(this.selectedFile, firstName, lastName, email,profession, phoneNumber, address, city).subscribe(
             (res) => {
               console.log(res);
               this.snackBar.open('Trainee Created Successfully', 'close', { duration: 3000 });

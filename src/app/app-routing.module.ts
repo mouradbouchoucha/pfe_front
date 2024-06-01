@@ -11,41 +11,50 @@ import { TraineeListComponent } from './pages/trainee-list/trainee-list.componen
 import { CoursesListComponent } from './pages/courses-list/courses-list.component';
 import { ViewCourseComponent } from './components/course/view-course/view-course.component';
 import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
+import { AddCourseComponent } from './components/course/add-course/add-course.component';
+import { EditCourseComponent } from './components/course/edit-course/edit-course.component';
 // import { SignUpComponent } from './pages/auth/sign-up/sign-up.component';
 
 const routes: Routes = [
-  {path: '', redirectTo:'login',pathMatch: 'full'},
-  { path: 'login', component:LoginComponent, },
-  {path: 'admin',
-   component: AdminDashboardComponent,
-   canActivate:[AuthenticationGuard],
-   data:{role:'ADMIN'},
-   children: [  
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent, },
+  {
+    path: 'admin',
+    component: AdminDashboardComponent,
+    canActivate: [AuthenticationGuard],
+    data: { role: 'ADMIN' },
+    children: [
       { path: 'category', component: CategoryListComponent },
       { path: 'trainers', component: TrainerListComponent },
-      {path: 'trainees', component: TraineeListComponent},
-      {path: 'courses', component: CoursesListComponent},
-      {path: 'courses/details/:id',component: ViewCourseComponent}
+      { path: 'trainees', component: TraineeListComponent },
+      { path: 'courses', component: CoursesListComponent },
+      { path: 'courses/details/:id', component: ViewCourseComponent },
+      { path: 'courses', component: ViewCourseComponent },
+      { path: 'courses/add', component: AddCourseComponent },
+      { path: 'courses/edit/:id', component: EditCourseComponent }
     ]
   },
-  {path: 'trainer',
-   component: AdminDashboardComponent,
-   canActivate:[AuthenticationGuard],
-   data:{role:'TRAINER'},
-   children: [  
+  {
+    path: 'trainer',
+    component: AdminDashboardComponent,
+    canActivate: [AuthenticationGuard],
+    data: { role: 'TRAINER' },
+    children: [
       { path: 'category', component: CategoryListComponent },
-      {path: 'trainees', component: TraineeListComponent}
+      { path: 'trainees', component: TraineeListComponent }
     ]
   },
-  {path: 'user',
-   component: TraineeDashboardComponent,
-   canActivate:[AuthenticationGuard],
-   data:{role:'USER'},
-  children: [ 
-    {path:'profile',component: UserProfileComponent}
-  ]},
-  
-  
+  {
+    path: 'user',
+    component: TraineeDashboardComponent,
+    canActivate: [AuthenticationGuard],
+    data: { role: 'USER' },
+    children: [
+      { path: 'profile', component: UserProfileComponent }
+    ]
+  },
+
+
 ];
 
 @NgModule({

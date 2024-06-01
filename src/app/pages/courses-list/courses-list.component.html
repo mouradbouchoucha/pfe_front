@@ -36,7 +36,9 @@
                       </a>
                       <button class="delete"  (click)="deleteCourse(course.id)"><mat-icon color="warn">delete_sweep</mat-icon></button>
 
-                      <button mat-raised-button color="warn">Edit</button>
+                      <button mat-raised-button color="warn" 
+                      [routerLink]="['/admin/courses/edit', course.id]"
+                      >Edit</button>
                       <button class="likeBtn" *ngIf="!like" (click)="likeToggle()"><mat-icon color="warn">favorite_border</mat-icon></button>
                       <button class="likeBtn" *ngIf="like" (click)="likeToggle()"><mat-icon color="warn">favorite</mat-icon></button>
                   </div>

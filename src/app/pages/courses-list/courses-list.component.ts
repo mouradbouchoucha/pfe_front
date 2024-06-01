@@ -68,7 +68,6 @@ submitForm() {
   });
   const title = this.searchForm.get('title')?.value;
   if(title) {
-    
   this.courseService.getAllCourseByName(title).subscribe(
     res=>{
       if(res.length>0){

@@ -36,6 +36,10 @@ export class ViewCourseComponent implements OnInit {
   }
 
   getImageUrl(imageData: string) {
-    return this.domSanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64,${imageData}`);
+    if (imageData) {
+      return this.domSanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64,${imageData}`);
+    } else {
+      return 'assets/DefaultImage.png';
+    }
   }
 }

@@ -62,7 +62,6 @@ export class TraineeListComponent {
     if (imageData) {
       return this.domSanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64,${imageData}`);
     } else {
-      // Replace 'default-image.png' with the actual path to your default image in the assets folder
       return 'assets/haracter default avatar.png';
     }
   }

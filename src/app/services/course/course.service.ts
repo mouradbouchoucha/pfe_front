@@ -40,32 +40,36 @@ private baseUrl = 'http://localhost:8080/api/courses'
     return this.http.post<any>(`${this.baseUrl}/create`, formData)
       
   }
-  updateCourse(  id: number,
-                  imageFile: File | null, 
-                  name: string,      
-                  description: string,
-                  duration: number,
-                  startDateTime:Date,
-              ): Observable<any> {
-    const url = `${this.baseUrl}/update/${id}`;
-    const formData = new FormData();
+  // updateCourse(  id: number,
+  //                 imageFile: File | null, 
+  //                 name: string,      
+  //                 description: string,
+  //                 duration: number,
+  //                 startDateTime:Date,
+  //             ): Observable<any> {
+  //   const url = `${this.baseUrl}/update/${id}`;
+  //   const formData = new FormData();
     
-    formData.append('firstName',name);
-    formData.append('lastName', description);
-    formData.append('email',duration.toString())
-    formData.append('phoneNumber', startDateTime.toISOString());
+  //   formData.append('firstName',name);
+  //   formData.append('lastName', description);
+  //   formData.append('email',duration.toString())
+  //   formData.append('phoneNumber', startDateTime.toISOString());
   
-    if (imageFile) {
-      formData.append('profilePictureFile', imageFile);
-    }
+  //   if (imageFile) {
+  //     formData.append('profilePictureFile', imageFile);
+  //   }
 
-    return this.http.put<any>(url, formData)
-      .pipe(
-        catchError(error => {
-          console.error('Error updating category:', error);
-          return throwError(error);
-        })
-      );
+  //   return this.http.put<any>(url, formData)
+  //     .pipe(
+  //       catchError(error => {
+  //         console.error('Error updating category:', error);
+  //         return throwError(error);
+  //       })
+  //     );
+  // }
+
+  updateCourse(id: number, course: FormData): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/update/${id}`, course);
   }
   
 
