@@ -50,6 +50,32 @@
         <mat-error *ngIf="form.get('city')?.invalid && form.get('city')?.touched">city is required</mat-error>
       </mat-form-field>
       <div class="btnContainer">
+
+        <div class="form-column">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Institution Name</mat-label>
+            <input matInput type="text" formControlName="institutionName" placeholder="Institution Name">
+            <mat-error *ngIf="form.get('institutionName')?.invalid && form.get('institutionName')?.touched">Institution Name is required</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Departement Name</mat-label>
+            <input matInput type="text" formControlName="departementName" placeholder="Departement Name">
+            <mat-error *ngIf="form.get('departementName')?.invalid && form.get('departementName')?.touched">Departement Name is required</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Years of Experience</mat-label>
+            <input matInput type="number" formControlName="yearsOfExperience" placeholder="Years of Experience">
+            <mat-error *ngIf="form.get('yearsOfExperience')?.invalid && form.get('yearsOfExperience')?.touched">Years of Experience is required</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Degree</mat-label>
+            <input matInput type="text" formControlName="degree" placeholder="Degree">
+            <mat-error *ngIf="form.get('degree')?.invalid && form.get('degree')?.touched">Degree is required</mat-error>
+          </mat-form-field>
+        </div>
         
       <button mat-raised-button color="warn" type="button" (click)="onNoClick()">Cancel</button>
       <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Save Trainer</button>

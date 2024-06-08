@@ -3,7 +3,10 @@
     height: 700px;
     margin: 0 auto;
     padding: 20px;
-    overflow: scroll ;
+    overflow: auto ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 h2{
     text-align: center;
@@ -13,6 +16,7 @@ h2{
 form {
     display: flex;
     flex-direction: column;
+    padding: 10px;
 }
 
 .file-upload-container {
@@ -20,6 +24,9 @@ form {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+
    
 }
 .file-upload-label{
@@ -44,7 +51,7 @@ span{
 }
 
 mat-form-field{
-    margin-top: 20px;
+    margin-top: 3px;
 }
 .file-upload-container input[type="file"] {
     display: none !important;
@@ -58,6 +65,7 @@ button{
     display: flex;
     justify-content: center;
     margin-top: 16px;
+    margin-bottom: 20px;
 }
 
 .circle-image{

@@ -10,4 +10,7 @@
       <p><strong>Start Date:</strong> {{ course.startDateTime }}</p>
     </mat-card-content>
   </mat-card>
+  <mat-card-footer>
+    <button mat-button color="primary" [routerLink]="['/admin/courses/details', course.id, 'schedule', course.id]">Go to schedule -></button>
+  </mat-card-footer>
 </div>

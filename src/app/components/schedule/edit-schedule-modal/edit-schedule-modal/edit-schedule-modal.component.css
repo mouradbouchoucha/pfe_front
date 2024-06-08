@@ -1,0 +1,50 @@
+.schedule-dialog-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 10px;
+  }
+  
+  form {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+  
+  .mat-form-field {
+    width: 100% !important;
+    min-width: 400px !important;
+    margin-bottom: 16px !important;
+    padding: 0 16px !important;
+  }
+  
+  .schedule-dialog-actions {
+    display: flex !important;
+    justify-content: flex-end !important;
+    padding: 16px 0 !important;
+    width: 100% !important;
+  }
+  
+  .schedule-dialog-actions button {
+    margin-left: 8px !important;
+  }
+  
+  .mat-dialog-title {
+    color: #3f51b5 !important;
+    font-weight: 600 !important;
+    font-size: 24px !important;
+  }
+  
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    border-color: #3f51b5 !important;
+  }
+  
+  .mat-form-field-appearance-outline .mat-form-field-label {
+    color: #3f51b5 !important;
+  }
+  
+  .mat-form-field-appearance-outline .mat-form-field-underline {
+    background-color: #3f51b5 !important;
+  }
+  

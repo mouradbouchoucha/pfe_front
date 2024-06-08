@@ -25,6 +25,10 @@ export class TrainerService {
                   firstName: string,
                   lastName: string,
                   email:string,
+                  istitutionName:string,
+                  departementName:string, 
+                  yearsOfExperience:number,
+                  degree:string,
                   phoneNumber:string,
                   address:string,
                   city:string,
@@ -35,6 +39,10 @@ export class TrainerService {
     formData.append('firstName', firstName);
     formData.append('lastName', lastName);
     formData.append('email', email);
+    formData.append('istitutionName', istitutionName);
+    formData.append('departementName', departementName);
+    formData.append('yearsOfExperience', yearsOfExperience.toString());
+    formData.append('degree', degree);
     formData.append('phoneNumber', phoneNumber);
     formData.append('address', address);
     formData.append('city', city);
@@ -46,6 +54,10 @@ export class TrainerService {
                   firstName: string,      
                   lastName: string,
                   email: string,
+                  istitutionName:string,
+                  departementName:string, 
+                  yearsOfExperience:number,
+                  degree:string,
                   phoneNumber:string,
                   address:string,
                   city:string
@@ -55,7 +67,11 @@ export class TrainerService {
     
     formData.append('firstName',firstName);
     formData.append('lastName', lastName);
-    formData.append('email',email)
+    formData.append('email',email);
+    formData.append('istitutionName', istitutionName);
+    formData.append('departementName', departementName);
+    formData.append('yearsOfExperience', yearsOfExperience.toString());
+    formData.append('degree', degree);
     formData.append('phoneNumber', phoneNumber);
     formData.append('address', address);
     formData.append('city', city);

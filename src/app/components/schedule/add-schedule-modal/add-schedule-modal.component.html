@@ -1,0 +1,39 @@
+<h1 mat-dialog-title>Add Schedule</h1>
+<div mat-dialog-content class="schedule-dialog-content">
+  <form [formGroup]="scheduleForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Subject</mat-label>
+      <mat-select formControlName="subject">
+        <mat-option *ngFor="let subject of subjects" [value]="subject.id">{{ subject.name }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="scheduleForm.get('subject')?.invalid && scheduleForm.get('subject')?.touched">Subject is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Trainer</mat-label>
+      <mat-select formControlName="trainer">
+        <mat-option *ngFor="let trainer of trainers" [value]="trainer.id">{{ trainer.name }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="scheduleForm.get('trainer')?.invalid && scheduleForm.get('trainer')?.touched">Trainer is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Start DateTime</mat-label>
+      <input matInput formControlName="startDateTime" readonly>
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Duration (hours)</mat-label>
+      <input matInput formControlName="duration" type="number">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Location</mat-label>
+      <input matInput formControlName="location">
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions class="schedule-dialog-actions">
+  <button mat-raised-button (click)="onNoClick()" color="warn">Cancel</button>
+  <button mat-button (click)="onSubmit()" cdkFocusInitial color="primary">Save</button>
+</div>

@@ -31,6 +31,14 @@ import { AddCourseComponent } from './components/course/add-course/add-course.co
 import { ViewCourseComponent } from './components/course/view-course/view-course.component';
 import { SubjectListComponent } from './pages/subject-list/subject-list.component';
 import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
+import { ScheduleListComponent } from './components/schedule/scheduleList/schedule-list/schedule-list.component';
+import { AddScheduleModalComponent } from './components/schedule/add-schedule-modal/add-schedule-modal.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import { EditScheduleModalComponent } from './components/schedule/edit-schedule-modal/edit-schedule-modal/edit-schedule-modal.component';
+
+
+const plugins = [timeGridPlugin];
 
 @NgModule({
   declarations: [
@@ -58,7 +66,10 @@ import { UserProfileComponent } from './components/user/user-profile/user-profil
     AddCourseComponent,
     ViewCourseComponent,
     SubjectListComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ScheduleListComponent,
+    AddScheduleModalComponent,
+    EditScheduleModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,9 +78,11 @@ import { UserProfileComponent } from './components/user/user-profile/user-profil
     MaterialModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FullCalendarModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AddScheduleModalComponent]
 })
 export class AppModule { }

@@ -1,60 +1,90 @@
-
 <div class="container">
-    <h2>New Trainer</h2>
-    <form [formGroup]="form" (ngSubmit)="saveTrainer()" enctype="multipart/form-data">
-      <div class="file-upload-container">
-        <label class="file-upload-label" for="fileInput">
-          <span>Select a File</span>
-          <input type="file" id="fileInput" placeholder="Select" (change)="onFileSelected($event)">
-          <mat-icon style="color: rgb(10, 9, 9) !important;">attach-file </mat-icon>
-        </label>
-        <div class="image-preview" *ngIf="selectedFile">
-          <div class="circle-image">
-            <img [src]="imagePreview" alt="Selected Image" class="preview-image">
-          </div>
+  <!-- <h2>New Trainer</h2> -->
+  <form [formGroup]="form" (ngSubmit)="saveTrainer()" enctype="multipart/form-data">
+    <div class="file-upload-container">
+      <label class="file-upload-label" for="fileInput">
+        <span><mat-icon>attach_file</mat-icon></span>
+        <input type="file" id="fileInput" placeholder="Select" (change)="onFileSelected($event)">
+        <mat-icon style="color: rgb(10, 9, 9) !important;">attach-file</mat-icon>
+      </label>
+      <div class="image-preview">
+        <div class="circle-image">
+          <img [src]="imagePreview || 'assets/haracter default avatar.png'" alt="Selected Image" class="preview-image">
         </div>
       </div>
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>First Name</mat-label>
-        <input matInput type="text" formControlName="firstName" placeholder="first Name">
-        <mat-error *ngIf="form.get('firstName')?.invalid && form.get('firstName')?.touched">First Name is required</mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>First Name</mat-label>
-        <input matInput type="text" formControlName="lastName" placeholder="last Name">
-        <mat-error *ngIf="form.get('lastName')?.invalid && form.get('lastName')?.touched">Last Name is required</mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Email</mat-label>
-        <input matInput type="email" formControlName="email" placeholder="email">
-        <mat-error *ngIf="form.get('email')?.invalid && form.get('email')?.touched">Email is required</mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Phone Number</mat-label>
-        <input matInput type="text" formControlName="phoneNumber" placeholder="Phone Number">
-        <mat-error *ngIf="form.get('phoneNumber')?.invalid && form.get('phoneNumber')?.touched">Phone Number is required</mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Address</mat-label>
-        <input matInput type="address" formControlName="address" placeholder="Address">
-        <!-- <mat-error *ngIf="form.get('address')?.invalid && form.get('address')?.touched">address is required</mat-error> -->
-      </mat-form-field>
-  
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>City</mat-label>
-        <input matInput formControlName="city" type="text" placeholder="city">
-        <mat-error *ngIf="form.get('city')?.invalid && form.get('city')?.touched">city is required</mat-error>
-      </mat-form-field>
-      <div class="btnContainer">
+    </div>
+    <div class="form-content">
+      
+      <div class="form-column">
         
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>First Name</mat-label>
+          <input matInput type="text" formControlName="firstName" placeholder="First Name">
+          <mat-error *ngIf="form.get('firstName')?.invalid && form.get('firstName')?.touched">First Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Last Name</mat-label>
+          <input matInput type="text" formControlName="lastName" placeholder="Last Name">
+          <mat-error *ngIf="form.get('lastName')?.invalid && form.get('lastName')?.touched">Last Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" placeholder="Email">
+          <mat-error *ngIf="form.get('email')?.invalid && form.get('email')?.touched">Email is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Phone Number</mat-label>
+          <input matInput type="text" formControlName="phoneNumber" placeholder="Phone Number">
+          <mat-error *ngIf="form.get('phoneNumber')?.invalid && form.get('phoneNumber')?.touched">Phone Number is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Address</mat-label>
+          <input matInput type="text" formControlName="address" placeholder="Address">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>City</mat-label>
+          <input matInput type="text" formControlName="city" placeholder="City">
+          <mat-error *ngIf="form.get('city')?.invalid && form.get('city')?.touched">City is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-column">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Institution Name</mat-label>
+          <input matInput type="text" formControlName="institutionName" placeholder="Institution Name">
+          <mat-error *ngIf="form.get('institutionName')?.invalid && form.get('institutionName')?.touched">Institution Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Departement Name</mat-label>
+          <input matInput type="text" formControlName="departementName" placeholder="Departement Name">
+          <mat-error *ngIf="form.get('departementName')?.invalid && form.get('departementName')?.touched">Departement Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Years of Experience</mat-label>
+          <input matInput type="number" formControlName="yearsOfExperience" placeholder="Years of Experience">
+          <mat-error *ngIf="form.get('yearsOfExperience')?.invalid && form.get('yearsOfExperience')?.touched">Years of Experience is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Degree</mat-label>
+          <input matInput type="text" formControlName="degree" placeholder="Degree">
+          <mat-error *ngIf="form.get('degree')?.invalid && form.get('degree')?.touched">Degree is required</mat-error>
+          <mat-hint>*add ',' to separate degrees</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="btnContainer">
       <button mat-raised-button color="warn" type="button" (click)="onNoClick()">Cancel</button>
       <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Add Trainer</button>
-      </div>
-      
-    </form>
-  </div>
-  
+    </div>
+  </form>
+</div>

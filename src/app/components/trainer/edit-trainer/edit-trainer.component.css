@@ -10,11 +10,20 @@ h2{
     margin-bottom: 20px;
     color: #3f51b5;
 }
-form {
+/* form {
     display: flex;
     flex-direction: column;
-}
-
+} */
+.form-content {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .form-column {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+  }
 .file-upload-container {
     display: flex;
     flex-direction: column;

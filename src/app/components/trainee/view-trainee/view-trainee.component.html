@@ -3,7 +3,7 @@
       <div class="file-upload-container">
         <div class="image-preview">
           <div class="circle-image">
-            <img [src]="getImageUrl(traineeData.element.profilePicture)" alt="Selected Image" class="preview-image">
+            <img [src]="common.getImageUrl(traineeData.element.profilePicture,'assets/haracter default avatar.png')" alt="Selected Image" class="preview-image">
           </div>
         </div>
       </div>
@@ -26,6 +26,13 @@
         <label>Email</label>
         <div>
           <p>{{ traineeData.element.email }}</p>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label>Profession</label>
+        <div>
+          <p>{{ traineeData.element.profession }}</p>
         </div>
       </div>
   

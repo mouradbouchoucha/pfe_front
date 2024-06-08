@@ -18,7 +18,7 @@ export class EditTrainerComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<EditTrainerComponent>,
-    @Inject(MAT_DIALOG_DATA)public trainerData: any,
+    @Inject(MAT_DIALOG_DATA) public trainerData: any,
     private trainerService: TrainerService,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -28,15 +28,19 @@ export class EditTrainerComponent implements OnInit {
   }
   ngOnInit(): void {
     console.log(this.trainerData);
-    this.form = this.fb.group ({
+    this.form = this.fb.group({
       firstName: [this.trainerData.element.firstName, [Validators.required]],
       lastName: [this.trainerData.element.lastName, [Validators.required]],
       phoneNumber: [this.trainerData.element.phoneNumber, [Validators.required,],],
-      email: [this.trainerData.element.email, [Validators.required, ]],
+      istitutionName: [this.trainerData.element.institutionName, [Validators.required,],],
+      departementName: [this.trainerData.departementName, [Validators.required]],
+      yearsOfExperience: [this.trainerData.yearsOfExperience, [Validators.required]],
+      degree: [this.trainerData.degree, [Validators.required]],
+      email: [this.trainerData.element.email, [Validators.required,]],
       address: [this.trainerData.element.address],
       city: [this.trainerData.element.city],
-      
-      });
+
+    });
   }
 
   onFileSelected(event: any): void {
@@ -65,33 +69,53 @@ export class EditTrainerComponent implements OnInit {
       cancelText: 'No',
     });
 
-    confirmationDialog.subscribe(res=>{
-      if(res){
+    confirmationDialog.subscribe(res => {
+      if (res) {
         // console.log('hhhhhhhhhhhhhhhhhh');
 
-        if(this.form.valid){
+        if (this.form.valid) {
           const firstName = this.form.get('firstName')?.value;
           const lastName = this.form.get('lastName')?.value;
           const email = this.form.get('email')?.value;
+          const institutionName = this.form.get('institutionName')?.value;
+          const departementName = this.form.get('departementName')?.value;
+          const yearsOfExperience = this.form.get('yearsOfExperience')?.value;
+          const degree = this.form.get('degree')?.value;
           const phoneNumber = this.form.get('phoneNumber')?.value;
           const address = this.form.get('address')?.value;
           const city = this.form.get('city')?.value;
           console.log(this.form);
           console.log(this.selectedFile);
-          this.trainerService.updateTrainer(this.trainerData.element.id,this.selectedFile, firstName, lastName, email, phoneNumber, address, city).subscribe(
+          this.trainerService.updateTrainer(
+            this.trainerData.element.id,
+             this.selectedFile,
+              firstName, 
+              lastName,
+               email, 
+               institutionName,
+               departementName,
+               yearsOfExperience,
+               degree,
+               phoneNumber, 
+               address, 
+               city).subscribe(
             (res) => {
               // console.log(res);
               this.snackBar.open('Trainer Created Successfully', 'close', { duration: 3000 });
-              
+
               this.form = this.fb.group({
                 firstName: ['', Validators.required],
                 lastName: ['', Validators.required],
                 email: ['', Validators.required],
+                institutionName: ['',Validators.required],
+                departementName: ['', Validators.required],
+                yearsOfExperience: ['', Validators.required],
+                degree: ['', Validators.required],
                 phoneNumber: ['', Validators.required],
                 address: [''],
                 city: [''],
               });
-              this.form.markAsUntouched() 
+              this.form.markAsUntouched()
               this.selectedFile = null;
             },
             (error) => {
@@ -99,13 +123,13 @@ export class EditTrainerComponent implements OnInit {
               this.snackBar.open('Failed to update trainer. Please try again.', 'Error', { duration: 5000 });
             }
           )
-        }else {
+        } else {
           for (const i in this.form.controls) {
             this.form.controls[i].markAsDirty();
             this.form.controls[i].updateValueAndValidity();
           }
         }
-      }else {
+      } else {
         this.form.markAllAsTouched();
       }
     });

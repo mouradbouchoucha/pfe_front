@@ -1,59 +1,59 @@
 <div class="container">
-    <form [formGroup]="form" enctype="multipart/form-data">
-      <div class="file-upload-container">
-        <div class="image-preview">
-          <div class="circle-image">
-            <img [src]="getImageUrl(trainerData.element.profilePicture)" alt="Selected Image" class="preview-image">
-          </div>
+  <form [formGroup]="form" enctype="multipart/form-data">
+    <div class="file-upload-container">
+      <div class="image-preview">
+        <div class="circle-image">
+          <img [src]="common.getImageUrl(trainerData.element.profilePicture,'assets/haracter default avatar.png')" alt="Selected Image" class="preview-image">
         </div>
       </div>
-  
-      <div class="form-field">
-        <label>First Name</label>
-        <div>
-          <p>{{ trainerData.element.firstName }}</p>
-        </div>
+    </div>
+
+    <div class="form-field">
+      <label>First Name</label>
+      <div>
+        <p>{{ trainerData.element.firstName }}</p>
       </div>
-  
-      <div class="form-field">
-        <label>Last Name</label>
-        <div>
-          <p>{{ trainerData.element.lastName }}</p>
-        </div>
+    </div>
+
+    <div class="form-field">
+      <label>Last Name</label>
+      <div>
+        <p>{{ trainerData.element.lastName }}</p>
       </div>
-  
-      <div class="form-field">
-        <label>Email</label>
-        <div>
-          <p>{{ trainerData.element.email }}</p>
-        </div>
+    </div>
+
+    <div class="form-field">
+      <label>Email</label>
+      <div>
+        <p>{{ trainerData.element.email }}</p>
       </div>
-  
-      <div class="form-field">
-        <label>Phone Number</label>
-        <div>
-          <p>{{ trainerData.element.phoneNumber }}</p>
-        </div>
+    </div>
+
+    <div class="form-field">
+      <label>Phone Number</label>
+      <div>
+        <p>{{ trainerData.element.phoneNumber }}</p>
       </div>
-  
-      <div class="form-field">
-        <label>Address</label>
-        <div>
-          <p>{{ trainerData.element.address }}</p>
-        </div>
+    </div>
+
+    <div class="form-field">
+      <label>Address</label>
+      <div>
+        <p>{{ trainerData.element.address }}</p>
       </div>
-  
-      <div class="form-field">
-        <label>City</label>
-        <div>
-          <p>{{ trainerData.element.city }}</p>
-        </div>
+    </div>
+
+    <div class="form-field">
+      <label>City</label>
+      <div>
+        <p>{{ trainerData.element.city }}</p>
       </div>
-  
-      <div class="btnContainer">
-        <button mat-raised-button color="primary" type="button" (click)="onNoClick()">Ok</button>
-      </div>
-  
-    </form>
-  </div>
-  
+    </div>
+
+    <div class="btnContainee">
+      <button mat-raised-button color="primary" type="button" (click)="onNoClick()">Ok</button>
+    </div>
+
+  </form>
+</div>
+

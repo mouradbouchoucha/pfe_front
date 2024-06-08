@@ -63,4 +63,8 @@ loadProfile(data: JwtAuthenticationResponse) {
   this.roles = decodedToken.roles || []; // Handle potential missing roles field
   return; // No need to return anything
 }
+
+verifyEmail(token: string) {
+  return this.http.get(`${this.baseUrl}/auth/verify?token=${token}`);
+}
 }
