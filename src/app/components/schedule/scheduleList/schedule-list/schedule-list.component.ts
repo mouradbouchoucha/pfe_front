@@ -10,6 +10,8 @@ import { AddScheduleModalComponent } from '../../add-schedule-modal/add-schedule
 import { EditScheduleModalComponent } from '../../edit-schedule-modal/edit-schedule-modal/edit-schedule-modal.component';
 import { ScheduleService } from 'src/app/services/schedule/schedule.service';
 import { ActivatedRoute } from '@angular/router';
+import { DialogServiceService } from 'src/app/services/dialog/dialog-service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-schedule-list',
@@ -56,7 +58,9 @@ export class ScheduleListComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     private scheduleService: ScheduleService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialogService: DialogServiceService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -94,7 +98,6 @@ export class ScheduleListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
-    console.log("Date selected:", selectInfo.startStr); // Debugging statement
     const startStr = selectInfo.startStr;
     const endStr = selectInfo.endStr;
 
@@ -102,16 +105,13 @@ export class ScheduleListComponent implements OnInit, AfterViewInit, OnDestroy {
     const start = new Date(startStr);
     const end = new Date(endStr);
     const durationMs = end.getTime() - start.getTime();
-  
+
     // Convert duration to hours
     const durationHours = durationMs / (1000 * 60 * 60);
-  
-    console.log("Event clicked: Duration (hours):", durationHours);
-    // Check for existing schedule asynchronously
-    this.scheduleService.checkForScheduleByStartDateTime(selectInfo.startStr).subscribe(
-        (exist: boolean) => {
-            console.log("Existing schedule:", exist); // Debugging statement
 
+    // Check for existing schedule asynchronously
+    this.scheduleService.checkForScheduleByStartDateTime(selectInfo.startStr, this.id).subscribe(
+        (exist: boolean) => {
             if (exist) {
                 // Fetch the existing schedule details if a schedule exists
                 this.scheduleService.getScheduleByStartDateTime(selectInfo.startStr).subscribe(
@@ -137,24 +137,43 @@ export class ScheduleListComponent implements OnInit, AfterViewInit, OnDestroy {
                     }
                 );
             } else {
-                const dialogRef = this.dialog.open(AddScheduleModalComponent, {
-                    width: '600px',
-                    data: {courseId:this.id, startDateTime: startStr, endDateTime: endStr, duration: durationHours }
-                });
+                // Check for overlapping schedules
+                if (this.isTimeSlotAvailable(start, end)) {
+                    const dialogRef = this.dialog.open(AddScheduleModalComponent, {
+                        width: '600px',
+                        data: { courseId: this.id, startDateTime: startStr, endDateTime: endStr, duration: durationHours }
+                    });
 
-                dialogRef.afterClosed().subscribe(result => {
-                    if (result) {
-                        this.schedules.push(result);
-                        this.updateCalendarEvents();
-                    }
-                });
+                    dialogRef.afterClosed().subscribe(result => {
+                        if (result) {
+                            this.schedules.push(result);
+                            this.updateCalendarEvents();
+                        }
+                    });
+                } else {
+                  this.snackBar.open('The selected time slot overlaps with an existing schedule.', 'close', { duration: 6000 });
+                }
             }
         },
         error => {
             console.error('Error checking schedule existence:', error);
         }
     );
-  }
+}
+
+isTimeSlotAvailable(start: Date, end: Date): boolean {
+    for (let schedule of this.schedules) {
+        const scheduleStart = new Date(schedule.startDateTime);
+        const scheduleEnd = new Date(schedule.startDateTime);
+        scheduleEnd.setHours(scheduleEnd.getHours() + schedule.duration);
+
+        if ((start < scheduleEnd && start >= scheduleStart) || (end > scheduleStart && end <= scheduleEnd)) {
+            return false; // Time slot overlaps with an existing schedule
+        }
+    }
+    return true; // Time slot is available
+}
+
 
   handleEventClick(clickInfo: EventClickArg) {
 

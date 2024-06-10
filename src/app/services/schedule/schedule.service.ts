@@ -21,19 +21,16 @@ export class ScheduleService {
   constructor(private http: HttpClient) {}
 
   createSchedule(schedule: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}`, schedule).pipe(
+    return this.http.post<any>(`${this.baseUrl}/create`, schedule).pipe(
       catchError(this.handleError)
     );
   }
 
   getScheduleById(id: number): Observable<any> {
-    console.log(this.http.get<any>(`${this.baseUrl}/${id}`));
     return this.http.get<any>(`${this.baseUrl}/${id}`).pipe(
       catchError(this.handleError)
     );
   }
-
-  
 
   getAllSchedules(): Observable<any[]> {
     return this.http.get<any[]>(this.baseUrl).pipe(
@@ -48,7 +45,9 @@ export class ScheduleService {
   }
 
   updateSchedule(id: number, schedule: any): Observable<any> {
-    return this.http.put<any>(`${this.baseUrl}/update/${id}`, schedule);
+    return this.http.put<any>(`${this.baseUrl}/${id}`, schedule).pipe(
+      catchError(this.handleError)
+    );
   }
 
   getScheduleByCourseId(courseId: number): Observable<any[]> {
@@ -57,8 +56,8 @@ export class ScheduleService {
     );
   }
 
-  getScheduleByTrainerId(trainerId: number): Observable<Schedule[]> {
-    return this.http.get<Schedule[]>(`${this.baseUrl}/trainer/${trainerId}`).pipe(
+  getScheduleByTrainerId(trainerId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/trainer/${trainerId}`).pipe(
       catchError(this.handleError)
     );
   }
@@ -69,27 +68,38 @@ export class ScheduleService {
     );
   }
 
-  checkForScheduleByStartDateTime(startDateTime:any): Observable<any> {
-    const params = new HttpParams().set('startDateTime', startDateTime);
-
-    return this.http.get<any>(`${this.baseUrl}/exist`, {
-      params
-    }).pipe(
+  checkForScheduleByStartDateTime(startDateTime: string, courseId: number): Observable<boolean> {
+    const params = new HttpParams().set('startDateTime', startDateTime).set('courseId', courseId);
+    return this.http.get<boolean>(`${this.baseUrl}/exist`, { params }).pipe(
       catchError(this.handleError)
     );
   }
+
   getScheduleByStartDateTime(startDateTime: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/startDateTime`, {
-      params: { startDateTime }
-    }).pipe(
+    const cleanStartDateTime = startDateTime.split('+')[0];
+    console.log(cleanStartDateTime);
+    const params = new HttpParams()
+      .set('startDateTime', cleanStartDateTime)
+      
+    return this.http.get<any[]>(`${this.baseUrl}/startDateTime`, { params }).pipe(
       catchError(this.handleError)
     );
   }
 
-  private handleError(error: HttpErrorResponse) {
-    // Log error to the console or a logging service
+  getAvailableTrainers(startDateTime: string, duration: number): Observable<any[]> {
+    // Ensure the date-time string is in ISO_LOCAL_DATE_TIME format (without timezone)
+    const cleanStartDateTime = startDateTime.split('+')[0];
+    console.log(cleanStartDateTime);
+    const params = new HttpParams()
+      .set('startDateTime', cleanStartDateTime)
+      .set('duration', duration.toString());
+    return this.http.get<any[]>(`${this.baseUrl}/available-trainers`, { params }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(error: HttpErrorResponse): Observable<never> {
     console.error('An error occurred:', error);
-    // Customize this to display a user-friendly message
     return throwError('Something went wrong; please try again later.');
   }
 }
