@@ -28,7 +28,7 @@ export class EditTraineeComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    console.log(this.traineeData);
+    console.log(this.traineeData.profession);
     this.form = this.fb.group ({
       firstName: [this.traineeData.element.firstName, [Validators.required]],
       lastName: [this.traineeData.element.lastName, [Validators.required]],

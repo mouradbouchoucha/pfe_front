@@ -64,7 +64,7 @@ export class ScheduleListComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    const idParam = this.route.snapshot.paramMap.get('id');
+    const idParam = this.route.snapshot.paramMap.get('courseId');
     if (idParam) {
       this.id = +idParam; 
       console.log(this.id);

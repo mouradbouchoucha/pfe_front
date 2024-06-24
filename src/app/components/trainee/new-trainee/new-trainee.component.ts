@@ -33,6 +33,7 @@ export class NewTraineeComponent implements OnInit {
       lastName: [null, [Validators.required]],
       phoneNumber: [null, [Validators.required,],],
       email: [null, [Validators.required, ]],
+      profession: [null, [Validators.required, ], ],
       address: [null],
       city: [null],
       

@@ -60,31 +60,32 @@ openModal() {
   });
 }
 submitForm() {
-  const noResultDialog = this.dialogService.confirmDialog({
-    title: 'Search Result',
-    message: 'No result mutches your search',
-    
-    cancelText: 'oK',
-  });
   const title = this.searchForm.get('title')?.value;
-  if(title) {
-  this.courseService.getAllCourseByName(title).subscribe(
-    res=>{
-      if(res.length>0){
-        this.courses = [];
-        res.forEach(element=>{
-          element.processedImg = 'data:image/png;base64'+ element.image;
-          this.courses.push(element);
-        })
-      }else{
-        noResultDialog.subscribe(res=>{
-        });
+
+  if (title) {
+    this.courseService.getAllCourseByName(title).subscribe(
+      res => {
+        if (res.length > 0) {
+          this.courses = res.map(element => ({
+            ...element,
+            processedImg: `data:image/png;base64,${element.image}`
+          }));
+        } else {
+          this.dialogService.confirmDialog({
+            title: 'Search Result',
+            message: 'No result matches your search',
+            cancelText: 'OK'
+          }).subscribe();
+        }
+      },
+      error => {
+        console.error('Error fetching courses:', error);
+        // Optionally, show an error message to the user
       }
-      
-    })
+    );
   }
-  
 }
+
 likeToggle() {
   this.like = !this.like;
 }

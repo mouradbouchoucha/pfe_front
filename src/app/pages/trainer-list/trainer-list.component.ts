@@ -77,16 +77,28 @@ export class TrainerListComponent implements OnInit {
 
   submitForm() {
     const title = this.searchForm.get('title')?.value;
-    this.trainerService.getAllTrainerByName(title).subscribe(
-      res=>{
-        
-        this.trainers = res;
-        console.log(this.trainers);
-        this.dataSource.data = this.trainers;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        console.log(this.trainers);
-      })
+    if(title) {
+      this.trainerService.getAllTrainerByName(title).subscribe(
+        res => {
+          console.log(res);
+          if(res.length >0){
+            this.trainers = res.map(
+              element=>({
+                ...element,
+                processedImg: 'data:image/png;base64'+ element.image
+              })
+            )
+            this.dataSource.data = this.trainers;
+          }else{
+            this.dialogService.confirmDialog({
+              title: 'No Result',
+              message: 'No Trainer found with this name',
+              cancelText: 'Ok',
+            })
+          }
+        }
+      )
+    }
   }
 
   openViewDialog(element:any){

@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NewCategoryComponent } from 'src/app/components/new-category/new-category.component';
 import { CategoryService } from 'src/app/services/category/category.service';
+import { DialogServiceService } from 'src/app/services/dialog/dialog-service.service';
 
 @Component({
   selector: 'app-category-list',
@@ -19,6 +20,7 @@ constructor(
   public domSanitizer: DomSanitizer,
   public dialog: MatDialog,
   private fb: FormBuilder,
+  private dialogService : DialogServiceService
   
 ){
  
@@ -59,14 +61,24 @@ onCategoryUpdated(): void {
 }
 
 submitForm() {
-  this.categories = [];
   const title = this.searchForm.get('title')?.value;
-  this.categoryService.getAllCategoriesByName(title).subscribe(
-    res=>{
-      res.forEach(element=>{
-        element.processedImg = 'data:image/png;base64'+ element.image;
-        this.categories.push(element);
-      })
-    })
-}
+  if(title) {
+    this.categoryService.getAllCategoriesByName(title).subscribe(
+      res=>{
+        if(res.length > 0) {
+          this.categories = res.map(
+            element =>({
+              ...element,
+              processedImg: 'data:image/png;base64'+ element.image,
+            }))
+          }else{
+            this.dialogService.confirmDialog({
+              title: 'Search Result',
+              message: 'No result matches your search',
+              cancelText: 'OK'
+            }).subscribe()
+          }
+      }
+    )
+}}
 }

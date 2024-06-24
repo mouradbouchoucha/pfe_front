@@ -50,6 +50,7 @@ export class TraineeListComponent {
     this.traineeService.getAllTrainees().subscribe(
       data => {
         this.trainees = data;
+        this.dataSource.paginator = this.paginator;
         this.dataSource.data = this.trainees;
         console.log(this.trainees);
       },
@@ -76,16 +77,27 @@ export class TraineeListComponent {
 
   submitForm() {
     const title = this.searchForm.get('title')?.value;
-    this.traineeService.getAllTraineeByName(title).subscribe(
-      res => {
-
-        this.trainees = res;
-        console.log(this.trainees);
-        this.dataSource.data = this.trainees;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        console.log(this.trainees);
-      })
+    if(title) {
+      this.traineeService.getAllTraineeByName(title).subscribe(
+        res => {
+          if(res.length > 0) {
+            this.trainees = res.map(element=>
+              (
+                {
+                  ...element,
+                  processedImg: 'data:image/png;base64'+ element.image
+                }
+            ))
+            this.dataSource.data = this.trainees;
+          }else{
+            this.dialogService.confirmDialog({
+              title: 'No Result Found',
+              message: 'No Result Found',
+              cancelText: 'Ok',
+            }).subscribe()
+          }
+        })
+    }
   }
 
   openViewDialog(element: any) {

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Course } from 'src/app/interfaces/course';
 import { CourseService } from 'src/app/services/course/course.service';
+import { CategoryService } from 'src/app/services/category/category.service';
 
 @Component({
   selector: 'app-edit-course',
@@ -12,20 +12,23 @@ import { CourseService } from 'src/app/services/course/course.service';
 export class EditCourseComponent {
   courseForm: FormGroup;
   course: any | null = null;
-  selectedFile!: File | null;
-  imagePreview!: string | ArrayBuffer | null;
+  selectedFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
+  categories: any[] = [];
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private courseService: CourseService,
-    private router: Router
+    private router: Router,
+    private categoryService: CategoryService
   ) {
     this.courseForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
       duration: [0, Validators.required],
       startDateTime: ['', Validators.required],
+      category_id: [null, Validators.required],
       imageFile: [null]
     });
   }
@@ -35,37 +38,41 @@ export class EditCourseComponent {
     if (courseId) {
       this.courseService.getCourseById(+courseId).subscribe(course => {
         this.course = course;
-        this.courseForm.patchValue(course);
+        this.courseForm.patchValue({
+          ...this.course,
+          startDateTime: this.course.startDateTime ? new Date(this.course.startDateTime).toISOString().substring(0, 16) : ''
+        });
       });
     }
-  }
 
-  // onFileChange(event: any): void {
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     this.courseForm.patchValue({ imageFile: file });
-  //   }
-  // }
+    this.loadCategories();
+  }
 
   onSubmit(): void {
     if (this.courseForm.valid && this.course) {
       const formData = new FormData();
-      Object.keys(this.courseForm.controls).forEach(key => {
-        formData.append(key, this.courseForm.get(key)?.value);
-      });
+      formData.append('name', this.courseForm.get('name')?.value);
+      formData.append('description', this.courseForm.get('description')?.value);
+      formData.append('duration', this.courseForm.get('duration')?.value.toString());
+      formData.append('startDateTime', new Date(this.courseForm.get('startDateTime')?.value).toISOString());
+      formData.append('category_id', this.courseForm.get('category_id')?.value.toString());
+      if (this.selectedFile) {
+        formData.append('imageFile', this.selectedFile);
+      }
 
-      this.courseService.updateCourse(this.course.id!, formData).subscribe(() => {
-        this.router.navigate(['/courses']);
+      this.courseService.updateCourse(this.course.id, formData).subscribe(() => {
+         this.router.navigate(['/admin/courses/details',this.course.id]);
+        console.log(formData);
       });
     }
   }
 
   onFileSelected(event: any): void {
     this.selectedFile = event.target.files[0];
-    console.log(this.selectedFile);
     this.previewImage();
   }
-  previewImage() {
+
+  previewImage(): void {
     if (this.selectedFile) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -73,5 +80,11 @@ export class EditCourseComponent {
       };
       reader.readAsDataURL(this.selectedFile);
     }
+  }
+
+  loadCategories(): void {
+    this.categoryService.getAllCategories().subscribe(categories => {
+      this.categories = categories;
+    });
   }
 }
