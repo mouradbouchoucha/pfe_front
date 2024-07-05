@@ -54,7 +54,7 @@ const routes: Routes = [
       { path: 'profile', component: UserProfileComponent }
     ]
   },
-  { path: '**', redirectTo: 'login' }  // Wildcard route for handling 404 errors
+  { path: '**', redirectTo: '/login' }  // Wildcard route for handling 404 errors
 ];
 
 @NgModule({

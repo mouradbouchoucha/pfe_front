@@ -32,8 +32,8 @@ export class EditTrainerComponent implements OnInit {
       firstName: [this.trainerData.element.firstName, [Validators.required]],
       lastName: [this.trainerData.element.lastName, [Validators.required]],
       phoneNumber: [this.trainerData.element.phoneNumber, [Validators.required,],],
-      istitutionName: [this.trainerData.element.institutionName, [Validators.required,],],
-      departementName: [this.trainerData.departementName, [Validators.required]],
+      institutionName: [this.trainerData.element.institutionName, [Validators.required,],],
+      departmentName: [this.trainerData.departmentName, [Validators.required]],
       yearsOfExperience: [this.trainerData.yearsOfExperience, [Validators.required]],
       degree: [this.trainerData.degree, [Validators.required]],
       email: [this.trainerData.element.email, [Validators.required,]],
@@ -78,7 +78,7 @@ export class EditTrainerComponent implements OnInit {
           const lastName = this.form.get('lastName')?.value;
           const email = this.form.get('email')?.value;
           const institutionName = this.form.get('institutionName')?.value;
-          const departementName = this.form.get('departementName')?.value;
+          const departmentName = this.form.get('departmentName')?.value;
           const yearsOfExperience = this.form.get('yearsOfExperience')?.value;
           const degree = this.form.get('degree')?.value;
           const phoneNumber = this.form.get('phoneNumber')?.value;
@@ -93,7 +93,7 @@ export class EditTrainerComponent implements OnInit {
               lastName,
                email, 
                institutionName,
-               departementName,
+               departmentName,
                yearsOfExperience,
                degree,
                phoneNumber, 
@@ -108,7 +108,7 @@ export class EditTrainerComponent implements OnInit {
                 lastName: ['', Validators.required],
                 email: ['', Validators.required],
                 institutionName: ['',Validators.required],
-                departementName: ['', Validators.required],
+                departmentName: ['', Validators.required],
                 yearsOfExperience: ['', Validators.required],
                 degree: ['', Validators.required],
                 phoneNumber: ['', Validators.required],

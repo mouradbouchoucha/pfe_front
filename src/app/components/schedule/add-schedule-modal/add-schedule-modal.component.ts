@@ -31,14 +31,13 @@ export class AddScheduleModalComponent implements OnInit {
   ngOnInit(): void {
     this.loadSubjects();
     this.loadTrainers();
-    console.log(this.data);
-    const formattedStartDateTime = this.datePipe.transform(this.data.startDateTime, 'dd/MM/yyyy HH:mm');
+    console.log(this.data.startDateTime);
 
     this.scheduleForm = this.fb.group({
-      courseId: [this.data.courseId],
+      course_id: [this.data.courseId],
       subject: ['', Validators.required],
       trainer: ['', Validators.required],
-      startDateTime: [formattedStartDateTime, Validators.required],
+      startDateTime: [new Date(this.data.startDateTime).toISOString(), Validators.required],
       duration: [this.data.duration, Validators.required],
       location: ['', Validators.required]
     });
@@ -62,7 +61,7 @@ export class AddScheduleModalComponent implements OnInit {
   onSubmit(): void {
     if (this.scheduleForm.valid) {
       console.log(this.scheduleForm.value);
-      this.scheduleService.createSchedule(this.scheduleForm.value).subscribe(
+      this.scheduleService.createSchedule(this.scheduleForm.value,this.data.courseId).subscribe(
         response => {
           this.dialogRef.close(response);
         },

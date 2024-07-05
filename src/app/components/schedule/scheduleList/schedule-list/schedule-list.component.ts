@@ -108,7 +108,7 @@ export class ScheduleListComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Convert duration to hours
     const durationHours = durationMs / (1000 * 60 * 60);
-
+    console.log(startStr,start);
     // Check for existing schedule asynchronously
     this.scheduleService.checkForScheduleByStartDateTime(selectInfo.startStr, this.id).subscribe(
         (exist: boolean) => {

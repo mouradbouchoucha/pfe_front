@@ -20,11 +20,12 @@ export class ScheduleService {
 
   constructor(private http: HttpClient) {}
 
-  createSchedule(schedule: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/create`, schedule).pipe(
+  createSchedule(schedule: any, course_id: number): Observable<any> {
+    const params = new HttpParams().set('course_id', course_id.toString());
+    return this.http.post<any>(`${this.baseUrl}/create`, schedule, { params }).pipe(
       catchError(this.handleError)
     );
-  }
+}
 
   getScheduleById(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/${id}`).pipe(

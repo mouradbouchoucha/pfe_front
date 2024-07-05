@@ -19,5 +19,6 @@ export class MenubarComponent {
     this.authService.username = '';
     this.authService.roles = '';
     this.authService.isAuthenticated = false;
+    localStorage.removeItem('token');
   }
 }

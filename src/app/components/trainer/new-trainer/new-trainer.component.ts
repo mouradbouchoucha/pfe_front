@@ -14,42 +14,50 @@ import { TrainerService } from 'src/app/services/trainer/trainer.service';
 export class NewTrainerComponent implements OnInit {
 
   form!: FormGroup;
-  selectedFile!: File | null;
-  imagePreview!: string | ArrayBuffer | null;
-
+  selectedFile!: File;
+  imagePreview: string | ArrayBuffer | null = 'assets/haracter default avatar.png';
 
   constructor(
     public dialogRef: MatDialogRef<NewTrainerComponent>,
-    @Inject(MAT_DIALOG_DATA) trainerData: any,
+    @Inject(MAT_DIALOG_DATA) public trainerData: any,
     private trainerService: TrainerService,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private dialogService: DialogServiceService,
     public common: CommonMethodService
-  ) {
+  ) { }
 
-  }
   ngOnInit(): void {
     this.form = this.fb.group({
       firstName: [null, [Validators.required]],
       lastName: [null, [Validators.required]],
-      phoneNumber: [null, [Validators.required,],],
-      email: [null, [Validators.required,]],
-      institutionName: [null, [Validators.required,]],
+      phoneNumber: [null, [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
+      email: [null, [Validators.required, Validators.email]],
+      institutionName: [null, [Validators.required]],
       departementName: [null, [Validators.required]],
       yearsOfExperience: [null, [Validators.required]],
       degree: [null],
       address: [null],
       city: [null],
-
     });
+    this.setDefaultFile();
+  }
+
+  setDefaultFile() {
+    // Set the default file from the assets
+    fetch('assets/haracter default avatar.png')
+      .then(res => res.blob())
+      .then(blob => {
+        this.selectedFile = new File([blob], 'haracter default avatar.png', { type: 'image/png' });
+        this.previewImage();
+      });
   }
 
   onFileSelected(event: any): void {
     this.selectedFile = event.target.files[0];
-    console.log(this.selectedFile);
     this.previewImage();
   }
+
   previewImage() {
     if (this.selectedFile) {
       const reader = new FileReader();
@@ -63,17 +71,18 @@ export class NewTrainerComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
   saveTrainer() {
     const confirmationDialog = this.dialogService.confirmDialog({
-      title: 'Add Category',
-      message: 'Are you sure you want to Add this category?',
+      title: 'Add Trainer',
+      message: 'Are you sure you want to add this trainer?',
       confirmText: 'Yes',
       cancelText: 'No',
     });
 
     confirmationDialog.subscribe(res => {
       if (res) {
-        if (this.form.valid && this.selectedFile) {
+        if (this.form.valid) {
           const firstName = this.form.get('firstName')?.value;
           const lastName = this.form.get('lastName')?.value;
           const email = this.form.get('email')?.value;
@@ -84,8 +93,7 @@ export class NewTrainerComponent implements OnInit {
           const phoneNumber = this.form.get('phoneNumber')?.value;
           const address = this.form.get('address')?.value;
           const city = this.form.get('city')?.value;
-          console.log(this.form);
-          console.log(this.selectedFile);
+
           this.trainerService.createTrainer(
             this.selectedFile,
             firstName,
@@ -97,41 +105,22 @@ export class NewTrainerComponent implements OnInit {
             degree,
             phoneNumber,
             address,
-            city).subscribe(
-              (res) => {
-                console.log(res);
-                this.snackBar.open('Trainer Created Successfully', 'close', { duration: 3000 });
-
-                this.form = this.fb.group({
-                  firstName: ['', Validators.required],
-                  lastName: ['', Validators.required],
-                  email: ['', Validators.required],
-                  phoneNumber: ['', Validators.required],
-                  institutionName: ['', Validators.required],
-                  departementName: ['', Validators.required],
-                  yearsOfExperience: ['', Validators.required],
-                  degree: [''],
-                  address: [''],
-                  city: [''],
-                });
-                this.form.markAsUntouched()
-                this.selectedFile = null;
-              },
-              (error) => {
-                console.error('Error adding category:', error);
-                this.snackBar.open('Failed to add category. Please try again.', 'Error', { duration: 5000 });
-              }
-            )
+            city
+          ).subscribe(
+            (res) => {
+              console.log(res);
+              this.snackBar.open('Trainer Created Successfully', 'close', { duration: 3000 });
+              this.dialogRef.close(true); // Optionally pass data to the parent component
+            },
+            (error) => {
+              console.error('Error adding trainer:', error);
+              this.snackBar.open('Failed to add trainer. Please try again.', 'Error', { duration: 5000 });
+            }
+          );
         } else {
-          for (const i in this.form.controls) {
-            this.form.controls[i].markAsDirty();
-            this.form.controls[i].updateValueAndValidity();
-          }
+          this.form.markAllAsTouched();
         }
-      } else {
-        this.form.markAllAsTouched();
       }
     });
   }
-
 }
