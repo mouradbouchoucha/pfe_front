@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AddCourseComponent } from 'src/app/components/course/add-course/add-course.component';
 import { CourseService } from 'src/app/services/course/course.service';
@@ -20,7 +21,8 @@ constructor(
   private courseService: CourseService,
   private domSanitizer: DomSanitizer,
   private dialog:MatDialog,
-  private dialogService: DialogServiceService
+  private dialogService: DialogServiceService,
+  private snackBar: MatSnackBar
 ){
 
 }
@@ -90,8 +92,29 @@ likeToggle() {
   this.like = !this.like;
 }
 deleteCourse(id:number){
-  this.courseService.deleteCourse(id).subscribe(result => {
-    this.loadCourses();
-  })
+  const confirmationDialog = this.dialogService.confirmDialog({
+    title: 'Delete Course',
+    message: 'Are you sure you want to delete this Course?',
+    confirmText: 'Yes',
+    cancelText: 'No',
+  });
+
+  confirmationDialog.subscribe(confirmed => {
+    if (confirmed) {
+      this.courseService.deleteCourse(id)
+        .subscribe(() => {
+          // Filter out the deleted category from the list
+          this.snackBar.open(`Course deleted successfully`, 'Close', {
+            duration: 3000,
+          });
+          this.loadCourses();
+        }, error => {
+          console.error('Error deleting Course:', error);
+          // Handle error
+        });
+    }
+  });
+
 }
 }
+  

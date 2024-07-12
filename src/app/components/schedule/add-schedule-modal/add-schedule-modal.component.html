@@ -19,7 +19,7 @@
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Start DateTime</mat-label>
-      <input matInput formControlName="startDateTime" readonly>
+      <input matInput [value]="getFormattedDateTime(scheduleForm.value.startDateTime)" readonly>
     </mat-form-field>
     
     <mat-form-field appearance="outline" class="full-width">

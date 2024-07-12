@@ -29,8 +29,8 @@
       </mat-form-field>
   
       <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Duration</mat-label>
-        <input matInput type="number" formControlName="duration" placeholder="Duration">
+        <mat-label>Duration in hours</mat-label>
+        <input matInput type="number" formControlName="duration" placeholder="Duration in hours">
         <mat-error *ngIf="form.get('duration')?.invalid && form.get('duration')?.touched">Duration is required</mat-error>
       </mat-form-field>
   

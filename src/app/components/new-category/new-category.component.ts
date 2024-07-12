@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Category } from 'src/app/interfaces/category';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { MatSnackBar } from "@angular/material/snack-bar"
 import { DialogServiceService } from 'src/app/services/dialog/dialog-service.service';
@@ -22,7 +21,7 @@ export class NewCategoryComponent {
   nameControl!: FormControl;
   descriptionControl!: FormControl;
   constructor(public dialogRef: MatDialogRef<NewCategoryComponent>,
-    @Inject(MAT_DIALOG_DATA) categoryData: Category,
+    @Inject(MAT_DIALOG_DATA) categoryData: any,
     private categoryService: CategoryService,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -69,7 +68,7 @@ export class NewCategoryComponent {
     });
     confirmationDialog.subscribe(result => {
       if(result){
-        if (this.categoryForm.valid && this.selectedFile) {
+        if (this.categoryForm.valid ) {
           const name = this.categoryForm.get('name')?.value;
           const description = this.categoryForm.get('description')?.value;;
   
@@ -83,8 +82,9 @@ export class NewCategoryComponent {
                 name: ['', Validators.required],
                 description: ['', Validators.required]
               });
-              this.categoryForm.markAsUntouched() 
+              // this.categoryForm.markAsUntouched() 
               this.selectedFile = null;
+              this.dialogRef.close()
             },
             (error) => {
               console.error('Error adding category:', error);
@@ -92,13 +92,13 @@ export class NewCategoryComponent {
             }
           );
         } else {
-          for (const i in this.categoryForm.controls) {
-            this.categoryForm.controls[i].markAsDirty();
-            this.categoryForm.controls[i].updateValueAndValidity();
-          }
+          // for (const i in this.categoryForm.controls) {
+          //   this.categoryForm.controls[i].markAsDirty();
+          //   this.categoryForm.controls[i].updateValueAndValidity();
+          // }
         }
       }else {
-        this.categoryForm.markAllAsTouched();
+        // this.categoryForm.markAllAsTouched();
       }
     })
   }

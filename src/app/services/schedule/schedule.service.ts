@@ -16,12 +16,13 @@ export interface Schedule {
   providedIn: 'root'
 })
 export class ScheduleService {
-  private baseUrl = 'http://localhost:8080/api/schedules'; // Base URL for the API
+  private baseUrl = 'http://localhost:9090/api/schedules'; // Base URL for the API
 
   constructor(private http: HttpClient) {}
 
   createSchedule(schedule: any, course_id: number): Observable<any> {
     const params = new HttpParams().set('course_id', course_id.toString());
+    console.log(params.toString(),schedule);
     return this.http.post<any>(`${this.baseUrl}/create`, schedule, { params }).pipe(
       catchError(this.handleError)
     );
@@ -77,7 +78,8 @@ export class ScheduleService {
   }
 
   getScheduleByStartDateTime(startDateTime: string): Observable<any[]> {
-    const cleanStartDateTime = startDateTime.split('+')[0];
+    const cleanStartDateTime = startDateTime
+    // .split('+')[0];
     console.log(cleanStartDateTime);
     const params = new HttpParams()
       .set('startDateTime', cleanStartDateTime)
@@ -89,7 +91,8 @@ export class ScheduleService {
 
   getAvailableTrainers(startDateTime: string, duration: number): Observable<any[]> {
     // Ensure the date-time string is in ISO_LOCAL_DATE_TIME format (without timezone)
-    const cleanStartDateTime = startDateTime.split('+')[0];
+    const cleanStartDateTime = startDateTime
+                              // .split('+')[0];
     console.log(cleanStartDateTime);
     const params = new HttpParams()
       .set('startDateTime', cleanStartDateTime)

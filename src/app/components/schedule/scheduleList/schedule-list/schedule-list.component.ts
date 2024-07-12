@@ -27,6 +27,7 @@ export class ScheduleListComponent implements OnInit, AfterViewInit, OnDestroy {
      contentHeight: '90vh',
      expandRows: true,
     initialView: 'timeGridWeek',
+    initialDate: new Date(),
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
@@ -139,11 +140,12 @@ export class ScheduleListComponent implements OnInit, AfterViewInit, OnDestroy {
             } else {
                 // Check for overlapping schedules
                 if (this.isTimeSlotAvailable(start, end)) {
+                  console.log(startStr, endStr);
                     const dialogRef = this.dialog.open(AddScheduleModalComponent, {
                         width: '600px',
-                        data: { courseId: this.id, startDateTime: startStr, endDateTime: endStr, duration: durationHours }
+                        data: { courseId: this.id, startDateTime: startStr, endDateTime: endStr, duration: durationHours },
+                        
                     });
-
                     dialogRef.afterClosed().subscribe(result => {
                         if (result) {
                             this.schedules.push(result);

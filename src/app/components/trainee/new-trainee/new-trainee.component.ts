@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { DialogServiceService } from 'src/app/services/dialog/dialog-service.service';
 import { TraineeService } from 'src/app/services/trainee/trainee.service';
 
@@ -22,7 +23,8 @@ export class NewTraineeComponent implements OnInit {
     private traineeService: TraineeService,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private dialogService: DialogServiceService
+    private dialogService: DialogServiceService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -35,7 +37,6 @@ export class NewTraineeComponent implements OnInit {
       address: [null],
       city: [null],
     });
-    this.setDefaultFile();
   }
 
   setDefaultFile() {
@@ -55,6 +56,13 @@ export class NewTraineeComponent implements OnInit {
 
   previewImage() {
     if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+      };
+      reader.readAsDataURL(this.selectedFile);
+    }else{
+      this.setDefaultFile();
       const reader = new FileReader();
       reader.onload = () => {
         this.imagePreview = reader.result as string;
@@ -86,28 +94,32 @@ export class NewTraineeComponent implements OnInit {
           const address = this.form.get('address')?.value;
           const city = this.form.get('city')?.value;
 
-          this.traineeService.createTrainee(
-            this.selectedFile,
-            firstName,
-            lastName,
-            email,
-            profession,
-            phoneNumber,
-            address,
-            city
-          ).subscribe(
-            (res) => {
-              console.log(res);
-              this.snackBar.open('Trainee Created Successfully', 'close', { duration: 3000 });
-              this.dialogRef.close(true); // Optionally pass data to the parent component
-            },
-            (error) => {
-              console.error('Error adding trainee:', error);
-              this.snackBar.open('Failed to add trainee. Please try again.', 'Error', { duration: 5000 });
+          this.authService.checkEmail(email).subscribe((emailExist)=>{
+            if(!emailExist){
+              this.traineeService.createTrainee(
+                this.selectedFile,
+                firstName,
+                lastName,
+                email,
+                profession,
+                phoneNumber,
+                address,
+                city
+              ).subscribe(() => {
+                this.snackBar.open('Trainee added successfully', 'Close', {
+                  duration: 2000,
+                });
+                this.dialogRef.close();
+              });
+            }else{
+              this.snackBar.open('Email already exist', 'Close', {
+                duration: 2000,
+              });
             }
-          );
+          })
+          
         } else {
-          this.form.markAllAsTouched();
+          
         }
       }
     });

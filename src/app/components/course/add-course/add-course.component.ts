@@ -79,15 +79,17 @@ export class AddCourseComponent implements OnInit {
 
     confirmationDialog.subscribe(result => {
       if (result) {
-        if (this.form.valid && this.selectedFile) {
+        if (this.form.valid  ) {
           const { name, description, duration, startDateTime, categoryId } = this.form.value;
 
-          this.courseService.createCourse(this.selectedFile, name, description, duration, startDateTime, categoryId).subscribe(
+          this.courseService.createCourse(
+            this.selectedFile, name, description, duration, startDateTime, categoryId ).subscribe(
             (res) => {
               this.snackBar.open('Course Created Successfully', 'close', { duration: 3000 });
               this.form.reset();
               this.selectedFile = null;
               this.imagePreview = null;
+              this.dialogRef.close();
             },
             (error) => {
               console.error('Error adding course:', error);

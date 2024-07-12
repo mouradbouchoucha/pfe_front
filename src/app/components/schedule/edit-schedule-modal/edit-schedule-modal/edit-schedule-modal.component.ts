@@ -28,12 +28,13 @@ export class EditScheduleModalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log("data",this.data.id);
     this.scheduleForm = this.fb.group({
-      subject: ['', Validators.required],
-      trainer: ['', Validators.required],
-      startDateTime: ['', Validators.required],
-      duration: ['', Validators.required],
-      location: ['', Validators.required]
+      subject: [this.data.subject, Validators.required],
+      trainer: [this.data.trainer, Validators.required],
+      startDateTime: [this.data.start, Validators.required],
+      duration: [this.data.duration, Validators.required],
+      location: [this.data.location, Validators.required]
     });
 
     // Load subjects and trainers for the dropdowns
@@ -59,7 +60,7 @@ export class EditScheduleModalComponent implements OnInit {
   }
 
   private loadSchedule(): void {
-    this.scheduleService.getScheduleById(this.data.id).subscribe(
+    this.scheduleService.getScheduleById((this.data.id) as number).subscribe(
       schedule => {
         const formattedStartDateTime = this.datePipe.transform(schedule.startDateTime, 'dd/MM/yyyy HH:mm');
         this.scheduleForm.patchValue({

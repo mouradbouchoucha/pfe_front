@@ -35,12 +35,18 @@ export class EditCourseComponent {
 
   ngOnInit(): void {
     const courseId = this.route.snapshot.paramMap.get('id');
+    console.log(courseId);
     if (courseId) {
       this.courseService.getCourseById(+courseId).subscribe(course => {
         this.course = course;
-        this.courseForm.patchValue({
-          ...this.course,
-          startDateTime: this.course.startDateTime ? new Date(this.course.startDateTime).toISOString().substring(0, 16) : ''
+        console.log(this.course);
+        this.courseForm = this.fb.group({
+          name: [this.course.name, Validators.required],
+          description: [this.course.description, Validators.required],
+          duration: [this.course.duration, Validators.required],
+          startDateTime: [this.course.startDateTime, Validators.required],
+          category_id: [this.course.category_id, Validators.required],
+          imageFile: [this.course.imageFile]
         });
       });
     }

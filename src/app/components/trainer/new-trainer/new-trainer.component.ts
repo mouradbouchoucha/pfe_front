@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { CommonMethodService } from 'src/app/services/common/common-method.service';
 import { DialogServiceService } from 'src/app/services/dialog/dialog-service.service';
 import { TrainerService } from 'src/app/services/trainer/trainer.service';
@@ -24,21 +25,22 @@ export class NewTrainerComponent implements OnInit {
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private dialogService: DialogServiceService,
-    public common: CommonMethodService
+    public common: CommonMethodService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      firstName: [null, [Validators.required]],
-      lastName: [null, [Validators.required]],
+      firstName: [null, [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
+      lastName: [null, [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
       phoneNumber: [null, [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
       email: [null, [Validators.required, Validators.email]],
-      institutionName: [null, [Validators.required]],
-      departementName: [null, [Validators.required]],
-      yearsOfExperience: [null, [Validators.required]],
-      degree: [null],
+      institutionName: [null, [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
+      departmentName: [null, [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
+      yearsOfExperience: [null, [Validators.required, Validators.min(0), Validators.pattern(/^\d+$/)]],
+      degree: [null, Validators.pattern(/^[a-zA-Z\s,]+$/)],
       address: [null],
-      city: [null],
+      city: [null, Validators.pattern(/^[a-zA-Z\s]+$/)]
     });
     this.setDefaultFile();
   }
@@ -87,36 +89,46 @@ export class NewTrainerComponent implements OnInit {
           const lastName = this.form.get('lastName')?.value;
           const email = this.form.get('email')?.value;
           const institutionName = this.form.get('institutionName')?.value;
-          const departementName = this.form.get('departementName')?.value;
+          const departmentName = this.form.get('departmentName')?.value;
           const yearsOfExperience = this.form.get('yearsOfExperience')?.value;
           const degree = this.form.get('degree')?.value;
           const phoneNumber = this.form.get('phoneNumber')?.value;
           const address = this.form.get('address')?.value;
           const city = this.form.get('city')?.value;
-
-          this.trainerService.createTrainer(
-            this.selectedFile,
-            firstName,
-            lastName,
-            email,
-            institutionName,
-            departementName,
-            yearsOfExperience,
-            degree,
-            phoneNumber,
-            address,
-            city
-          ).subscribe(
-            (res) => {
-              console.log(res);
-              this.snackBar.open('Trainer Created Successfully', 'close', { duration: 3000 });
-              this.dialogRef.close(true); // Optionally pass data to the parent component
-            },
-            (error) => {
-              console.error('Error adding trainer:', error);
-              this.snackBar.open('Failed to add trainer. Please try again.', 'Error', { duration: 5000 });
+          console.log(email);
+          // const exist = this.authService.checkEmail(email).subscribe((res)=>{console.log(res);res})
+          // console.log(exist);
+          this.authService.checkEmail(email).subscribe((emaiExist)=>{
+            console.log(emaiExist);  // Return true if email exists, false otherwise.
+            if(emaiExist){
+              this.form.get('email')?.setErrors({ emailExists: true });
+              this.snackBar.open('Email already exists!', 'Close', { duration: 2000 });
+            }else{
+              this.trainerService.createTrainer(
+                this.selectedFile,
+                firstName,
+                lastName,
+                email,
+                institutionName,
+                departmentName,
+                yearsOfExperience,
+                degree,
+                phoneNumber,
+                address,
+                city
+              ).subscribe(
+                (res) => {
+                  console.log(res);
+                  this.snackBar.open('Trainer Created Successfully', 'close', { duration: 3000 });
+                  this.dialogRef.close(true); 
+                },
+                (error) => {
+                  console.error('Error adding trainer:', error);
+                  this.snackBar.open('Failed to add trainer. Please try again.', 'Error', { duration: 5000 });
+                }
+              );
             }
-          );
+          })
         } else {
           this.form.markAllAsTouched();
         }

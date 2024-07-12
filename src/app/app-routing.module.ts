@@ -13,12 +13,13 @@ import { AddCourseComponent } from './components/course/add-course/add-course.co
 import { EditCourseComponent } from './components/course/edit-course/edit-course.component';
 import { AuthenticationGuard } from './guards/authentication.guard';
 import { ScheduleListComponent } from './components/schedule/scheduleList/schedule-list/schedule-list.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [
   // { path: 'verify', component: VerifyComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  //{ path: '', redirectTo: 'login', pathMatch: 'full' },
+  // { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-
   {
     path: 'admin',
     component: AdminDashboardComponent,
@@ -32,7 +33,8 @@ const routes: Routes = [
       { path: 'courses/add', component: AddCourseComponent },
       { path: 'courses/edit/:id', component: EditCourseComponent },
       { path: 'courses/details/:id', component: ViewCourseComponent },
-      { path: 'courses/details/:courseId/schedule/:scheduleId', component: ScheduleListComponent }
+      { path: 'courses/details/:courseId/schedule/:scheduleId', component: ScheduleListComponent },
+
     ]
   },
   {
@@ -54,7 +56,7 @@ const routes: Routes = [
       { path: 'profile', component: UserProfileComponent }
     ]
   },
-  { path: '**', redirectTo: '/login' }  // Wildcard route for handling 404 errors
+   { path: '**', component:NotFoundComponent }  // Wildcard route for handling 404 errors
 ];
 
 @NgModule({

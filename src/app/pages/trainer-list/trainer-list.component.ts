@@ -131,6 +131,7 @@ export class TrainerListComponent implements OnInit {
       if (confirmed) {
         this.trainerService.deleteTrainer(id)
           .subscribe(() => {
+            this.loadTrainers();
             // Filter out the deleted category from the list
             this.snackBar.open(`Trainer deleted successfully`, 'Close', {
               duration: 3000,

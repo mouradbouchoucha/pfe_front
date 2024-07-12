@@ -36,6 +36,7 @@ import { AddScheduleModalComponent } from './components/schedule/add-schedule-mo
 import { FullCalendarModule } from '@fullcalendar/angular';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { EditScheduleModalComponent } from './components/schedule/edit-schedule-modal/edit-schedule-modal/edit-schedule-modal.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 
 const plugins = [timeGridPlugin];
@@ -70,6 +71,7 @@ const plugins = [timeGridPlugin];
     ScheduleListComponent,
     AddScheduleModalComponent,
     EditScheduleModalComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

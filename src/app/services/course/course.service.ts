@@ -6,12 +6,12 @@ import { Observable, catchError, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class CourseService {
-  private baseUrl = 'http://localhost:8080/api/courses';
+  private baseUrl = 'http://localhost:9090/api/courses';
 
   constructor(private http: HttpClient) { }
 
   getAllCourses(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}`)
+    return this.http.get<any[]>(`${this.baseUrl}/all_SortedByCreatedAt`)
       .pipe(catchError(this.handleError));
   }
 
@@ -26,20 +26,22 @@ export class CourseService {
   }
 
   createCourse(
-    imageFile: File,
+    imageFile: File | null,
     name: string,
     description: string,
     duration: number,
     startDateTime: Date,
-    categoryId: number
+    category_id: number,
   ): Observable<any> {
     const formData = new FormData();
-    formData.append('imageFile', imageFile);
+    if (imageFile) {
+      formData.append('imageFile', imageFile);
+    }
     formData.append('name', name);
     formData.append('description', description);
     formData.append('duration', duration.toString());
     formData.append('startDateTime', startDateTime.toISOString());
-    formData.append('category_id', categoryId.toString());
+    formData.append('category_id', category_id.toString());
 
     return this.http.post<any>(this.baseUrl, formData)
       .pipe(catchError(this.handleError));

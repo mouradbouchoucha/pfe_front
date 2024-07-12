@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { DialogServiceService } from 'src/app/services/dialog/dialog-service.service';
 import { TrainerService } from 'src/app/services/trainer/trainer.service';
 
@@ -13,8 +14,7 @@ import { TrainerService } from 'src/app/services/trainer/trainer.service';
 export class EditTrainerComponent implements OnInit {
   form!: FormGroup;
   selectedFile!: File | null;
-  imagePreview!: string | ArrayBuffer | null;
-
+  imagePreview: string | ArrayBuffer | null = 'assets/haracter default avatar.png';
 
   constructor(
     public dialogRef: MatDialogRef<EditTrainerComponent>,
@@ -22,32 +22,32 @@ export class EditTrainerComponent implements OnInit {
     private trainerService: TrainerService,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
-    private dialogService: DialogServiceService
-  ) {
+    private dialogService: DialogServiceService,
+    private authService: AuthService
+  ) {}
 
-  }
   ngOnInit(): void {
-    console.log(this.trainerData);
     this.form = this.fb.group({
-      firstName: [this.trainerData.element.firstName, [Validators.required]],
-      lastName: [this.trainerData.element.lastName, [Validators.required]],
-      phoneNumber: [this.trainerData.element.phoneNumber, [Validators.required,],],
-      institutionName: [this.trainerData.element.institutionName, [Validators.required,],],
-      departmentName: [this.trainerData.departmentName, [Validators.required]],
-      yearsOfExperience: [this.trainerData.yearsOfExperience, [Validators.required]],
-      degree: [this.trainerData.degree, [Validators.required]],
-      email: [this.trainerData.element.email, [Validators.required,]],
-      address: [this.trainerData.element.address],
-      city: [this.trainerData.element.city],
+      firstName: [this.trainerData.element.firstName, [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern(/^[a-zA-Z\s]+$/)]],
+      lastName: [this.trainerData.element.lastName, [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern(/^[a-zA-Z\s]+$/)]],
+      phoneNumber: [this.trainerData.element.phoneNumber, [Validators.required,Validators.pattern(/^[0-9]{10}$/)]],
+      institutionName: [this.trainerData.element.institutionName, [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
+      departmentName: [this.trainerData.element.departmentName, [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
+      yearsOfExperience: [this.trainerData.element.yearsOfExperience, [Validators.required,Validators.pattern(/^[0-9]{2}$/)]],
+      degree: [this.trainerData.element.degree, [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
+      email: [this.trainerData.element.email, [Validators.required, Validators.email]],
+      address: [this.trainerData.element.address,[Validators.pattern(/^[a-zA-Z\s]+$/)]],
+      city: [this.trainerData.element.city,[Validators.pattern(/^[a-zA-Z\s]+$/)]]
 
+      
     });
   }
 
   onFileSelected(event: any): void {
     this.selectedFile = event.target.files[0];
-    console.log(this.selectedFile);
     this.previewImage();
   }
+
   previewImage() {
     if (this.selectedFile) {
       const reader = new FileReader();
@@ -61,6 +61,7 @@ export class EditTrainerComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
   updateTrainer() {
     const confirmationDialog = this.dialogService.confirmDialog({
       title: 'Update Trainer',
@@ -71,68 +72,28 @@ export class EditTrainerComponent implements OnInit {
 
     confirmationDialog.subscribe(res => {
       if (res) {
-        // console.log('hhhhhhhhhhhhhhhhhh');
-
         if (this.form.valid) {
-          const firstName = this.form.get('firstName')?.value;
-          const lastName = this.form.get('lastName')?.value;
-          const email = this.form.get('email')?.value;
-          const institutionName = this.form.get('institutionName')?.value;
-          const departmentName = this.form.get('departmentName')?.value;
-          const yearsOfExperience = this.form.get('yearsOfExperience')?.value;
-          const degree = this.form.get('degree')?.value;
-          const phoneNumber = this.form.get('phoneNumber')?.value;
-          const address = this.form.get('address')?.value;
-          const city = this.form.get('city')?.value;
-          console.log(this.form);
-          console.log(this.selectedFile);
-          this.trainerService.updateTrainer(
-            this.trainerData.element.id,
-             this.selectedFile,
-              firstName, 
-              lastName,
-               email, 
-               institutionName,
-               departmentName,
-               yearsOfExperience,
-               degree,
-               phoneNumber, 
-               address, 
-               city).subscribe(
-            (res) => {
-              // console.log(res);
-              this.snackBar.open('Trainer Created Successfully', 'close', { duration: 3000 });
-
-              this.form = this.fb.group({
-                firstName: ['', Validators.required],
-                lastName: ['', Validators.required],
-                email: ['', Validators.required],
-                institutionName: ['',Validators.required],
-                departmentName: ['', Validators.required],
-                yearsOfExperience: ['', Validators.required],
-                degree: ['', Validators.required],
-                phoneNumber: ['', Validators.required],
-                address: [''],
-                city: [''],
-              });
-              this.form.markAsUntouched()
-              this.selectedFile = null;
-            },
-            (error) => {
-              console.error('Error updating trainer:', error);
-              this.snackBar.open('Failed to update trainer. Please try again.', 'Error', { duration: 5000 });
+          const { firstName, lastName, phoneNumber, institutionName,departmentName,yearsOfExperience,degree,email, address, city } = this.form.value;
+          console.log('Updating Trainer:', { firstName, lastName, email, institutionName,degree,yearsOfExperience, phoneNumber, address, city });
+          
+          this.authService.checkEmail(email).subscribe((existsEmail)=>{
+            if(existsEmail){
+              this.trainerService.updateTrainer(this.trainerData.element.id, this.selectedFile, firstName, lastName, phoneNumber, institutionName,departmentName,yearsOfExperience,degree,email, address, city).subscribe(
+                () => {
+                  this.snackBar.open('Trainer Updated Successfully', 'close', { duration: 3000 });
+                  this.dialogRef.close(true);
+                },
+                (error) => {
+                  console.error('Error updating trainer:', error);
+                  this.snackBar.open('Failed to update trainer. Please try again.', 'Error', { duration: 5000 });
+                }
+              );
             }
-          )
+          })
         } else {
-          for (const i in this.form.controls) {
-            this.form.controls[i].markAsDirty();
-            this.form.controls[i].updateValueAndValidity();
-          }
+          this.form.markAllAsTouched();
         }
-      } else {
-        this.form.markAllAsTouched();
       }
     });
   }
-
 }

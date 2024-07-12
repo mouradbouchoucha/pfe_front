@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SubjectService {
-  private baseUrl = 'http://localhost:8080/api/subjects';
+  private baseUrl = 'http://localhost:9090/api/subjects';
 
   constructor(private http: HttpClient) { }
 

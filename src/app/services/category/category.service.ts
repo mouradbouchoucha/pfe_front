@@ -7,11 +7,11 @@ import { Category } from 'src/app/interfaces/category';
   providedIn: 'root'
 })
 export class CategoryService {
-  baseUrl = 'http://localhost:8080/api/categories';
+  baseUrl = 'http://localhost:9090/api/categories';
   constructor(private http: HttpClient) { }
 
   getAllCategories(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/all`);
+    return this.http.get<any[]>(`${this.baseUrl}/all_SortedByCreatedAt`);
   }
 
   getAllCategoriesByName(name:string): Observable<any[]> {
@@ -21,10 +21,12 @@ export class CategoryService {
     return this.http.get<Category>(`${this.baseUrl}/${id}`);
   }
 
-  createCategory(imageFile: File,name: string, description: string, ): Observable<any> {
+  createCategory(imageFile: File | null,name: string, description: string, ): Observable<any> {
     const formData = new FormData();
-    
-    formData.append('imageFile', imageFile);
+    if(imageFile){
+      formData.append('imageFile', imageFile);
+
+    }
     formData.append('name', name);
     formData.append('description', description);
     return this.http.post<any>(`${this.baseUrl}/create`, formData)

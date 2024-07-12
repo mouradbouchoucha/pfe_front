@@ -7,7 +7,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 })
 export class TraineeService {
 
-  baseUrl = 'http://localhost:8080/api/trainees';
+  baseUrl = 'http://localhost:9090/api/trainees';
   constructor(private http: HttpClient) { }
 
   getAllTrainees(): Observable<any[]> {
@@ -21,7 +21,8 @@ export class TraineeService {
     return this.http.get<any>(`${this.baseUrl}/${id}`);
   }
 
-  createTrainee(imageFile: File,
+  createTrainee(
+                  imageFile: File | null,
                   firstName: string,
                   lastName: string,
                   email:string,
@@ -32,7 +33,9 @@ export class TraineeService {
                   ): Observable<any> {
     const formData = new FormData();
     
-    formData.append('profilePictureFile', imageFile);
+    if (imageFile) {
+      formData.append('profilePictureFile', imageFile);
+    }
     formData.append('firstName', firstName);
     formData.append('lastName', lastName);
     formData.append('email', email);

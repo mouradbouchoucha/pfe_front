@@ -7,6 +7,7 @@ import { JwtAuthenticationResponse } from 'src/app/interfaces/jwtAuthenticationR
 import { SignInRequest } from 'src/app/interfaces/sign-in-request';
 import { SignUpRequest } from 'src/app/interfaces/sign-up-request';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +18,7 @@ accessToken!:string;
 username!:string;
 roles:any;
 
-  baseUrl = 'http://localhost:8080/api/auth';
+  baseUrl = 'http://localhost:9090/api/auth';
   constructor(private http: HttpClient,private router: Router) { }
 
   signIn(signInRequest: SignInRequest):Observable<JwtAuthenticationResponse> { 
@@ -62,6 +63,9 @@ loadProfile(data: JwtAuthenticationResponse) {
   this.username = decodedToken.sub;
   this.roles = decodedToken.roles || []; // Handle potential missing roles field
   return; // No need to return anything
+}
+checkEmail(email: string): Observable<boolean> {
+  return this.http.get<boolean>(`${this.baseUrl}/verify_email?email=${email}`);
 }
 
 verifyEmail(token: string) {

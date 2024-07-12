@@ -6,7 +6,6 @@ import { CategoryService } from 'src/app/services/category/category.service';
 import { EditCategoryMadalComponent } from '../edit-category-madal/edit-category-madal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogServiceService } from 'src/app/services/dialog/dialog-service.service';
-import { ConfirmDialogData } from 'src/app/interfaces/confirm-dialog-data';
 
 @Component({
   selector: 'app-category-card',
