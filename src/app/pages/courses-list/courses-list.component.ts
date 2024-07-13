@@ -85,6 +85,8 @@ submitForm() {
         // Optionally, show an error message to the user
       }
     );
+  }else{
+    this.loadCourses();
   }
 }
 

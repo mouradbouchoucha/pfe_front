@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { JwtAuthenticationResponse } from 'src/app/interfaces/jwtAuthenticationResponse';
 import { SignInRequest } from 'src/app/interfaces/sign-in-request';
 import { SignUpRequest } from 'src/app/interfaces/sign-up-request';
@@ -68,7 +68,20 @@ checkEmail(email: string): Observable<boolean> {
   return this.http.get<boolean>(`${this.baseUrl}/verify_email?email=${email}`);
 }
 
-verifyEmail(token: string) {
-  return this.http.get(`${this.baseUrl}/auth/verify?token=${token}`);
+verifyEmail(token: string): Observable<any> {
+  return this.http.get(`${this.baseUrl}/verify`, { params: { token } })
+    .pipe(
+      catchError(this.handleError)
+    );
+}
+
+private handleError(error: HttpErrorResponse) {
+  if (error.status === 400) {
+    return throwError('Invalid or expired token');
+  } else if (error.status === 500) {
+    return throwError('Server error, please try again later');
+  } else {
+    return throwError('Unknown error occurred');
+  }
 }
 }

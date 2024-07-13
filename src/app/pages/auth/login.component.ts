@@ -27,16 +27,16 @@ export class LoginComponent {
       email: this.email,
       password: this.password
     };
-    console.log(signInRequest);
+    // console.log(signInRequest);
     this.authService.signIn(signInRequest).subscribe(
       data => {
-        console.log(data);
+        // console.log(data);
         localStorage.setItem('token', JSON.stringify(data));
         this.authService.loadProfile(data);
-        console.log(this.authService.loadProfile(data));
-        console.log(this.authService.roles);
+        // console.log(this.authService.loadProfile(data));
+        // console.log(this.authService.roles);
         if (this.authService.roles.includes('ADMIN')) {
-          console.log('Admin');
+          // console.log('Admin');
           this.router.navigateByUrl('/admin');
 
         } else if (this.authService.roles.includes('TRAINER')) {

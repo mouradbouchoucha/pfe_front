@@ -80,5 +80,8 @@ submitForm() {
           }
       }
     )
-}}
+}else{
+  this.loadCategories();
+}
+}
 }

@@ -14,11 +14,13 @@ import { EditCourseComponent } from './components/course/edit-course/edit-course
 import { AuthenticationGuard } from './guards/authentication.guard';
 import { ScheduleListComponent } from './components/schedule/scheduleList/schedule-list/schedule-list.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { VerifyComponent } from './pages/auth/verify/verify/verify.component';
 
 const routes: Routes = [
   // { path: 'verify', component: VerifyComponent },
   //{ path: '', redirectTo: 'login', pathMatch: 'full' },
   // { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'verify', component: VerifyComponent },
   { path: 'login', component: LoginComponent },
   {
     path: 'admin',

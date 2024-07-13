@@ -97,6 +97,8 @@ export class TraineeListComponent {
             }).subscribe()
           }
         })
+    }else{
+      this.loadTrainees()
     }
   }
 
