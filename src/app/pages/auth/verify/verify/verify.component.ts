@@ -14,15 +14,18 @@ export class VerifyComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       const token = params['token'];
       console.log(token);
-      if (token) {
+      console.log(typeof(token));
+      if (token !== 'undefined') {
         this.authService.verifyEmail(token).subscribe(
           response => {
-            alert('Email verified successfully!');
+            console.log(response);
+            //alert('Email verified successfully!');
             this.router.navigate(['/login']);
           },
           error => {
-            console.error('Verification error:', error); // Log the full error
-            alert('Verification error: ' + error); // Show the error message in an alert
+            //console.error('Verification error:', error); // Log the full error
+            //alert('Verification error: ' + error); // Show the error message in an alert
+            this.router.navigate(['/login']);
           }
         );
       }
