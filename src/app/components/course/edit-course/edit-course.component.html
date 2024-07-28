@@ -24,13 +24,17 @@
         <input matInput formControlName="description" type="textarea" placeholder="Description">
       </mat-form-field>
 
+
       <mat-form-field class="full-width">
         <mat-label>Duration (hours)</mat-label>
         <input matInput type="number" formControlName="duration">
       </mat-form-field>
       <mat-form-field class="full-width">
-        <mat-label>Start Date and Time</mat-label>
-        <input matInput type="datetime-local" formControlName="startDateTime">
+        <mat-label>Start Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="startDateTime" placeholder="Choose a date" [min]="minDate">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="courseForm.get('startDateTime')?.invalid && courseForm.get('startDateTime')?.touched">Start date is required</mat-error>
       </mat-form-field>
 
       <mat-form-field class="full-width">

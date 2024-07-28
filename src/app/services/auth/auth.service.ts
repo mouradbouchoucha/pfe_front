@@ -2,10 +2,11 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { JwtAuthenticationResponse } from 'src/app/interfaces/jwtAuthenticationResponse';
 import { SignInRequest } from 'src/app/interfaces/sign-in-request';
 import { SignUpRequest } from 'src/app/interfaces/sign-up-request';
+import { catchError } from 'rxjs/operators';
 
 
 @Injectable({
@@ -75,13 +76,18 @@ verifyEmail(token: string): Observable<any> {
     );
 }
 
-private handleError(error: HttpErrorResponse) {
+private handleError(error: HttpErrorResponse): Observable<never> {
+  let errorMessage = 'An unknown error occurred';
   if (error.status === 400) {
-    return throwError('Invalid or expired token');
+    if (error.error === 'Invalid token') {
+      errorMessage = 'The verification token is invalid. Please check the token and try again.';
+    } else if (error.error === 'Token expired') {
+      errorMessage = 'The verification token has expired. Please request a new verification email.';
+    }
   } else if (error.status === 500) {
-    return throwError('Server error, please try again later');
-  } else {
-    return throwError('Unknown error occurred');
+    errorMessage = 'Server error, please try again later.';
   }
+  return throwError(errorMessage);
 }
+
 }

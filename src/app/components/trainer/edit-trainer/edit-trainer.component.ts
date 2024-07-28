@@ -30,7 +30,7 @@ export class EditTrainerComponent implements OnInit {
     this.form = this.fb.group({
       firstName: [this.trainerData.element.firstName, [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern(/^[a-zA-Z\s]+$/)]],
       lastName: [this.trainerData.element.lastName, [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern(/^[a-zA-Z\s]+$/)]],
-      phoneNumber: [this.trainerData.element.phoneNumber, [Validators.required,Validators.pattern(/^[0-9]{10}$/)]],
+      phoneNumber: [this.trainerData.element.phoneNumber, [Validators.required,Validators.pattern(/^[0-9]{8}$/)]],
       institutionName: [this.trainerData.element.institutionName, [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
       departmentName: [this.trainerData.element.departmentName, [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
       yearsOfExperience: [this.trainerData.element.yearsOfExperience, [Validators.required,Validators.pattern(/^[0-9]{2}$/)]],

@@ -36,7 +36,7 @@
   
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Start Date</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="startDateTime" placeholder="Choose a date">
+        <input matInput [matDatepicker]="picker" formControlName="startDateTime" placeholder="Choose a date" [min]="minDate">
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <mat-error *ngIf="form.get('startDateTime')?.invalid && form.get('startDateTime')?.touched">Start date is required</mat-error>

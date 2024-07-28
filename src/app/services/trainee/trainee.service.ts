@@ -84,4 +84,9 @@ export class TraineeService {
   deleteTrainee(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
   }
+
+  enrollInCourse(traineeId: number, courseId: number): Observable<any> {
+    const url = `${this.baseUrl}/${traineeId}/enroll/${courseId}`;
+    return this.http.post(url, {});
+  }
 }

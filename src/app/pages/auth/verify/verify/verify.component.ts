@@ -13,19 +13,23 @@ export class VerifyComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       const token = params['token'];
-      console.log(token);
-      console.log(typeof(token));
-      if (token !== 'undefined') {
+      if (token) {
         this.authService.verifyEmail(token).subscribe(
           response => {
-            console.log(response);
-            //alert('Email verified successfully!');
-            this.router.navigate(['/login']);
+            console.log("Verification successful:", response);
+            // Delay before navigating to /login
+            setTimeout(() => {
+              this.router.navigate(['/login']);
+            }, 7000); // 7000 milliseconds = 7 seconds
           },
           error => {
-            //console.error('Verification error:', error); // Log the full error
-            //alert('Verification error: ' + error); // Show the error message in an alert
-            this.router.navigate(['/login']);
+            console.error('Verification error:', error); // Log the full error
+            // Optionally, display error message to the user
+            //alert(error);
+            // Delay before navigating to /login
+            setTimeout(() => {
+              this.router.navigate(['/login']);
+            }, 7000); // 7000 milliseconds = 7 seconds
           }
         );
       }

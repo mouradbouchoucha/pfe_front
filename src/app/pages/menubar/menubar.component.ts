@@ -11,7 +11,8 @@ export class MenubarComponent {
    token = localStorage.getItem('token');
    user:any = JSON.parse(localStorage.getItem('token')!);
    userData:any = jwtDecode(this.user['accessToken']);
-  constructor(private authService : AuthService){console.log(this.userData);}
+   role:any = this.userData['roles'];
+  constructor(private authService : AuthService){console.log(this.role);}
   logout():void{
     this.authService.logout();
     this.authService.isAuthenticated = false;

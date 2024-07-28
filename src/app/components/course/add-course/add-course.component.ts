@@ -16,7 +16,7 @@ export class AddCourseComponent implements OnInit {
   selectedFile!: File | null;
   imagePreview!: string | ArrayBuffer | null;
   categories!: any[];
-
+  minDate!:Date;
   constructor(
     public dialogRef: MatDialogRef<AddCourseComponent>,
     @Inject(MAT_DIALOG_DATA) public courseData: any,
@@ -37,6 +37,8 @@ export class AddCourseComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCategories();
+    this.minDate = new Date();
+
   }
 
   onFileSelected(event: any): void {

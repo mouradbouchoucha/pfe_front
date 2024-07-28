@@ -67,24 +67,26 @@ export class AddScheduleModalComponent implements OnInit {
 
   onSubmit(): void {
     if (this.scheduleForm.valid) {
-      const scheduleData = {
-        ...this.scheduleForm.value,
-        startDateTime: this.scheduleForm.value.startDateTime.toISOString()
-      };
-
-      console.log(scheduleData);
-      this.scheduleService.createSchedule(scheduleData, this.data.courseId).subscribe(
-        response => {
-          this.dialogRef.close(response);
-        },
-        error => {
-          if (error.status === 409) {
-            console.log('The selected time slot overlaps with an existing schedule. Please choose a different time.');
-          } else {
-            console.error('Error creating schedule:', error);
+      if (this.data.startDateTime ){
+        const scheduleData = {
+          ...this.scheduleForm.value,
+          startDateTime: this.scheduleForm.value.startDateTime.toISOString()
+        };
+  
+        console.log(scheduleData);
+        this.scheduleService.createSchedule(scheduleData, this.data.courseId).subscribe(
+          response => {
+            this.dialogRef.close(response);
+          },
+          error => {
+            if (error.status === 409) {
+              console.log('The selected time slot overlaps with an existing schedule. Please choose a different time.');
+            } else {
+              console.error('Error creating schedule:', error);
+            }
           }
-        }
-      );
+        );
+      }
     }
   }
 

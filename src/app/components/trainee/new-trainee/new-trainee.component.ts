@@ -29,13 +29,13 @@ export class NewTraineeComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      firstName: [null, [Validators.required]],
-      lastName: [null, [Validators.required]],
-      phoneNumber: [null, [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
-      email: [null, [Validators.required, Validators.email]],
+      firstName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern(/^[a-zA-Z\s]+$/)]],
+      lastName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern(/^[a-zA-Z\s]+$/)]],
+      phoneNumber: [null, [Validators.required,Validators.pattern(/^[0-9]{8}$/)]],
+      email: ['', [Validators.required, Validators.email]],
       profession: [null, [Validators.required]],
-      address: [null],
-      city: [null],
+      address: ['', [Validators.pattern(/^[a-zA-Z\s]+$/)]],
+      city: ['', [Validators.pattern(/^[a-zA-Z\s]+$/)]]
     });
   }
 
@@ -44,7 +44,7 @@ export class NewTraineeComponent implements OnInit {
     fetch('assets/haracter default avatar.png')
       .then(res => res.blob())
       .then(blob => {
-        this.selectedFile = new File([blob], 'character_default_avatar.png', { type: 'image/png' });
+        this.selectedFile = new File([blob], 'haracter default avatar.png', { type: 'image/png' });
         this.previewImage();
       });
   }

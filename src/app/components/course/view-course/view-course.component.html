@@ -7,7 +7,7 @@
     <img mat-card-image  [src]="getImageUrl(course.image)" alt="{{ course.name }}">
     <mat-card-content>
       <p>{{ course.description }}</p>
-      <p><strong>Start Date:</strong> {{ course.startDateTime }}</p>
+      <p><strong>Start Date:</strong> {{ course.startDateTime | date:"dd - MM - Y" }}</p>
     </mat-card-content>
   </mat-card>
   <mat-card-footer>

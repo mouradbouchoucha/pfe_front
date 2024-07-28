@@ -71,7 +71,7 @@ export class LoginComponent {
           data => {
             console.log(data);
             this.authService.loadProfile(data);
-            this.router.navigateByUrl('');
+            this.router.navigateByUrl('/login');
           }
         );
       }

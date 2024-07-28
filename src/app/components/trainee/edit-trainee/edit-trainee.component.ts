@@ -26,17 +26,17 @@ export class EditTraineeComponent implements OnInit {
     private dialogService: DialogServiceService,
     private authService: AuthService
   ) {}
-
+ 
   ngOnInit(): void {
     console.log('Trainee Data:', this.traineeData);
     this.form = this.fb.group({
-      firstName: [this.traineeData.element.firstName, [Validators.required]],
-      lastName: [this.traineeData.element.lastName, [Validators.required]],
-      phoneNumber: [this.traineeData.element.phoneNumber, [Validators.required]],
+      firstName: [this.traineeData.element.firstName, [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern(/^[a-zA-Z\s]+$/)]],
+      lastName: [this.traineeData.element.lastName, [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern(/^[a-zA-Z\s]+$/)]],
+      phoneNumber: [this.traineeData.element.phoneNumber, [Validators.required,Validators.pattern(/^[0-9]{8}$/)]],
       email: [this.traineeData.element.email, [Validators.required, Validators.email]],
       profession: [this.traineeData.element.profession, [Validators.required]],
-      address: [this.traineeData.element.address],
-      city: [this.traineeData.element.city]
+      address: [this.traineeData.element.address, [Validators.pattern(/^[a-zA-Z\s]+$/)]],
+      city: [this.traineeData.element.city, [Validators.pattern(/^[a-zA-Z\s]+$/)]]
     });
   }
 
@@ -44,7 +44,7 @@ export class EditTraineeComponent implements OnInit {
     fetch('assets/character_default_avatar.png')
       .then(res => res.blob())
       .then(blob => {
-        this.selectedFile = new File([blob], 'character_default_avatar.png', { type: 'image/png' });
+        this.selectedFile = new File([blob], 'haracter default avatar.png', { type: 'image/png' });
         this.previewImage();
       });
   }

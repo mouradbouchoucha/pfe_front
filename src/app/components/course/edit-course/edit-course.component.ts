@@ -15,6 +15,7 @@ export class EditCourseComponent {
   selectedFile: File | null = null;
   imagePreview: string | ArrayBuffer | null = null;
   categories: any[] = [];
+  minDate!: Date;
 
   constructor(
     private fb: FormBuilder,
@@ -52,6 +53,9 @@ export class EditCourseComponent {
     }
 
     this.loadCategories();
+
+    this.minDate = new Date();
+
   }
 
   onSubmit(): void {

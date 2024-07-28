@@ -29,7 +29,6 @@ import { CoursesListComponent } from './pages/courses-list/courses-list.componen
 import { EditCourseComponent } from './components/course/edit-course/edit-course.component';
 import { AddCourseComponent } from './components/course/add-course/add-course.component';
 import { ViewCourseComponent } from './components/course/view-course/view-course.component';
-import { SubjectListComponent } from './pages/subject-list/subject-list.component';
 import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
 import { ScheduleListComponent } from './components/schedule/scheduleList/schedule-list/schedule-list.component';
 import { AddScheduleModalComponent } from './components/schedule/add-schedule-modal/add-schedule-modal.component';
@@ -37,6 +36,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { EditScheduleModalComponent } from './components/schedule/edit-schedule-modal/edit-schedule-modal/edit-schedule-modal.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { PreinscriptionListComponent } from './pages/preinscription-list/preinscription-list.component';
 
 
 const plugins = [timeGridPlugin];
@@ -66,12 +66,12 @@ const plugins = [timeGridPlugin];
     EditCourseComponent,
     AddCourseComponent,
     ViewCourseComponent,
-    SubjectListComponent,
     UserProfileComponent,
     ScheduleListComponent,
     AddScheduleModalComponent,
     EditScheduleModalComponent,
     NotFoundComponent,
+    PreinscriptionListComponent,
   ],
   imports: [
     BrowserModule,

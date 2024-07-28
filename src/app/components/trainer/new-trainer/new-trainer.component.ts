@@ -33,7 +33,7 @@ export class NewTrainerComponent implements OnInit {
     this.form = this.fb.group({
       firstName: [null, [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
       lastName: [null, [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
-      phoneNumber: [null, [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
+      phoneNumber: [null, [Validators.required, Validators.pattern(/^[0-9]{8}$/)]],
       email: [null, [Validators.required, Validators.email]],
       institutionName: [null, [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
       departmentName: [null, [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]],
