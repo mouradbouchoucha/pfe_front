@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 
@@ -19,6 +19,11 @@ export class TraineeService {
   }
   getTraineeById(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/${id}`);
+  }
+
+  getTraineeByEmail(email: string): Observable<any> {
+    const params = new HttpParams().set('email', email);
+    return this.http.get<any>(`${this.baseUrl}/trainee`, { params });
   }
 
   createTrainee(

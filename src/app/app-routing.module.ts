@@ -15,6 +15,7 @@ import { AuthenticationGuard } from './guards/authentication.guard';
 import { ScheduleListComponent } from './components/schedule/scheduleList/schedule-list/schedule-list.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { VerifyComponent } from './pages/auth/verify/verify/verify.component';
+import { ProfileEditComponent } from './components/user/profile-edit/profile-edit.component';
 
 const routes: Routes = [
   // { path: 'verify', component: VerifyComponent },
@@ -55,7 +56,8 @@ const routes: Routes = [
     canActivate: [AuthenticationGuard],
     data: { role: 'USER' },
     children: [
-      { path: 'profile', component: UserProfileComponent }
+      { path: 'profile', component: UserProfileComponent },
+      { path: 'profile/edit', component: ProfileEditComponent }
     ]
   },
    { path: '**', component:NotFoundComponent }  // Wildcard route for handling 404 errors

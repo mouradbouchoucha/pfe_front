@@ -37,6 +37,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import { EditScheduleModalComponent } from './components/schedule/edit-schedule-modal/edit-schedule-modal/edit-schedule-modal.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { PreinscriptionListComponent } from './pages/preinscription-list/preinscription-list.component';
+import { ProfileEditComponent } from './components/user/profile-edit/profile-edit.component';
 
 
 const plugins = [timeGridPlugin];
@@ -72,6 +73,7 @@ const plugins = [timeGridPlugin];
     EditScheduleModalComponent,
     NotFoundComponent,
     PreinscriptionListComponent,
+    ProfileEditComponent,
   ],
   imports: [
     BrowserModule,

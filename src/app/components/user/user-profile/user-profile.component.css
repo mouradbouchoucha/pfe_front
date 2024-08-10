@@ -1,4 +1,6 @@
-
+.container{
+    margin: 10vw auto;
+}
 .main-body {
     padding: 15px;
 }

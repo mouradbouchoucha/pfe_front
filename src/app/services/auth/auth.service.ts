@@ -61,6 +61,7 @@ loadProfile(data: JwtAuthenticationResponse) {
   this.isAuthenticated = true;
   this.accessToken = data['accessToken'];
   const decodedToken:any = jwtDecode(this.accessToken);
+  console.log("decoded token",decodedToken);
   this.username = decodedToken.sub;
   this.roles = decodedToken.roles || []; // Handle potential missing roles field
   return; // No need to return anything
