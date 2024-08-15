@@ -8,7 +8,10 @@ import { Observable, catchError, throwError } from 'rxjs';
 export class TraineeService {
 
   baseUrl = 'http://localhost:9090/api/trainees';
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) 
+  { 
+    
+  }
 
   getAllTrainees(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/all`);
@@ -17,6 +20,7 @@ export class TraineeService {
   getAllTraineeByName(name:string): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/search/${name}`);
   }
+  
   getTraineeById(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/${id}`);
   }

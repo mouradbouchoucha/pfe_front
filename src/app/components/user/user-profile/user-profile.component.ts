@@ -27,7 +27,7 @@ export class UserProfileComponent {
       console.log(this.token);
   
       const decodedToken: any = jwtDecode(this.accessToken);
-      
+      console.log(decodedToken);
       this.username = decodedToken.sub;
       console.log("decoded token", this.username);
     } else {
@@ -39,9 +39,11 @@ export class UserProfileComponent {
       user=>{
         this.trainee = user;
         console.log(this.username);
-        console.log(this.trainee, user);
+        console.log(this.trainee);
       }
     )
   }
+
+
 
 }
