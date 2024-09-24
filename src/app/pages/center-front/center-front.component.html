@@ -1,0 +1,21 @@
+<mat-toolbar color="primary">
+    <span>Centre de Formation</span>
+  </mat-toolbar>
+  
+  <div class="content">
+    <div class="center-info">
+      <app-center></app-center>
+    </div>
+  
+    <div class="courses-list">
+      <app-courses></app-courses>
+    </div>
+  </div>
+  
+  <mat-toolbar color="accent" class="footer">
+    <span>&copy; 2024 - Centre de Formation</span>
+  </mat-toolbar>
+  
+  <button mat-fab color="primary" class="scroll-to-top" (click)="scrollToTop()">
+    <mat-icon>keyboard_arrow_up</mat-icon>
+  </button>

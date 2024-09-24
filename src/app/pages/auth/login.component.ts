@@ -30,7 +30,13 @@ export class LoginComponent {
     // console.log(signInRequest);
     this.authService.signIn(signInRequest).subscribe(
       data => {
-        // console.log(data);
+        if(data['accessToken']==null ){
+          this.router.navigateByUrl('/login')
+          this.email = '';
+          this.password = '';
+          return
+        }
+         console.log(data);
         localStorage.setItem('token', JSON.stringify(data));
         this.authService.loadProfile(data);
         // console.log(this.authService.loadProfile(data));
@@ -41,9 +47,11 @@ export class LoginComponent {
 
         } else if (this.authService.roles.includes('TRAINER')) {
           this.router.navigateByUrl('/trainer');
-        } else if (this.authService.roles == 'USER') {
-          this.router.navigateByUrl('/user');
-        }else {
+         } 
+        //else if (this.authService.roles == 'USER') {
+        //   this.router.navigateByUrl('/');
+        // }else 
+        {
           this.router.navigateByUrl('');
         }
       }

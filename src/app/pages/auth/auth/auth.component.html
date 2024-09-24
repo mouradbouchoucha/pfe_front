@@ -1,0 +1,36 @@
+<div class="container" [ngClass]="{'right-panel-active': isSignUpMode}">
+	<!-- Sign Up -->
+	<div class="container__form container--signup">
+		<form (submit)="onSignUp($event)" class="form">
+			<h2 class="form__title">Sign Up</h2>
+			<input type="text" placeholder="User" class="input" />
+			<input type="email" placeholder="Email" class="input" />
+			<input type="password" placeholder="Password" class="input" />
+			<button class="btn" type="submit">Sign Up</button>
+		</form>
+	</div>
+
+	<!-- Sign In -->
+	<div class="container__form container--signin">
+		<form (submit)="onSignIn($event)" class="form">
+			<h2 class="form__title">Sign In</h2>
+			<input type="email" placeholder="Email" class="input" />
+			<input type="password" placeholder="Password" class="input" />
+			<a href="#" class="link">Forgot your password?</a>
+			<button class="btn" type="submit">Sign In</button>
+		</form>
+	</div>
+
+	<!-- Overlay -->
+	<div class="container__overlay">
+		<div class="overlay">
+			<div class="overlay__panel overlay--left">
+				<button class="btn" (click)="switchToSignIn()">Sign In</button>
+			</div>
+			<div class="overlay__panel overlay--right">
+				<button class="btn" (click)="switchToSignUp()">Sign Up</button>
+			</div>
+		</div>
+	</div>
+</div>
+

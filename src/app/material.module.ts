@@ -1,9 +1,8 @@
-import { AsyncPipe } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatButtonModule } from "@angular/material/button";
-import { MatCardModule } from "@angular/material/card";
+import {MatCardModule} from '@angular/material/card';
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
@@ -23,7 +22,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { MatToolbarModule } from "@angular/material/toolbar";
-
+import {MatExpansionModule} from '@angular/material/expansion';
 @NgModule({
 exports:[
     MatInputModule,
@@ -51,7 +50,8 @@ exports:[
     MatInputModule,
     MatAutocompleteModule,
     MatSlideToggleModule,
-    
+    MatCardModule,
+    MatExpansionModule,
 ]
 })
 export class MaterialModule{}

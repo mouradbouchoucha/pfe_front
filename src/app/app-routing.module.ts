@@ -16,13 +16,17 @@ import { ScheduleListComponent } from './components/schedule/scheduleList/schedu
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { VerifyComponent } from './pages/auth/verify/verify/verify.component';
 import { ProfileEditComponent } from './components/user/profile-edit/profile-edit.component';
-
+import { PreinscriptionListComponent } from './pages/preinscription-list/preinscription-list.component';
+import { AuthComponent } from './pages/auth/auth/auth.component';
+import { CenterFrontComponent } from './pages/center-front/center-front.component';
 const routes: Routes = [
   // { path: 'verify', component: VerifyComponent },
   //{ path: '', redirectTo: 'login', pathMatch: 'full' },
   // { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path:'auth', component: AuthComponent},
   { path: 'verify', component: VerifyComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'center', component: CenterFrontComponent},
   {
     path: 'admin',
     component: AdminDashboardComponent,
@@ -37,7 +41,7 @@ const routes: Routes = [
       { path: 'courses/edit/:id', component: EditCourseComponent },
       { path: 'courses/details/:id', component: ViewCourseComponent },
       { path: 'courses/details/:courseId/schedule/:scheduleId', component: ScheduleListComponent },
-
+      { path: 'preinscriptions', component: PreinscriptionListComponent}
     ]
   },
   {

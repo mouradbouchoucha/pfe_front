@@ -63,15 +63,15 @@ loadProfile(data: JwtAuthenticationResponse) {
   const decodedToken:any = jwtDecode(this.accessToken);
   console.log("decoded token",decodedToken);
   this.username = decodedToken.sub;
-  this.roles = decodedToken.roles || []; // Handle potential missing roles field
-  if(this.roles.contains("USER")){
-      //retrieve trainee
+  this.roles = decodedToken.roles || []; 
+  // if(this.roles.contains("USER")){
+  //     //retrieve trainee
 
-  }else if(this.roles.contains("TRAINER")){
+  // }else if(this.roles.contains("TRAINER")){
 
-    //retrieve trainer
-  }
-  return //triner or trainee; // No need to return anything
+  //   //retrieve trainer
+  // }
+  return
 }
 checkEmail(email: string): Observable<boolean> {
   return this.http.get<boolean>(`${this.baseUrl}/verify_email?email=${email}`);

@@ -38,7 +38,20 @@ import { EditScheduleModalComponent } from './components/schedule/edit-schedule-
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { PreinscriptionListComponent } from './pages/preinscription-list/preinscription-list.component';
 import { ProfileEditComponent } from './components/user/profile-edit/profile-edit.component';
+import { SignInComponent } from './pages/auth/sign-in/sign-in.component';
+import { SignUpComponent } from './pages/auth/sign-up/sign-up.component';
+import { AuthComponent } from './pages/auth/auth/auth.component';
+import { CenterFrontComponent } from './pages/center-front/center-front.component';
+import { CoursesComponent } from './pages/center-front/courses/courses.component';
+import { CenterComponent } from './pages/center-front/center/center.component';
+import { TrainerDashboardComponent } from './pages/trainer-dashboard/trainer-dashboard.component';
+import { PreInscriptionListComponent } from './components/pre-inscription-list/pre-inscription-list.component';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
 
+// Enregistrez les données de la locale française
+registerLocaleData(localeFr, 'fr');
 
 const plugins = [timeGridPlugin];
 
@@ -74,6 +87,14 @@ const plugins = [timeGridPlugin];
     NotFoundComponent,
     PreinscriptionListComponent,
     ProfileEditComponent,
+    SignInComponent,
+    SignUpComponent,
+    AuthComponent,
+    CenterFrontComponent,
+    CoursesComponent,
+    TrainerDashboardComponent,
+    PreInscriptionListComponent,
+    CenterComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +106,10 @@ const plugins = [timeGridPlugin];
     ReactiveFormsModule,
     FullCalendarModule
   ],
-  providers: [],
+  providers: [
+     [{ provide: LOCALE_ID, useValue: 'fr-FR' }]
+
+  ],
   bootstrap: [AppComponent],
   entryComponents: [AddScheduleModalComponent]
 })

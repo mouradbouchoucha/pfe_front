@@ -56,5 +56,7 @@ export class CategoryService {
     return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
   }
 
- 
+  getCoursesByCategory(): Observable<any>{
+    return this.http.get<any>(`${this.baseUrl}/courses`);
+  }
 }

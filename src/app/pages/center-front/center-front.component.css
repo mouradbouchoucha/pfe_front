@@ -1,0 +1,35 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    padding-bottom: 60px; /* Ensure content doesn't overlap the footer */
+    box-sizing: border-box;
+    min-height: calc(100vh - 64px); /* Adjust based on the toolbar height */
+  }
+  
+  .center-info, .courses-list {
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 20px;
+  }
+  
+  .footer {
+    text-align: center;
+    background-color: #3f51b5;
+    color: white;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 555555;
+  }
+  
+  .scroll-to-top {
+    position: fixed;
+    bottom: 80px; /* Adjust to stay above the footer */
+    right: 20px;
+  }
+  
