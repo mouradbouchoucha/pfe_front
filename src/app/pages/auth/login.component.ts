@@ -19,7 +19,10 @@ export class LoginComponent {
   newEmail: string = ''
 
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   async onSignIn() {
 
@@ -34,9 +37,9 @@ export class LoginComponent {
           this.router.navigateByUrl('/login')
           this.email = '';
           this.password = '';
-          return
+          return;
         }
-         console.log(data);
+         //console.log(data);
         localStorage.setItem('token', JSON.stringify(data));
         this.authService.loadProfile(data);
         // console.log(this.authService.loadProfile(data));
@@ -48,9 +51,7 @@ export class LoginComponent {
         } else if (this.authService.roles.includes('TRAINER')) {
           this.router.navigateByUrl('/trainer');
          } 
-        //else if (this.authService.roles == 'USER') {
-        //   this.router.navigateByUrl('/');
-        // }else 
+         else     
         {
           this.router.navigateByUrl('');
         }

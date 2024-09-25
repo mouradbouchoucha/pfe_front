@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { CategoryService } from 'src/app/services/category/category.service';
 import { CourseService } from 'src/app/services/course/course.service';
 
@@ -17,6 +18,7 @@ export class CoursesComponent implements OnInit {
     private categoryService: CategoryService,
     private coursesService: CourseService,
     private domSanitizer: DomSanitizer,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -26,12 +28,6 @@ export class CoursesComponent implements OnInit {
       console.log(this.coursesByCategory);
 
     });
-  }
-
-  enroll(courseId: number): void {
-    // this.coursesService.enrollInCourse(courseId).subscribe(response => {
-    //   alert('Inscription réussie !');
-    // });
   }
 
   viewCourse(courseId: number){
@@ -48,6 +44,18 @@ export class CoursesComponent implements OnInit {
       return this.domSanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64,${imageData}`);
     } else {
       return 'assets/DefaultImage.png';
+    }
+  }
+
+  enroll(courseId: number): void {
+    // this.coursesService.enrollInCourse(courseId).subscribe(response => {
+    //   alert('Inscription réussie !');
+    // });
+    if(localStorage.getItem('token') == null){
+      alert('Veuillez vous connecter pour vous inscrire à ce cours');
+      this.router.navigateByUrl('/login')
+    }else{
+      console.log('enrolled in Course'+courseId);
     }
   }
 }

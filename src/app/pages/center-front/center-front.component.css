@@ -1,3 +1,18 @@
+.header-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.auth-button {
+  color: white;
+  font-weight: 500;
+}
+
 .content {
     display: flex;
     flex-direction: column;

@@ -26,7 +26,7 @@ const routes: Routes = [
   { path:'auth', component: AuthComponent},
   { path: 'verify', component: VerifyComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'center', component: CenterFrontComponent},
+  { path: '', component: CenterFrontComponent},
   {
     path: 'admin',
     component: AdminDashboardComponent,
