@@ -1,7 +1,15 @@
-<div class="scheduler">
+<div class="scheduler-container">
+  <button class="print-button" (click)="printCalendar()">
+    <mat-icon>move_to_inbox</mat-icon>
+  </button>
+
+  <button class="transfer-button" (click)="transfer()"> 
+    <mat-icon>transfer_within_a_station</mat-icon>
+  </button>
+  <div class="scheduler" id="scheduler">
     <full-calendar
       #calendar
       [options]="calendarOptions"
     ></full-calendar>
   </div>
-  
+</div>

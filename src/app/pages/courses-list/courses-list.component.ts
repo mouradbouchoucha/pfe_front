@@ -77,7 +77,11 @@ submitForm() {
             title: 'Search Result',
             message: 'No result matches your search',
             cancelText: 'OK'
-          }).subscribe();
+          }).subscribe(
+            
+          );
+          this.loadCourses()
+          this.searchForm.reset();
         }
       },
       error => {

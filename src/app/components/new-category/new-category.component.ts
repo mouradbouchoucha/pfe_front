@@ -70,18 +70,19 @@ export class NewCategoryComponent {
       if(result){
         if (this.categoryForm.valid ) {
           const name = this.categoryForm.get('name')?.value;
-          const description = this.categoryForm.get('description')?.value;;
-  
-          this.categoryService.createCategory(this.selectedFile,name, description,).subscribe(
+          const description = this.categoryForm.get('description')?.value;
+          const imageFile = this.selectedFile
+          console.log(imageFile);
+          this.categoryService.createCategory(this.selectedFile, name, description,).subscribe(
             (res) => {
               console.log(res);
               this.snackBar.open('Category Created Successfully', 'close', { duration: 3000 });
-              this.name = '';
-              this.description = '';
-              this.categoryForm = this.fb.group({
-                name: ['', Validators.required],
-                description: ['', Validators.required]
-              });
+              // this.name = '';
+              // this.description = '';
+              // this.categoryForm = this.fb.group({
+              //   name: ['', Validators.required],
+              //   description: ['', Validators.required]
+              //});
               // this.categoryForm.markAsUntouched() 
               this.selectedFile = null;
               this.dialogRef.close()

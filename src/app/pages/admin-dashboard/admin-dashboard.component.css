@@ -1,0 +1,9 @@
+.scroll-to-top {
+    position: fixed;
+    bottom: 20px; /* Adjust to stay above the footer */
+    right: 20px;
+    z-index: 9999;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+  }

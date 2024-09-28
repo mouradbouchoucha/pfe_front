@@ -60,8 +60,10 @@ export class EditScheduleModalComponent implements OnInit {
   }
 
   private loadSchedule(): void {
-    this.scheduleService.getScheduleById((this.data.id) as number).subscribe(
+    console.log(typeof(Number(this.data.id)));
+    this.scheduleService.getScheduleById(Number(this.data.id)).subscribe(
       schedule => {
+        console.log('Schedule loaded:', schedule);
         const formattedStartDateTime = this.datePipe.transform(schedule.startDateTime, 'dd/MM/yyyy HH:mm');
         this.scheduleForm.patchValue({
           subject: schedule.subject.id,
@@ -83,6 +85,7 @@ export class EditScheduleModalComponent implements OnInit {
         ...this.scheduleForm.value,
         id: this.data.id
       };
+      console.log(updatedSchedule);
       this.scheduleService.updateSchedule(this.data.id, updatedSchedule).subscribe(
         () => {
           this.dialogRef.close(updatedSchedule);

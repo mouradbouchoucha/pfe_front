@@ -23,6 +23,7 @@ import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from "@angular/material/table";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import {MatExpansionModule} from '@angular/material/expansion';
+
 @NgModule({
 exports:[
     MatInputModule,
@@ -52,6 +53,7 @@ exports:[
     MatSlideToggleModule,
     MatCardModule,
     MatExpansionModule,
+    MatTableModule
 ]
 })
 export class MaterialModule{}

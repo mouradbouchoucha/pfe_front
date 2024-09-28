@@ -1,3 +1,5 @@
+import { Attachement } from './../../../../interfaces/attachement';
+import { EmailService } from './../../../../services/email/email.service';
 import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { FullCalendarComponent } from '@fullcalendar/angular';
@@ -12,6 +14,7 @@ import { ScheduleService } from 'src/app/services/schedule/schedule.service';
 import { ActivatedRoute } from '@angular/router';
 import { DialogServiceService } from 'src/app/services/dialog/dialog-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-schedule-list',
@@ -22,11 +25,14 @@ export class ScheduleListComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
   id!: number;
   calendarVisible = true;
-  calendarOptions: CalendarOptions = {
+  calendarOptions: CalendarOptions & { licenseKey?: string }= {
+    plugins: [timeGridPlugin, dayGridPlugin, interactionPlugin],
+
     //  height: 'auto',
      contentHeight: '90vh',
      expandRows: true,
     initialView: 'timeGridWeek',
+    // licenseKey:'CC-Attribution-NonCommercial-NoDerivatives',
     initialDate: new Date(),
     headerToolbar: {
       left: 'prev,next today',
@@ -46,10 +52,10 @@ export class ScheduleListComponent implements OnInit, AfterViewInit, OnDestroy {
     selectable: true,
     selectMirror: true,
     dayMaxEvents: true,
+    eventContent: this.renderEventContent.bind(this),
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
-    plugins: [timeGridPlugin, dayGridPlugin, interactionPlugin],
   };
 
   currentEvents: EventApi[] = [];
@@ -61,7 +67,8 @@ export class ScheduleListComponent implements OnInit, AfterViewInit, OnDestroy {
     private scheduleService: ScheduleService,
     private route: ActivatedRoute,
     private dialogService: DialogServiceService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private emailService:EmailService
   ) {}
 
   ngOnInit() {
@@ -73,6 +80,10 @@ export class ScheduleListComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       console.error('Invalid ID parameter');
     }
+
+    setTimeout(() => { // Ensure view is fully initialized
+      this.getCalendarTitle();
+    });
   }
 
   ngAfterViewInit() {
@@ -97,6 +108,52 @@ export class ScheduleListComponent implements OnInit, AfterViewInit, OnDestroy {
       )
     );
   }
+
+  renderEventContent(eventInfo: any) {
+    const deleteButton = document.createElement('button');
+    deleteButton.innerHTML = '&#128465;';
+    deleteButton.classList.add('delete-button');
+    deleteButton.onclick = () => this.deleteEvent(eventInfo.event.id);
+
+    deleteButton.onclick = (event) => {
+      event.stopPropagation();  // Prevent the edit modal from opening
+      this.deleteEvent(eventInfo.event.id);
+    };
+    const eventElement = document.createElement('div');
+    eventElement.innerHTML = `<span class="fc-event-title">${eventInfo.event.title}</span>`;
+    eventElement.appendChild(deleteButton);
+
+    return { domNodes: [eventElement] };
+}
+
+  // Fonction pour supprimer l'événement
+  deleteEvent(eventId: string) {
+    this.dialogService.confirmDialog({
+      title: 'Delete Event',
+      message: 'Are you sure you want to delete this event?',
+      cancelText: 'Cancel',
+      confirmText: 'Delete'
+    }).subscribe(result => {
+      if (result) {
+        // Call the deleteSchedule method from the ScheduleService
+        this.scheduleService.deleteSchedule(+eventId).subscribe(
+          () => {
+            const calendarApi = this.calendarComponent.getApi();
+            const event = calendarApi.getEventById(eventId);
+            if (event) {
+              event.remove(); // Remove the event from the calendar
+              this.snackBar.open('Event deleted successfully.', 'close', { duration: 3000 });
+            }
+          },
+          (error) => {
+            console.error('Error deleting event:', error);
+            this.snackBar.open('Error deleting event. Please try again.', 'close', { duration: 3000 });
+          }
+        );
+      }
+    });
+  }
+  
 
   handleDateSelect(selectInfo: DateSelectArg) {
     const startStr = selectInfo.startStr;
@@ -233,4 +290,120 @@ isTimeSlotAvailable(start: Date, end: Date): boolean {
     const end = new Date(start.getTime() + duration * 60 * 60 * 1000);
     return end.toISOString();
   }
-}
+
+  getCalendarTitle() {
+    const calendarApi = this.calendarComponent.getApi(); // Access the calendar API
+    return  calendarApi.view.title; // Get the title of the current view
+    
+  }
+  printCalendar() {
+     var __filename = this.getCalendarTitle()
+    const element = document.getElementById('scheduler'); // The element to capture
+    if (element) {
+      html2canvas(element).then((canvas) => {
+        // Convert canvas to an image
+        const imgData = canvas.toDataURL('image/png');
+
+        // Create a link to download the image
+        const link = document.createElement('a');
+        link.href = imgData;
+        link.download = `${__filename}.png`; // The name of the downloaded file
+        link.click(); // Trigger the download
+      });
+    } else {
+      console.error('Element not found for screenshot');
+    }
+  }
+
+
+  transfer(){
+    const __filename = this.getCalendarTitle(); // Get the calendar title for naming the file
+    const element = document.getElementById('scheduler'); // The element to capture
+
+    if (element) {
+      html2canvas(element).then((canvas) => {
+        // Convert the canvas to a Blob (which can be sent as an attachment)
+        canvas.toBlob((blob: Blob | null) => {
+          if (blob) {
+            // Convert Blob to a File object (required for the email service)
+            const attachement = new File([blob], `${__filename}.png`, { type: 'image/png' });
+
+            // Now call the email service to send the image as an attachment
+            const emails = 'mouradbouchouchaaa@gmail.com,mouradbouchouchaa@gmail.com'; // Replace with actual emails
+            const subject = 'Calendar Screenshot';
+            const message = 'Attached is the calendar screenshot.';
+
+            // Call the email service and pass the file as an attachment
+            this.emailService.sendEmail(emails, subject, message, attachement)
+              .subscribe({
+                next: (response) => {
+                  console.log('Email sent successfully!', response);
+                },
+                error: (error) => {
+                  console.error('Error sending email:', error);
+                }
+              });
+          }
+        }, 'image/png');
+      });
+    } else {
+      console.error('Element not found for screenshot');
+    }
+  }
+  }
+  // printCalendar() {
+  //   const calendarElement = document.querySelector('.scheduler') as HTMLElement;
+    
+  //   if (calendarElement) {
+  //     const printWindow = window.open('', '_blank');
+  //     printWindow?.document.write(`
+  //       <html>
+  //         <head>
+  //           <title>Print Calendar</title>
+  //           <style>
+  //             /* Ensure full width for printing */
+  // .full-calendar-container {
+  //   width: 100%;
+  //   height: auto; /* Ensure full content is shown */
+  // }
+
+  // #calendar {
+  //   flex-grow: 1;
+  //   font-size: 12px; /* Adjust font size for print */
+  // }
+
+  // /* Make sure events maintain visibility */
+  // .fc-event {
+  //   color: white;
+  //   background-color: #007bff !important;
+  //   padding: 5px;
+  //   border-radius: 5px;
+  //   font-size: 12px;
+  // }
+
+  // /* Hide unnecessary buttons or elements during print */
+  // .fc-toolbar, .delete-button, .print-button {
+  //   display: none !important;
+  // }
+
+  // /* Fit content better in print */
+  // .fc-view {
+  //   background: none !important;
+  // }
+  //           </style>
+  //         </head>
+  //         <body>
+  //           ${calendarElement.innerHTML}
+  //         </body>
+  //       </html>
+  //     `);
+  //     printWindow?.document.close();
+  //     printWindow?.focus();
+  //     printWindow?.print();
+  //     printWindow?.close();
+  //   } else {
+  //     console.error('Calendar element not found for printing');
+  //   }
+  // }
+  
+

@@ -36,7 +36,6 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { EditScheduleModalComponent } from './components/schedule/edit-schedule-modal/edit-schedule-modal/edit-schedule-modal.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { PreinscriptionListComponent } from './pages/preinscription-list/preinscription-list.component';
 import { ProfileEditComponent } from './components/user/profile-edit/profile-edit.component';
 import { SignInComponent } from './pages/auth/sign-in/sign-in.component';
 import { SignUpComponent } from './pages/auth/sign-up/sign-up.component';
@@ -45,10 +44,10 @@ import { CenterFrontComponent } from './pages/center-front/center-front.componen
 import { CoursesComponent } from './pages/center-front/courses/courses.component';
 import { CenterComponent } from './pages/center-front/center/center.component';
 import { TrainerDashboardComponent } from './pages/trainer-dashboard/trainer-dashboard.component';
-import { PreInscriptionListComponent } from './components/pre-inscription-list/pre-inscription-list.component';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { PreInscriptionListComponent } from './pages/pre-inscription-list/pre-inscription-list.component';
 
 // Enregistrez les données de la locale française
 registerLocaleData(localeFr, 'fr');
@@ -85,7 +84,6 @@ const plugins = [timeGridPlugin];
     AddScheduleModalComponent,
     EditScheduleModalComponent,
     NotFoundComponent,
-    PreinscriptionListComponent,
     ProfileEditComponent,
     SignInComponent,
     SignUpComponent,
@@ -93,8 +91,8 @@ const plugins = [timeGridPlugin];
     CenterFrontComponent,
     CoursesComponent,
     TrainerDashboardComponent,
-    PreInscriptionListComponent,
-    CenterComponent
+    CenterComponent,
+    PreInscriptionListComponent
   ],
   imports: [
     BrowserModule,

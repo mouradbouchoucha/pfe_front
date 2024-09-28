@@ -76,6 +76,7 @@ export class AddScheduleModalComponent implements OnInit {
         console.log(scheduleData);
         this.scheduleService.createSchedule(scheduleData, this.data.courseId).subscribe(
           response => {
+            
             this.dialogRef.close(response);
           },
           error => {

@@ -25,7 +25,6 @@ export class CategoryService {
     const formData = new FormData();
     if(imageFile){
       formData.append('imageFile', imageFile);
-
     }
     formData.append('name', name);
     formData.append('description', description);
