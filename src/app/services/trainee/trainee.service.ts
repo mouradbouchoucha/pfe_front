@@ -22,7 +22,7 @@ export class TraineeService {
   }
   
   getTraineeById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/${id}`);
+    return this.http.get<any>(`${this.baseUrl}/trainee/${id}`);
   }
 
   getTraineeByEmail(email: string): Observable<any> {

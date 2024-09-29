@@ -10,11 +10,13 @@ import { TraineeService } from 'src/app/services/trainee/trainee.service';
 })
 export class PreInscriptionListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'traineeId', 'courseId', 'status'];
-  dataSource = new MatTableDataSource<any>([]);
+  dataSource = new MatTableDataSource<any>([]); // Data source for the table
+  enrollments: any[] = []; // Store the enrollment requests
 
   constructor(
     private enrollmentService: EnrollmentService,
-    private traineeService: TraineeService
+    private traineeService: TraineeService,
+    private courseService: CourseService
   ) {}
 
   ngOnInit(): void {
@@ -24,8 +26,9 @@ export class PreInscriptionListComponent implements OnInit {
   loadEnrollmentRequests(): void {
     this.enrollmentService.getPendingEnrollments().subscribe(
       (data: any[]) => {
-        console.log(data);
-        this.dataSource.data = data; // Update the dataSource with the fetched data
+        this.enrollments = data; // Store the fetched enrollments
+        this.getTraineesAndCourses();
+        console.log(this.dataSource.data); // Fetch trainees after loading enrollment requests
       },
       (error) => {
         console.error('Error fetching enrollment requests', error);
@@ -33,11 +36,35 @@ export class PreInscriptionListComponent implements OnInit {
     );
   }
 
-  getTrainee(id:number){
-    return this.traineeService.getTraineeById(id).subscribe(
-      (trainee:any) => {
-        console.log(trainee);
-      }
-    )
+  getTraineesAndCourses(): void {
+    const enrollmentWithDetails: any[] = []; // Explicitly declare the array type
+
+    this.enrollments.forEach((element) => {
+      // Fetch Trainee details
+      this.traineeService.getTraineeById(element.traineeId).subscribe(
+        (trainee: any) => {
+          // Fetch Course details after Trainee details
+          this.courseService.getCourseById(element.courseId).subscribe(
+            (course: any) => {
+              const enrollmentWithDetail = {
+                ...element, // Spread enrollment data
+                traineeName: trainee.firstName+' '+trainee.lastName, // Add trainee's name
+                courseName: course.name // Add course's name
+              };
+              enrollmentWithDetails.push(enrollmentWithDetail); // Add to the new array
+
+              // Update the table's data source
+              this.dataSource.data = enrollmentWithDetails;
+            },
+            (error) => {
+              console.error('Error fetching course', error);
+            }
+          );
+        },
+        (error) => {
+          console.error('Error fetching trainee', error);
+        }
+      );
+    });
   }
 }
