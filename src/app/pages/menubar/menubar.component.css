@@ -2,8 +2,19 @@
     flex: 1 1 auto;
   }
 
-  mat-drawer-container{
-    width: 100%;
-    height: 100%;
-  }
+ 
+
+ ::ng-deep .menuLink mat-icon {
+  width: 40px !important;
+  height: 40px !important;
+  margin-right: 20px !important;
+  font-size: 40px !important;
+  color: #3f51b5 !important; /* Custom color for icons */
+}
+
+::ng-deep .menuLink {
+  font-size: 14px; /* You can adjust the button text size if needed */
+  color: #000; /* Button text color */
+}
+
 

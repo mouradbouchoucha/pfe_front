@@ -1,28 +1,147 @@
+/* Container styling */
 .table-container {
-    margin-top: 20px;
-    overflow-x: auto;
-  }
+  margin-top: 20px;
+  overflow-x: auto;
+  background-color: #fafafa;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+mat-card {
+  margin: 20px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Header styling */
+.header {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 10px 0;
+  color: #000;
+}
+
+th.mat-header-cell {
+  padding: 16px;
+  text-align: left;
+  background-color: #3f51b5;  /* Primary color */
+  color: white;
+  font-weight: bold;
+}
+
+td.mat-cell {
+  padding: 16px;
+  text-align: left;
+  font-size: 14px;
+}
+
+/* Alternating row colors */
+.custom-row:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.custom-row:nth-child(odd) {
+  background-color: #fff;
+}
+
+/* Hover effect for rows */
+.custom-row:hover {
+  background-color: #e0e0e0;
+}
+
+/* Table borders */
+.custom-table {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+th.mat-header-cell, td.mat-cell {
+  border-bottom: 1px solid #ddd;
+}
+
+/* Header Row Style */
+.custom-header {
+  background-color: #3f51b5;  /* Primary color */
+  color: white;
+}
+
+/* Cell Padding and Typography */
+td.mat-cell {
+  padding: 12px 16px;
+  font-size: 14px;
+}
+
+th.mat-header-cell {
+  padding: 12px 16px;
+  font-size: 14px;
+}
+
+.mat-elevation-z8 {
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23);
+}
+.custom-confirmed-btn {
+  background-color: green;
+  color: white;
+}
+
+.reject{
+  background-color: transparent;
+  color: red;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.approve{
+  background-color: transparent;
+  color: green;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 30px;
+  font-weight: bolder;
+
+}
+/* Button styles */
+button  {
+  margin-right: 10px;
+  margin-top: 5px;
   
-  table {
-    width: 100%;
-  }
-  
-  mat-card {
-    margin: 20px;
-    padding: 20px;
-  }
-  
-   .header {
-    font-size: 20px;
-    font-weight: bold;
-  }
-  
-  th.mat-header-cell, td.mat-cell {
-    padding: 12px;
-    text-align: left;
-  }
-  
-  .mat-elevation-z8 {
-    box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
-  }
-  
+}
+
+/* Dynamic colors for the status column */
+.pending-status {
+  color: orange;
+  font-weight: bold;
+}
+
+.approved-status {
+  color: green;
+  font-weight: bold;
+}
+
+.rejected-status {
+  color: red;
+  font-weight: bold;
+}
+
+.custom-snackbar {
+  background-color: #4caf50; /* Green background for success */
+  color: white;
+}
+
+.error-snackbar {
+  background-color: #f44336; /* Red background for error */
+  color: white;
+}

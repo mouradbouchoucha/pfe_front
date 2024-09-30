@@ -21,6 +21,10 @@ export class EnrollmentService {
     return this.http.post<any>(`${this.apiUrl}/approve/${id}`, {});
   }
 
+  // Reject an enrollment request by ID
+  rejectEnrollment(id: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/reject/${id}`, {});
+  }
   // Get all pending enrollment requests
   getPendingEnrollments(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/pending`);
@@ -49,4 +53,9 @@ export class EnrollmentService {
   // Get enrollment requests by trainee ID
   getEnrollmentsByTrainee(traineeId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/trainee/${traineeId}`);
-  }}
+  }
+
+  getAllEnrollments(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/all`);
+  }
+}
