@@ -85,17 +85,44 @@ export class CoursesComponent implements OnInit {
   }
 
   enroll(courseId: number): void {
-    
-    if(localStorage.getItem('token') == null){
-      alert('Veuillez vous connecter pour vous inscrire à ce cours');
-      this.router.navigateByUrl('/login')
-    }else{
-      console.log('enrolled in Course'+courseId);
+    // Check if the user is logged in
+    if (localStorage.getItem('token') == null) {
+      alert('Please log in to enroll in this course.');
+      this.router.navigateByUrl('/login');
+    } else {
+      // Check the enrollment status for the given course
+      this.enrollmentService.checkEnrollmentStatus(courseId, this.traineeId).subscribe(
+        response => {
+          // TypeScript recognizes response as EnrollmentStatus
+          if (response.status === 'ALREADY_ENROLLED') {
+            alert('You are already enrolled in this course.');
+          } else if (response.status === 'PENDING') {
+            alert('Your enrollment request for this course is pending.');
+          } else if(
+            !this.enrollmentService.checkEnrollmentExists(courseId, this.traineeId).subscribe(
+              (response )=>{console.log(response);}
+          )){
+            // Proceed to create a new enrollment request if the status is NOT_ENROLLED
+            this.enrollmentService.createEnrollment({ courseId, traineeId: this.traineeId }).subscribe(
+              () => {
+                alert('Enrollment successful');
+                this.router.navigateByUrl('/courses');
+              },
+              error => {
+                alert(`Error: ${error}`);
+                console.error('Error during enrollment', error);
+              }
+            );
+          }
+        },
+        error => {
+          alert(`Error checking enrollment status: ${error}`);
+          console.error('Error checking enrollment status', error);
+        }
+      );
     }
-    
-    this.enrollmentService.createEnrollment({courseId:courseId,traineeId:this.traineeId}).subscribe(response => {
-      this.router.navigateByUrl('/courses');
-      this.router.navigateByUrl('')
-    });
   }
+  
+  
+  
 }

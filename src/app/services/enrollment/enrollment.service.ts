@@ -1,21 +1,44 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
+import { EnrollmentStatus } from 'src/app/interfaces/enrollmentStatus';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EnrollmentService {
 
-  private apiUrl = `http://localhost:9090/api/enrollement`;
+  private apiUrl = `http://localhost:9090/api/enrollment`;
 
   constructor(private http: HttpClient) { }
 
-  // Create an enrollment request
-  createEnrollment(any: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/create`, any);
+  
+   
+  checkEnrollmentStatus(courseId: number, traineeId: number) {
+    return this.http.get<EnrollmentStatus>
+    (`${this.apiUrl}/check-enrollment-status?courseId=${courseId}&traineeId=${traineeId}`)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
+  createEnrollment(enrollmentData: any) {
+    return this.http.post(`${this.apiUrl}/create`, enrollmentData)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'An unknown error occurred!';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = error.error.message;
+    } else {
+      errorMessage = error.error || error.message;
+    }
+    return throwError(errorMessage);
+  }
+  
   // Approve an enrollment request by ID
   approveEnrollment(id: number): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/approve/${id}`, {});
@@ -57,5 +80,9 @@ export class EnrollmentService {
 
   getAllEnrollments(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/all`);
+  }
+
+  checkEnrollmentExists(courseId: number,traineeId: number): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}/check-enrollment-exists?courseId=${courseId}&traineeId=${traineeId}`);
   }
 }
