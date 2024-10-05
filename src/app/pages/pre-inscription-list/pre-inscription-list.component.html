@@ -68,3 +68,6 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
   </div>
 </div>
+<div *ngIf="isLoading" class="loading-spinner">
+  <div class="spinner"></div>
+</div>

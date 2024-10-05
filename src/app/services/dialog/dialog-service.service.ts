@@ -14,8 +14,9 @@ export class DialogServiceService {
   confirmDialog(data: ConfirmDialogData):Observable<boolean> {
     return this.dialog.open(DialogConfirmComponent,{
       data,
-      width: '400px',
-      height: '200px',
+      width: 'auto',                // Allow the width to adjust based on content
+      height: 'auto',               // Allow the height to adjust based on content
+      maxHeight: '80vh',
       disableClose: true,
       hasBackdrop: true,
       panelClass: 'confirm-dialog-container',

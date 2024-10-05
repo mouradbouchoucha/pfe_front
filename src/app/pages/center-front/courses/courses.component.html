@@ -1,57 +1,64 @@
 <mat-accordion *ngIf="!loading && coursesByCategory && showCourses" class="courses-accordion">
-    <mat-expansion-panel *ngFor="let category of coursesByCategory" class="category-panel">
-      <mat-expansion-panel-header>
-        <mat-panel-title>{{ category.name }}</mat-panel-title>
-      </mat-expansion-panel-header>
-  
-      <div *ngFor="let course of category.courses" class="course-item">
-        <mat-card class="course-card">
-          <div class="course-content">
-            <div class="course-info">
-              <mat-card-header>
-                <mat-card-title>{{ course.name }}</mat-card-title>
-              </mat-card-header>
-              <mat-card-content>
-                <p><strong>Date de début :</strong> {{ course.startDateTime | date: 'dd-MMM-YYYY' : 'UTC' : 'fr-FR' }}</p>
-              </mat-card-content>
-              <mat-card-actions class="course-actions">
-                <button mat-raised-button color="primary" (click)="enroll(course.id)">S'inscrire</button>
-                <button mat-raised-button color="accent" (click)="viewCourse(course.id)">Détails</button>
-              </mat-card-actions>
-            </div>
-            <div class="course-img">
-              <img [src]="getImageUrl(course.image)" alt="{{ course.name }}" class="course-image">
-            </div>
+  <mat-expansion-panel *ngFor="let category of coursesByCategory" class="category-panel">
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{ category.name }}</mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div *ngFor="let course of category.courses" class="course-item">
+      <mat-card class="course-card">
+        <div class="course-content">
+          <div class="course-info">
+            <mat-card-header>
+              <mat-card-title>{{ course.name }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p><strong>Start Date:</strong> {{ course.startDateTime | date: 'dd-MMM-YYYY' : 'UTC' }}</p>
+            </mat-card-content>
+            <mat-card-actions class="course-actions">
+              <button mat-raised-button color="primary" (click)="enroll(course.id)">Enroll</button>
+              <button mat-raised-button color="accent" (click)="viewCourse(course.id)">Details</button>
+            </mat-card-actions>
           </div>
-        </mat-card>
-      </div>
-    </mat-expansion-panel>
-  </mat-accordion>
-  
-  
-  
+          <div class="course-img">
+            <img [src]="getImageUrl(course.image)" alt="{{ course.name }}" class="course-image">
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
 
-  <!-- Course Details -->
+<!-- Course Details -->
 
-  <div class="course-details-container" *ngIf="course">
-    <mat-card class="course-card">
-      <mat-card-header class="course-header">
-        <mat-card-title class="course-title">{{ course.name }}</mat-card-title>
-        <mat-card-subtitle class="course-subtitle">{{ course.duration }} heures</mat-card-subtitle>
-      </mat-card-header>
-      <img mat-card-image class="course-image" [src]="getImageUrl(course.image)" alt="{{ course.name }}">
-      <mat-card-content class="course-content">
-        <p class="course-description">Description: {{ course.description }}</p>
-        <p class="course-date"><strong>Date de début :</strong> {{ course.startDateTime | date:"dd MMMM yyyy" : 'fr-FR' }}</p>
-      </mat-card-content>
-      <mat-card-footer class="course-footer">
-        <button mat-raised-button color="primary" (click)="enroll(course.id)">S'inscrire</button>
+<div class="course-details-container" *ngIf="course">
+  <mat-card class="course-card">
+    <mat-card-header class="course-header">
+      <mat-card-title class="course-title">{{ course.name }}</mat-card-title>
+      <mat-card-subtitle class="course-subtitle">{{ course.duration }} hours</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image class="course-image" [src]="getImageUrl(course.image)" alt="{{ course.name }}">
+    <mat-card-content class="course-content">
+      <p class="course-description">Description: {{ course.description }}</p>
+      <p class="course-date"><strong> Start Date:</strong> {{ course.startDateTime | date: "dd MMMM yyyy" }}</p>
+    </mat-card-content>
+    <mat-card-footer class="course-footer">
+      <button mat-raised-button color="primary" (click)="enroll(course.id)">Enroll</button>
 
-        <button mat-button color="" class="return-button">
-          <mat-icon>keyboard_return</mat-icon> Retour
-        </button>
-      </mat-card-footer>
-    </mat-card>
-  </div>
-  
-  
+      <button mat-button (click)="goBack()" class="return-button">
+        <mat-icon>keyboard_return</mat-icon> Back
+      </button>
+    </mat-card-footer>
+  </mat-card>
+</div>
+
+<div *ngIf="isLoading" class="loading-spinner">
+  <div class="spinner"></div>
+</div>
+<!-- <ngx-spinner 
+  [bdColor]="'rgba(51,51,51,0.8)'"
+  [size]="'medium'"
+  [color]="'#fff'"
+  [type]="'ball-clip-rotate'"
+  [fullScreen]="true"
+>
+</ngx-spinner> -->

@@ -20,21 +20,21 @@ export class ViewTraineeComponent {
     @Inject(MAT_DIALOG_DATA) public traineeData: any,
     private fb: FormBuilder,
     public common: CommonMethodService) {
-      console.log(traineeData);
+    console.log(traineeData);
   }
   ngOnInit(): void {
     this.form = this.fb.group({
       firstName: [{ value: this.traineeData.element.firstName, disabled: true }],
       lastName: [{ value: this.traineeData.element.lastName, disabled: true }],
       phoneNumber: [{ value: this.traineeData.element.phoneNumber, disabled: true }],
-      profession: [{value: this.traineeData.profession, disabled:true}],
+      profession: [{ value: this.traineeData.profession, disabled: true }],
       email: [{ value: this.traineeData.element.email, disabled: true }],
       address: [{ value: this.traineeData.element.address, disabled: true }],
       city: [{ value: this.traineeData.element.city, disabled: true }]
     });
   }
 
-  
+
 
   onNoClick(): void {
     this.dialogRef.close();

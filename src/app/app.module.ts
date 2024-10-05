@@ -48,6 +48,7 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { PreInscriptionListComponent } from './pages/pre-inscription-list/pre-inscription-list.component';
+import {  CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 // Enregistrez les données de la locale française
 registerLocaleData(localeFr, 'fr');
@@ -102,12 +103,15 @@ const plugins = [timeGridPlugin];
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    FullCalendarModule
+    FullCalendarModule,
+    // NgxSpinnerModule
   ],
   providers: [
      [{ provide: LOCALE_ID, useValue: 'fr-FR' }]
 
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
   bootstrap: [AppComponent],
   entryComponents: [AddScheduleModalComponent]
 })

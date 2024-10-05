@@ -1,5 +1,98 @@
-.header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.dialog {
+    width: auto;               /* Let the width adjust based on content */
+    max-width: 500px;          /* Limit max width to 500px */
+    height: auto;              /* Let the height adjust based on content */
+    max-height: 80vh;          /* Limit height to 80% of viewport */
+    /* border-radius: 50%;        Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    display: flex;             /* Flexbox layout */
+    flex-direction: column;    /* Column layout */
+    overflow: hidden;          /* Prevent overflow */
+    background-color: transparent;  /* Ensure transparency */
 }
+::ng-deep .mat-dialog-container {
+    background-color: transparent !important;  /* Ensure transparency for the dialog container */
+    box-shadow: none !important;               /* Remove any shadow if needed */
+    padding: 0 !important;                     /* Remove padding to align your content */
+}
+::ng-deep .app-dialog-confirm {
+    margin: 0;
+    padding: 0;
+    background-color: transparent !important;  /* Ensure transparency */
+}
+
+::ng-deep .mat-dialog-container {
+    background-color: transparent !important; /* Force transparency on the Angular Material dialog container */
+}
+
+.ng-star-inserted {
+    background-color: transparent !important; /* Ensure all dynamically inserted content is transparent */
+}
+
+.header {
+    display: flex;                  /* Flexbox for header layout */
+    justify-content: space-between; /* Space between title and close button */
+    align-items: center;            /* Center vertically */
+    padding: 2px;                   /* Padding around the header */
+    background-color: #007bff;      /* Header color */
+    color: white;                   /* White text */
+    border-radius: 8px;
+    margin: 10px;
+}
+
+.header h2 {
+    margin: 0;                      /* Remove default margin */
+    font-size: 18px;                /* Font size for title */
+}
+
+.header button {
+    color: rgb(163, 48, 48);                   /* White color for close button */
+}
+.header button:hover {
+    background-color: rgb(178, 104, 104);                   /* White color for close button */
+}
+
+.dialog-content {
+    margin: 10px;
+    padding: 2px;                   /* Padding around content */
+    font-size: 16px;                /* Font size for content */
+    color: #333;                    /* Dark grey color for text */
+    white-space: normal;            /* Allow text to wrap */
+    overflow: hidden;               /* Prevent overflow in content */
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .dialog-actions button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  
+  .dialog-actions button[mat-raised-button] {
+    background-color: #007bff; /* Change primary color */
+    color: black;
+  }
+  
+  .dialog-actions button[mat-raised-button]:hover {
+    background-color: #0056b3 ; /* Darker shade for hover effect */
+  }
+  
+  .dialog-actions button[mat-raised-button][color="primary"] {
+    background-color: #007bff !important; /* Green for the confirm button */
+  }
+  
+  .dialog-actions button[mat-raised-button][color="primary"]:hover {
+    background-color: #007bff !important; /* Darker green for hover */
+  }
+  
+  .dialog-actions button[mat-raised-button][color="warn"] {
+    background-color: #dc3545 !important; /* Red for cancel button */
+  }
+  
+  .dialog-actions button[mat-raised-button][color="warn"]:hover {
+    background-color: #c82333 !important; /* Darker red for hover */
+  }

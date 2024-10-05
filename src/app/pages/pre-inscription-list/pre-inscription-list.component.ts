@@ -22,6 +22,8 @@ export class PreInscriptionListComponent implements OnInit {
   approved: boolean = false;
   rejected: boolean = false;
 
+  isLoading=false;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
@@ -30,7 +32,7 @@ export class PreInscriptionListComponent implements OnInit {
     private courseService: CourseService,
     private domSanitizer: DomSanitizer,
     private snackBar: MatSnackBar // Inject MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadEnrollmentRequests(); // Load all enrollment requests by default
@@ -133,6 +135,7 @@ export class PreInscriptionListComponent implements OnInit {
   }
 
   approveEnrollment(id: number) {
+    this.isLoading=true;
     const enrollment = this.enrollments.find(e => e.id === id);
     if (enrollment) {
       this.traineeService.getTraineeById(enrollment.traineeId).subscribe(
@@ -141,18 +144,21 @@ export class PreInscriptionListComponent implements OnInit {
             (course: any) => {
               // After fetching both trainee and course, approve the enrollment
               this.enrollmentService.approveEnrollment(id).subscribe(() => {
+                this.isLoading=false;
                 this.snackBar.open(
                   `${trainee.firstName} ${trainee.lastName}'s enrollment in ${course.name} has been approved.`,
                   'Close',
-                  { duration: 5000 ,
+                  {
+                    duration: 5000,
                     panelClass: 'custom-snackbar'
                   },
-                  
+
                 );
                 this.loadEnrollmentRequests(); // Reload the data after approval
               });
             },
             (error) => {
+              this.isLoading=false
               console.error('Error fetching course', error);
             }
           );
@@ -166,24 +172,30 @@ export class PreInscriptionListComponent implements OnInit {
 
   // Reject enrollment with snackbar message
   rejectEnrollment(id: number) {
+    this.isLoading=true;  // Start loading spinner before making API call
     const enrollment = this.enrollments.find(e => e.id === id);
     if (enrollment) {
       this.traineeService.getTraineeById(enrollment.traineeId).subscribe(
         (trainee: any) => {
           this.courseService.getCourseById(enrollment.courseId).subscribe(
             (course: any) => {
-              // Display snackbar after fetching trainee and course
-              this.snackBar.open(
-                `${trainee.firstName} ${trainee.lastName}'s enrollment in ${course.name} has been rejected.`,
-                'Close',
-                { 
-                  duration: 5000 ,
-                  panelClass: ['error-snackbar']
-                }
-              );
-              console.log('Enrollment rejected with ID:', id);
+             this.enrollmentService.rejectEnrollment(id).subscribe(
+              () => {
+                this.isLoading=false; // Stop loading spinner after API call
+                this.snackBar.open(
+                  `${trainee.firstName} ${trainee.lastName}'s enrollment in ${course.name} has been rejected.`,
+                  'Close',
+                  {
+                    duration: 5000,
+                    panelClass: 'custom-snackbar'
+                  },
+                );
+                this.loadEnrollmentRequests(); // Reload the data after rejection
+              }
+             )
             },
             (error) => {
+              this.isLoading=false; // Stop loading spinner after API call
               console.error('Error fetching course', error);
             }
           );
