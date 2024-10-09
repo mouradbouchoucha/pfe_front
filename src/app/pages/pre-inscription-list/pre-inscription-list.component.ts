@@ -21,6 +21,7 @@ export class PreInscriptionListComponent implements OnInit {
   pending: boolean = false;
   approved: boolean = false;
   rejected: boolean = false;
+  activeFilter: string = 'all';
 
   isLoading=false;
 
@@ -45,24 +46,28 @@ export class PreInscriptionListComponent implements OnInit {
   // Toggling functions
   toggleAll() {
     this.resetFilters();
+    this.activeFilter = 'all';
     this.all = true;
     this.loadEnrollmentRequests();
   }
 
   togglePending() {
     this.resetFilters();
+    this.activeFilter = 'pending';
     this.pending = true;
     this.loadEnrollmentRequests();
   }
 
   toggleApproved() {
     this.resetFilters();
+    this.activeFilter = 'approved';
     this.approved = true;
     this.loadEnrollmentRequests();
   }
 
   toggleRejected() {
     this.resetFilters();
+    this.activeFilter = 'rejected';
     this.rejected = true;
     this.loadEnrollmentRequests();
   }

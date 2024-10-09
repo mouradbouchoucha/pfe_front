@@ -173,3 +173,15 @@ button  {
     transform: rotate(360deg);
   }
 }
+
+.active-btn {
+  border: 2px solid black; /* Add a border to the active button */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  transform: scale(1.2); /* Scale the button up by 10% */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth scaling effect */
+}
+
+button {
+  margin: 0 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Ensure all buttons have smooth transition */
+}

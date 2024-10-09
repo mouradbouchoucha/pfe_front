@@ -92,5 +92,7 @@ export class CourseService {
     return throwError(() => new Error(error.message || 'Server Error'));
   }
 
- 
+  getEmails(courseId: number): Observable<string[]> {
+    return this.http.get<string[]>(`${this.baseUrl}/emails/${courseId}`);
+  }
 }

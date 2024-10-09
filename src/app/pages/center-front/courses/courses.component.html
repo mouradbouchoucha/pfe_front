@@ -1,26 +1,32 @@
-<mat-accordion *ngIf="!loading && coursesByCategory && showCourses" class="courses-accordion">
+<mat-accordion #coursesAccordion *ngIf="!loading && coursesByCategory && showCourses" class="courses-accordion">
   <mat-expansion-panel *ngFor="let category of coursesByCategory" class="category-panel">
-    <mat-expansion-panel-header>
+    <mat-expansion-panel-header class="category-header">
       <mat-panel-title>{{ category.name }}</mat-panel-title>
+      <div id="holder">
+        <img [src]="getImageUrl(category.image)" alt="{{ category.name }}"  class="category-image" />
+
+      </div>
     </mat-expansion-panel-header>
 
-    <div *ngFor="let course of category.courses" class="course-item">
+    <div *ngFor="let c of category.courses" class="course-item">
       <mat-card class="course-card">
         <div class="course-content">
           <div class="course-info">
             <mat-card-header>
-              <mat-card-title>{{ course.name }}</mat-card-title>
+              <mat-card-title>{{ c.name }}</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-              <p><strong>Start Date:</strong> {{ course.startDateTime | date: 'dd-MMM-YYYY' : 'UTC' }}</p>
+              <p><strong>Start Date:</strong> {{ c.startDateTime | date: 'dd-MMM-YYYY' : 'UTC' }}</p>
             </mat-card-content>
             <mat-card-actions class="course-actions">
-              <button mat-raised-button color="primary" (click)="enroll(course.id)">Enroll</button>
-              <button mat-raised-button color="accent" (click)="viewCourse(course.id)">Details</button>
+              <button mat-raised-button color="primary" (click)="enroll(c.id)">Enroll</button>
+              <button mat-raised-button color="accent" (click)="viewCourse(c.id)">Details</button>
             </mat-card-actions>
           </div>
           <div class="course-img">
-            <img [src]="getImageUrl(course.image)" alt="{{ course.name }}" class="course-image">
+            <div id="holderr">
+              <img [src]="getImageUrl(c.image)" alt="{{ c.name }}" class="c-image">
+            </div>
           </div>
         </div>
       </mat-card>
@@ -28,10 +34,11 @@
   </mat-expansion-panel>
 </mat-accordion>
 
+
 <!-- Course Details -->
 
-<div class="course-details-container" *ngIf="course">
-  <mat-card class="course-card">
+<div class="course-details-container" *ngIf="course && showDetails">
+  <mat-card class="course-card-details">
     <mat-card-header class="course-header">
       <mat-card-title class="course-title">{{ course.name }}</mat-card-title>
       <mat-card-subtitle class="course-subtitle">{{ course.duration }} hours</mat-card-subtitle>
@@ -43,7 +50,6 @@
     </mat-card-content>
     <mat-card-footer class="course-footer">
       <button mat-raised-button color="primary" (click)="enroll(course.id)">Enroll</button>
-
       <button mat-button (click)="goBack()" class="return-button">
         <mat-icon>keyboard_return</mat-icon> Back
       </button>

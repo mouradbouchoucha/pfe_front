@@ -1,3 +1,4 @@
+import { CourseService } from 'src/app/services/course/course.service';
 import { Attachement } from './../../../../interfaces/attachement';
 import { EmailService } from './../../../../services/email/email.service';
 import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
@@ -60,6 +61,7 @@ export class ScheduleListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   currentEvents: EventApi[] = [];
   schedules: any[] = [];
+  emails:string[] =[];
   private subscriptions: Subscription = new Subscription();
 
   constructor(
@@ -68,7 +70,8 @@ export class ScheduleListComponent implements OnInit, AfterViewInit, OnDestroy {
     private route: ActivatedRoute,
     private dialogService: DialogServiceService,
     private snackBar: MatSnackBar,
-    private emailService:EmailService
+    private emailService:EmailService,
+    private courseService: CourseService
   ) {}
 
   ngOnInit() {
@@ -107,6 +110,17 @@ export class ScheduleListComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       )
     );
+  }
+
+  getEmails(): any{
+    this.courseService.getEmails(this.id).subscribe({
+      next: (emails: string[]) => {
+        this.emails = emails;
+      },
+      error: (error) => {
+        console.error('Error fetching emails:', error);
+      }
+    })
   }
 
   renderEventContent(eventInfo: any) {
@@ -329,7 +343,7 @@ isTimeSlotAvailable(start: Date, end: Date): boolean {
             const attachement = new File([blob], `${__filename}.png`, { type: 'image/png' });
 
             // Now call the email service to send the image as an attachment
-            const emails = 'mouradbouchouchaaa@gmail.com,mouradbouchouchaa@gmail.com'; // Replace with actual emails
+            const emails = this.getEmails(); // Replace with actual emails
             const subject = 'Calendar Screenshot';
             const message = 'Attached is the calendar screenshot.';
 

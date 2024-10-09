@@ -1,5 +1,5 @@
 import { EnrollmentService } from 'src/app/services/enrollment/enrollment.service';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogServiceService } from 'src/app/services/dialog/dialog-service.service';
 import { NgZone } from '@angular/core';
 import { Location } from '@angular/common';
+import {  ViewChildren, QueryList, ElementRef, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-courses',
@@ -17,9 +18,11 @@ import { Location } from '@angular/common';
   styleUrls: ['./courses.component.css']
 })
 export class CoursesComponent implements OnInit {
+
   coursesByCategory: any;
   loading: boolean = true;
   showCourses: boolean = true;
+  showDetails: boolean = false;
   course: any;
   traineeId!: number;
 
@@ -40,7 +43,7 @@ export class CoursesComponent implements OnInit {
     private snackBar: MatSnackBar,
     private zone: NgZone,
     private location: Location,
-    // private spinner: NgxSpinnerService,
+    private cdr: ChangeDetectorRef
 
   ) { }
 
@@ -48,21 +51,27 @@ export class CoursesComponent implements OnInit {
     this.categoryService.getCoursesByCategory().subscribe(data => {
       this.coursesByCategory = data;
       this.loading = false;
-      console.log(this.coursesByCategory);
-
+      //console.log(this.coursesByCategory);
     });
     this.getUser()
   }
 
+  ngAfterViewInit() {
+    
+  }
+
+  
+
   goBack(): void {
    // this.location.back();
    this.showCourses = true;
+   this.showDetails = false
   }
   getUser() {
     let email: any;
 
     if (localStorage.getItem('token')) {
-      console.log(this.userData);
+      //console.log(this.userData);
 
       if (this.userData && this.userData.sub) {
         email = this.userData.sub;
@@ -83,14 +92,16 @@ export class CoursesComponent implements OnInit {
 
   viewCourse(courseId: number) {
     this.showCourses = false;
-    console.log(courseId);
+    this.showDetails = true;
+    //console.log(courseId);
     this.coursesService.getCourseById(courseId).subscribe(course => {
       this.course = course;
-      console.log(this.course);
+      //console.log(this.course);
     });
   }
 
   getImageUrl(imageData: string) {
+    //console.log(imageData);
     if (imageData) {
       return this.domSanitizer.bypassSecurityTrustResourceUrl(`data:image/png;base64,${imageData}`);
     } else {
